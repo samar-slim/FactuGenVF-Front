@@ -113,7 +113,7 @@
               <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
                 
 
-  <div class="flex justify-between mb-5">
+  <div class="flex justify-between mb-4">
     <div>
       <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5>
       <p class="text-base font-normal text-gray-500 dark:text-gray-400">Sales this week</p>

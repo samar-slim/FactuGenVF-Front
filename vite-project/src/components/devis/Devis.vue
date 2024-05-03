@@ -123,10 +123,12 @@
   <div class="p-5">
       
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"> Client</p>
-<select id="small" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-  <option selected>selectionnée un client</option>
-
+      <select id="small" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option selected>Selectionner un client</option>
+  <!-- Parcourir les données des clients récupérées et créer une option pour chaque client -->
+  <option v-for="clients in result" :key="clients.id" >{{ clients.name }} {{ clients .prenom }}</option>
 </select>
+
 <div >
   <div class="flex justify-end ">  
 <button  @click="openModal1" class="bg-blue-800 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"><i class="pi pi-plus"></i></button>
@@ -258,9 +260,9 @@
         <button @click="openChoisir"  class="bg-blue-800 h-[60px] w-[60px] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded"><i class="pi pi-plus"></i></button>
                  
     <!-- Modèle à afficher -->
-    <div v-if="isOpen" class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
+    <div v-if="isOpen && !isOpenn"  class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
       <!-- Contenu du modèle -->
-      <div class="container mx-auto p-4 shadow-lg p-10 rounded bg-white">
+      <div  class="container mx-auto p-4 shadow-lg p-10 rounded bg-white">
           <!-- En-tête de la modal -->
           <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
             <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Produit</h3>
@@ -268,58 +270,44 @@
           
           </div>
       <div class="modal-content">
-        <form  @submit.prevent="saveData">
+        <form >
       <div class="mb-8">
         <ul class="flex border-b">
-          <li @click="activeTab = '1'"
-              :class="[activeTab === '1' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
-              class="-mb-px mr-1">
-            <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 font-semibold" href="#">Produit</a>
-          </li>
-          <li @click="activeTab = '2'"
-              :class="[activeTab === '2' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
-              class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Traveaux</a>
-          </li>
-          <li @click="activeTab = '3'"
-              :class="[activeTab === '3' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
-              class="mr-1">
-            <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">MainOeuvre</a>
-          </li>
-        </ul>
+                <li @click="activeTab1 = '1'"
+                    :class="[activeTab1 === '1' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="-mb-px mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Produit</a>
+                    <div v-if="activeTab1 === '1'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '2'"
+                    :class="[activeTab1 === '2' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Travaux</a>
+                    <div v-if="activeTab1 === '2'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '3'"
+                    :class="[activeTab1 === '3' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">MainOeuvre</a>
+                    <div v-if="activeTab1 === '3'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+            </ul>
         <div class="py-4"> 
           <div>
     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Sélectionnez une option</label>
-    <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      <option selected disabled>Choisir une action</option>
-      <option disabled>Actions disponibles</option>
-      
-      <option class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Nouveau Article</option>
-      <option value="CA">CA</option>
-      <option value="FR">FR</option>
-      <option value="DE">DE</option>
+    <select v-model="selectedArticleId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option disabled selected>Choisir une action</option>
+        <option disabled>Actions disponibles</option>
+        
+        <!-- Utilisation de v-for pour parcourir les articles et générer les options -->
+        <option class=" hover:bg-red-700 text-gray-900 font-bold py-2 px-4 rounded" v-for="produits in resultProduit" :key="produits._id">{{ produits.nom_article }}</option>
+        
+        <!-- Option pour créer un nouvel article -->
+        
     </select>
-    <buuton class="border  p-2 space-x-4 bg-gray-200" @click=" navigateToProduit"><i class="pi pi-plus"></i></buuton>
-
-    <!-- Modal pour le formulaire d'article -->
-    <div v-if="showModal" class="fixed inset-0 flex items-center justify-center z-50">
-      <div class="bg-white dark:bg-gray-800 rounded-lg w-1/2">
-        <div class="p-4">
-          <h2 class="text-lg font-semibold mb-4">Nouvel Article</h2>
-          <!-- Votre formulaire pour l'article ici -->
-          <form @submit.prevent="handleSubmit">
-            <!-- Vos champs de formulaire ici -->
-            <div class="mb-4">
-              <label for="title" class="block text-sm font-medium text-gray-700">Titre</label>
-              <input type="text" id="title" v-model="article.title" class="mt-1 p-2 w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-            </div>
-            <!-- Ajoutez d'autres champs de formulaire selon vos besoins -->
-            <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md">Ajouter</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+    <!-- Bouton pour ouvrir la modal de création d'un nouvel article -->
+    <button class="border p-2 space-x-4 bg-gray-200" @click="openChoisir1">Nouvel Article</button>
+</div>
    </div>
    
           <div class="flex items-center p-4 md:p-5 border-t ...">
@@ -329,15 +317,177 @@
       </div>
       
     </form>
-    <!-- Modèle à afficher -->
-<div v-if="isOpen2" class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
-    <!-- Contenu du modèle -->
-    <div class="container mx-auto p-4 shadow-lg p-10 rounded bg-white">
-        <!-- Votre formulaire pour ajouter un nouvel article -->
-        <!-- Par exemple, un formulaire avec des champs pour le nom, la description, etc. -->
-    </div>
-</div>
+
        
+  
+        </div>
+      </div>
+    </div>
+        <!-- Modèle à afficher Nouveau Article -->
+        <div v-if="isOpenn"   class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
+      <!-- Contenu du modèle -->
+      <div class="relative bg-white rounded-lg shadow ...">
+          <!-- En-tête de la modal -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
+            <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Produit</h3>
+            <button @click="closeChoisir1" type="button" ><i class="fa-solid fa-xmark"></i></button>
+          
+          </div>
+          <div class="modal-content">
+    <form @submit.prevent="saveData">
+        <div class="mb-8">
+          <ul class="flex border-b">
+                <li @click="activeTab1 = '1'"
+                    :class="[activeTab1 === '1' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="-mb-px mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Produit</a>
+                    <div v-if="activeTab1 === '1'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '2'"
+                    :class="[activeTab1 === '2' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Travaux</a>
+                    <div v-if="activeTab1 === '2'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '3'"
+                    :class="[activeTab1 === '3' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">MainOeuvre</a>
+                    <div v-if="activeTab1 === '3'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+            </ul>
+        <div class="py-4"> 
+          <div v-if="activeTab1 === '1'" class="block">
+            <!-- Contenu pour le formulaire particulier -->
+            <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div class="mb-4">
+              <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
+              <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+           
+            <div class="mb-4">
+              <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
+              <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label for="categorie" class="block text-gray-700 text-sm font-bold mb-2">Categorie</label>
+              <input type="text" v-model="produits.categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div class="mb-4">
+              <label  for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+              <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label for="prix" class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
+              <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+          </div>
+            <div class="mb-4">
+              <label for="prix_unitaire"  class="block text-gray-700 text-sm font-bold mb-2">prix unitaire*</label>
+              <input type="text" id="prix_unitaire" v-model="produits.prix_unitaire" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
+              <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  for="type_unite"  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
+              <input type="text" v-model="produits.type_unité"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <!-- Ajoutez d'autres champs pour le formulaire particulier ici -->
+          </div>
+          <div v-if="activeTab1 === '2'" class="">
+            <!-- Contenu pour le formulaire professionnel -->
+            <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div class="mb-4">
+              <label   class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
+              <input type="text" id="nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+           
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
+              <input type="text" id="reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Ctegorie</label>
+              <input type="text" id="categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+              <input type="text" id="categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
+              <input type="text" id="prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+          </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">prix unitaire*</label>
+              <input type="text" id="prix_unitaire" v-model="prix_unitaire" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
+              <input type="text" id="tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
+              <input type="text" id="type_unité"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+          </div>
+          <div v-if="activeTab1 === '3'" class="block">
+            <!-- Contenu pour le formulaire particulier -->
+            <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div class="mb-4">
+              <label for="article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
+              <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+           
+            <div class="mb-4">
+              <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
+              <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label for="categorie" class="block text-gray-700 text-sm font-bold mb-2">Categorie</label>
+              <input type="text" v-model="produits.categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div class="mb-4">
+              <label  for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+              <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label for="prix" class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
+              <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+          </div>
+            <div class="mb-4">
+              <label for="prix_unitaire"  class="block text-gray-700 text-sm font-bold mb-2">prix unitaire*</label>
+              <input type="text" id="prix_unitaire" v-model="produits.prix_unitaire" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
+              <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  for="type_unite"  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
+              <input type="text" v-model="produits.type_unité"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <!-- Ajoutez d'autres champs pour le formulaire particulier ici -->
+          </div>
+          </div>
+          <div class="flex items-center p-4 md:p-5 border-t ...">
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Enregistrer</button>
+            <button @click="declineTerms1" type="button" class="text-white bg-gray-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Annuler</button>
+          </div>
+      </div>
+      
+    </form>
+        
         <!-- Bouton pour fermer le modèle -->
         </div>
       </div>
@@ -417,7 +567,7 @@
                   <td class="px-4 py-2 text-right border">Total avec remise</td>
                   <td class="px-4 py-2 text-right border text-right text-black border  bg-white tabular-nums slashed-zero"> 0.00 £</td>
                 </tr>
-              
+               
                 </thead>
                 <!-- Corps du tableau -->
                 <tbody>
@@ -488,6 +638,7 @@
     <a
         href="#personnaliser"
         class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800"
+        @click="openCustomizationPopup"
     >
         <!-- HeroIcon - Chart Bar -->
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
@@ -504,8 +655,8 @@
 	<path d="M 61.635 62.286 c -1.306 1.385 -2.945 2.191 -4.697 2.423 l 24.658 23.238 c 2.004 1.888 5.159 1.795 7.047 -0.209 s 1.795 -5.159 -0.209 -7.047 L 63.776 57.453 C 63.648 59.216 62.94 60.9 61.635 62.286 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,153,106); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
 </g>
 </svg>
-
-        <small class="text-center text-xs font-medium"> Personnalisé </small>
+<customization-popup v-if="showCustomizationPopup"></customization-popup>
+        <small class="text-center text-xs font-medium"> Personnaliser </small>
     </a>
 
     <a
@@ -560,7 +711,7 @@
   </div>
   </template>  
   <script>
- 
+  import customizationPopup from '../customizationPopup.vue';
   import axios from 'axios';
   export default {
     mounted() {
@@ -584,11 +735,16 @@
     });
     
   },
-
+  components: {
+    customizationPopup, 
+  },
+  
 
     data() {
       return {
         activeTab1: '1',
+        activeTab: '1',
+        resultProduit : {},
         modalOpen1: false,
         modalOpen2: false,
         produits : { 
@@ -616,8 +772,9 @@
       siret: '',
       tva: '',
       },
-    
+        selectedArticleId: null,
         isOpen:false,
+        isOpenn:false,
         isOpen2:false,
         modalOpen: false,
         activeDropdown: null,
@@ -625,28 +782,26 @@
     { id: 1, text: 'Pièce jointe', link: '#', iconClass: 'fas fa-paperclip w-3.5 h-3.5 me-2' },
     { id: 2, text: 'Personnalisé', link: '#', iconClass: ' fas fa-cookie-bite w-3.5 h-3.5 me-2',  },
     { id: 3, text: 'Option', link: '#', iconClass: 'w-3.5 h-3.5 me-2', iconPath: 'votre_chemin_vers_icone_option' },
+    
    
-]
+],
 
-      
+showCustomizationPopup: false,  
     };
 
    
     },
     
     methods: {
-      navigateToProduit() {
-    this.$router.push({ name: 'Produit' })
-  },
+     
       openModal() {
         this.modalOpen = true;
       },
       openModal1() {
         this.modalOpen1 = true;
+        this.clientLoad();
       },
-      openModal2() {
-            this.isOpen2 = true;
-        },
+     
       toggleDropdown(dropdownId) {
       this.activeDropdown = this.activeDropdown === dropdownId ? null : dropdownId;
       },
@@ -668,16 +823,19 @@
       },openChoisir() {
         this.isOpen = true; 
       },
+      openChoisir1() {
+        this.isOpenn = true; 
+      },
       closeChoisir() {
         this.isOpen = false; 
       },
-      handleChange(event) {
-      if (event.target.value === 'new_article') {
-        this.showModal = true;
-      } else {
-        this.showModal = false;
-      }
-    },
+      closeChoisir1() {
+        this.isOpenn = false; 
+      },
+      openCustomizationPopup() {
+    
+        this.showCustomizationPopup = !this.showCustomizationPopup;
+  },
     handleSubmit() {
       // Logique pour soumettre le formulaire d'article
       console.log('Formulaire soumis avec les données:', this.article);
@@ -691,10 +849,9 @@
     },
     created(){
  this.clientLoad("");
-  },
-  created(){
  this.produitLoad("");
   },
+ 
   
     clientLoad() {
          axios.get("http://localhost:8080/api/client/")
@@ -707,11 +864,12 @@
        },
        produitLoad() {
          axios.get("http://localhost:8080/api/produits/")
-           .then(({data}) => {
+         .then(({data}) => {
             console.log(data);
-            this.result = data;
+            this.resultProduit = data;
            
        });
+
 
        },
        saveData2() {
@@ -748,7 +906,7 @@
     })
     .catch(error => {
       console.error("Error:", error);
-      alert("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");
+      alert("Une erreur est survenue lors de l'ajout du prod. Veuillez réessayer.");
     });
     
   },
@@ -756,7 +914,8 @@
   };
   </script>
   
-  <style>
-  /* Styles pour la modal */
+  
+  <style scoped>
+  
   </style>
   

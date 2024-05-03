@@ -1,7 +1,8 @@
 <template>
     <div class="w-full">
-  <div class="bg-gray-200 mt-20">
-    <div class="container mx-auto px-4">
+      
+  <div  class="bg-gray-200 mt-20">
+    <div id="pdf" class="container mx-auto px-4">
         <div class="flex justify-center">
             <div class="w-full md:w-3/4 lg:w-1/2 bg-white border-b-4 border-black border-t-4 border-red-600 my-10 shadow-lg">
                 <div class="flex justify-between items-center p-10">
@@ -125,13 +126,21 @@
         </div>
     </div>
 </div>
-
+<button type="button" class="w-full rounded-md bg-blue-500 py-2 px-3 text-center text-white hover:bg-blue-700" @click="exportToPDF">Export to PDF</button>
     </div>
 </template>
 
 <script>
-export default {
+import html2pdf from "html2pdf.js/dist/html2pdf";
 
+export default {
+  methods: {
+    exportToPDF() {
+      html2pdf(document.getElementById("pdf"), {
+				margin: 1,
+  			filename: "i-was-html.pdf",
+			});}
+	},
 }
 </script>
 

@@ -147,7 +147,7 @@
     </div>
     
     <div class="  py-3 rounded-md cursor-pointer text-black--300 hover:bg-lightBlue-100  hover:text-white transition-colors">
-      <router-link to="/setting" class="px-2 flex space-x-2"><span class="pi pi-slack" ></span> <span v-show="open">Setting</span></router-link>
+      <router-link to="/setting" class="px-2 flex space-x-2"><span class="pi pi-slack" ></span> <span v-show="open">Settings</span></router-link>
     </div>
   
   </div>
