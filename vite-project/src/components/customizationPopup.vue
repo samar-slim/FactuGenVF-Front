@@ -62,8 +62,8 @@
         selectedTheme: null,
         selectedFont: 'Open Sans',
         themes: [
-        { id: 'light', name: 'Clair', colorClass: 'bg-white text-black' },
-      { id: 'dark', name: 'Foncé', colorClass: 'bg-black text-white' },
+        { id: 'pro', name: 'Pro', colorClass: 'bg-white text-black' },
+      { id: 'modern', name: 'Moderne', colorClass: 'bg-black text-white' },
     ],
       };
     },
