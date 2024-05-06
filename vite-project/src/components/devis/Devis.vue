@@ -4,7 +4,7 @@
       <div class="flex-1 bg-gray-50">
       <div class="container mx-auto py-8 px-4">
         <h1 class="text-2xl font-semibold mb-8">Nouvelle Devis</h1>
-        <div class="flex justify-end">
+        <div   class="flex justify-end primaryColor ">
 
   <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
    <i class="pi pi-trash"></i>
@@ -23,7 +23,7 @@
 
       <!-- INFORMATIONS -->
       <div class="bg-white rounded shadow p-6 mb-8">
-        <h2 class="text-xl font-semibold mb-6">INFORMATIONS</h2>
+        <h2 class="text-xl font-semibold mb-6 primaryColor">INFORMATIONS</h2>
 
         <!-- Form -->
         <form  @submit.prevent="saveData"  >
@@ -655,7 +655,7 @@
 	<path d="M 61.635 62.286 c -1.306 1.385 -2.945 2.191 -4.697 2.423 l 24.658 23.238 c 2.004 1.888 5.159 1.795 7.047 -0.209 s 1.795 -5.159 -0.209 -7.047 L 63.776 57.453 C 63.648 59.216 62.94 60.9 61.635 62.286 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,153,106); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
 </g>
 </svg>
-<customization-popup v-if="showCustomizationPopup"></customization-popup>
+<customization-popup :themes="themes" :primaryColor="primaryColor" @update-color="updateColor" @save="saveCustomization" @close="closeCustomizationPopup" v-if="showCustomizationPopup "></customization-popup>
         <small class="text-center text-xs font-medium"> Personnaliser </small>
     </a>
 
@@ -791,6 +791,11 @@ showCustomizationPopup: false,
 
    
     },
+    computed: {
+    textColorClass() {
+      const color = this.primaryColor.replace('bg-', 'text-');
+      return color;
+    }},
     
     methods: {
      
@@ -836,6 +841,10 @@ showCustomizationPopup: false,
     
         this.showCustomizationPopup = !this.showCustomizationPopup;
   },
+  closeCustomizationPopup() {
+    this.showCustomizationPopup = !this.showCustomizationPopup;
+  console.log('Close event received');
+},
     handleSubmit() {
       // Logique pour soumettre le formulaire d'article
       console.log('Formulaire soumis avec les données:', this.article);

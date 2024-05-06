@@ -19,7 +19,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'master',
-      component: master
+      component: Dashbord
     },
     {
       path: '/ListeDevis',
