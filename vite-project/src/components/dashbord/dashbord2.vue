@@ -520,6 +520,7 @@ export default {
   <button class="inline-flex items-center justify-center h-10 w-900 p-5 ms-3 text-sm font-medium text-gray-900 bg-white border border-gray-300  focus:outline-none hover:bg-blue-800 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button"> <i class="pi pi-plus">  </i>  Ajouter ligne</button>
 </div>
   <br/>
+<<<<<<< HEAD
 </div>
 
 
@@ -538,3 +539,6 @@ export default {
                   <td class="px-4 py-2 text-right border tabular-nums slashed-zero">$322.45</td>
                   <td class="px-4 py-2 text-right border tabular-nums slashed-zero">$322.45</td>
                 </tr>
+=======
+</div>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462

@@ -13,26 +13,36 @@ import Calendrier from '../components/Calendrier.vue'
 import NewDevis from '../components/devis/NewDevis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
 import Produit  from '../components/produit/Produit.vue'
+<<<<<<< HEAD
 import ShowDevis from '../components/devis/ShowDevis.vue'
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
       path: '/',
       name: 'master',
+<<<<<<< HEAD
       component: master
+=======
+      component: Dashbord
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     },
     {
       path: '/ListeDevis',
       name: 'ListeDevis',
       component: ListeDevis
     },
+<<<<<<< HEAD
     {
       path: '/show/:id',
       name: 'ShowDevis',
       component: ShowDevis,
       props: true
     },
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     
     {
       path: '/newDevis',

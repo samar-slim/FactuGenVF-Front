@@ -8,6 +8,7 @@
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
         <li>
+<<<<<<< HEAD
           <router-link to="/devis"
            
           class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Devis</router-link>
@@ -17,6 +18,15 @@
         </li>
         <li>
           <router-link to="/client" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Client</router-link>
+=======
+          <a href="#" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Devis</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Facture</a>
+        </li>
+        <li>
+          <a href="#" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Client</a>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
         </li>
       </ul>
     </div>
