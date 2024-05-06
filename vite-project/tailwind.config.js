@@ -25,10 +25,13 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         },
+<<<<<<< HEAD
+=======
         
         
           "primaryColor": "#007bff",
      
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
       },
     },
   },

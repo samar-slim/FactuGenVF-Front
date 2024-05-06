@@ -36,11 +36,20 @@
 
 
       <!-- INFORMATIONS -->
+<<<<<<< HEAD
+      <div id="pdf">
+      <div class="bg-white rounded shadow p-6 mb-8 " >
+        <h2 class="text-xl font-semibold mb-6">INFORMATIONS</h2>
+
+        <!-- Form -->
+        <form  @submit.prevent="saveDataDevis"  >
+=======
       <div class="bg-white rounded shadow p-6 mb-8">
         <h2 class="text-xl font-semibold mb-6">INFORMATIONS</h2>
 
         <!-- Form -->
         <form  @submit.prevent="saveData"  >
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
           <div class="grid grid-cols-2 gap-5">
              <div class="w-1/2">
               <div>
@@ -53,48 +62,88 @@
             <div >
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.nom_entreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
+                <input type="text" v-model="devis.num" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
               <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Code postal</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.code_postal" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
+                <input type="text" v-model="devis.ville" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+<<<<<<< HEAD
+                <input type="email" v-model="devis.email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
+              </div>
+              <div> 
+                <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
+                <input type="tel" v-model="devis.num_tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
+=======
                 <input type="email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
                 <input type="tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
               
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">SIRET Numéro</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.num_siret" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
+                <input type="text" v-model="devis.num_tva" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
                <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Interlocuteur</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.inter" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Interlocuteur">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Délégataire</label>
+                <input type="text" v-model="devis.deleg" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Délégataire">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Interlocuteur">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Délégataire</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Délégataire">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
             </div>
           </div>
@@ -104,6 +153,28 @@
           <!-- Right Side -->
           <div class="mb-9">
               <p class="text-gray-700">Information général de Devis</p>
+<<<<<<< HEAD
+              <div  class="border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
+              <input type="text" v-model="devis.titre" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Titre">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
+              <input type="text" v-model="devis.numDevis" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Date d'émission</label>
+              <input type="text" v-model="devis.date_emission" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'émission">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Date d'expiration</label>
+              <input type="text" v-model="devis.date_expiration" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'expiration">
+            </div>
+            <div class="col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <textarea v-model="devis.description" class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2" rows="3" placeholder="Description"></textarea>
+=======
               <div class="border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
@@ -124,10 +195,16 @@
             <div class="col-span-2">
               <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
               <textarea class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2" rows="3" placeholder="Description"></textarea>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
             </div>
           </div>
 
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
             <br/>
             <br/>
             <div class="grid grid-cols-2 gap-5">   
@@ -633,6 +710,16 @@
       
        <!-- Barre de recherche à droite -->
        <div class="relative justify-end">
+<<<<<<< HEAD
+  <label for="table-search" class="sr-only">Search</label>
+  <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
+    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+    </svg>
+  </div>
+  <input type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Recherche avec Nom ,Ville ..." @click="handleSearchClick">
+</div>                                                                                                                                                                    
+=======
          <label for="table-search" class="sr-only">Search</label>
          <div class="absolute inset-y-0 rtl:inset-r-0 start-0 flex items-center ps-3 pointer-events-none">
            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -642,6 +729,7 @@
          <input type="text" id="table-search-users" class="block p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Recherche avec Nom ,Ville ...">
        </div>
        
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
      </div>
      
      
@@ -675,6 +763,21 @@
            </tr>
        </thead>
        <tbody>
+<<<<<<< HEAD
+           <tr  v-for="devis in result" :key="devis._id" class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+               <a href="#" @click="onShow(devis._id)" scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                 
+                 #{{devis.numDevis}}
+               </a>
+               <td class="px-6 py-4">
+                  {{devis.nom_entreprise}}
+               </td>
+               <td class="px-6 py-4">
+                   {{devis.ville}}
+               </td>
+               <td class="px-6 py-4">
+                   {{devis.date_emission}}
+=======
            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                    D-1234758966
@@ -687,11 +790,18 @@
                </td>
                <td class="px-6 py-4">
                    04/04/2024
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
                </td>
                <td class="px-6 py-4">
                    
                </td>
                <td class="px-6 py-4">
+<<<<<<< HEAD
+                {{devis.titre}}
+               </td>
+               <td class="px-6 py-4">
+                   {{devis.email}}
+=======
                   $199
                </td>
                <td class="px-6 py-4">
@@ -827,11 +937,17 @@
                </td>
                <td class="px-6 py-4">
                    consulting@gmail.com
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
                </td>
                <td class="px-6 py-4">
                    <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="pi pi-ellipsis-v"></i></a>
                </td>
            </tr>
+<<<<<<< HEAD
+           
+         
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
            
        </tbody>
    </table>
@@ -866,6 +982,9 @@
 
     </div>
 
+<<<<<<< HEAD
+      </div>
+=======
     <div>
       <div class="fixed end-6 bottom-6 group">
       <button @click="toggleDropdown('dropdown1')" class="flex items-center justify-center ml-auto text-white bg-blue-700 rounded-full w-14 h-14 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 focus:outline-none">
@@ -893,6 +1012,7 @@
     <!-- Deuxième bouton de menu (similaire au premier) -->
     <!-- ... -->
   </div>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
 
 
 </div>
@@ -900,9 +1020,19 @@
   
   <script>
   import axios from 'axios';
+<<<<<<< HEAD
+  
+  export default {
+    
+    data() {
+      return {
+        searchQuery: '',
+    searchResults: [],
+=======
   export default {
     data() {
       return {
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
         activeTab1: '1',
         modalOpen1: false,
         produits : { 
@@ -916,6 +1046,11 @@
         type_unité :'',
 
         },
+<<<<<<< HEAD
+        devis: {},
+        result:{} ,
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
         clients : {
     civilite: '',
       name: '',
@@ -930,6 +1065,10 @@
       siret: '',
       tva: '',
       },
+<<<<<<< HEAD
+     
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     
         isOpen:false,
         modalOpen: false,
@@ -947,6 +1086,61 @@
    
     },
     methods: {
+<<<<<<< HEAD
+      onShow(id) {
+      this.$router.push(`/show/${id}`);
+    },
+
+
+      created(){
+
+ 
+ this.devisLoad("");
+  },
+ 
+      saveDataDevis() {
+  
+  this.devis.clientId = this.selectedClientId;
+ this.devis.produitId =this.selectedArticleId;
+  console.log(this.devis);
+
+  axios.post("http://localhost:8080/api/devis/add", this.devis)
+    .then(async (response) => {
+  
+      const { data } = response;
+     
+      console.log({data});
+        devis.value = response.data.devis;
+        console.log( devis.value )
+      this.devisLoad(); 
+      this.devis = {}; 
+      console.log(this.selectedClientId);
+
+    })
+    .catch(error => {
+      console.error("Erreur lors de l'enregistrement du devis :", error);
+      alert("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
+    });
+},
+devisLoad() {
+  axios.get("http://localhost:8080/api/devis/")
+     .then(({data}) => {
+        // Accès à clientId et produitId dans chaque objet devis retourné
+        data.forEach(devis => {
+            const clientId = devis.nouvelledevis.clientId;
+            const produitId = devis.nouvelledevis.produitId;
+            console.log("Client ID:", clientId);
+            console.log("Produit ID:", produitId);
+        });
+     })
+     .catch(error => {
+        console.error("Erreur lors de la récupération des devis:", error);
+     });
+
+
+       },
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
       openModal() {
         this.modalOpen = true;
       },
@@ -1001,6 +1195,19 @@
     });
     
   },
+<<<<<<< HEAD
+    },
+    mounted() {
+      axios.get("http://localhost:8080/api/devis/")
+         .then(({data}) => {
+            
+            this.result= data;
+            console.log(data);
+           
+       });
+
+=======
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     }
   };
   </script>

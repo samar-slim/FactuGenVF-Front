@@ -1,14 +1,57 @@
 <!-- devis.vue -->
 <template>
+<<<<<<< HEAD
+    <div >
+      <div  class="flex-1 bg-gray-50">
+      <div class="container mx-auto py-8 px-4" >
+        <h1 class="text-2xl font-semibold mb-8" >Nouvelle Devis</h1>
+        <div class="flex justify-end">
+=======
     <div>
       <div class="flex-1 bg-gray-50">
       <div class="container mx-auto py-8 px-4">
         <h1 class="text-2xl font-semibold mb-8">Nouvelle Devis</h1>
         <div   class="flex justify-end primaryColor ">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
 
   <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
    <i class="pi pi-trash"></i>
   </button>
+<<<<<<< HEAD
+  <button type="submit" @click="saveDataDevis" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+   <i class="pi pi-save"></i> Enregistrer à 04:14
+</button>
+  <button @click="openModalFinaliser" type="button" class="px-4 py-2 text-sm font-medium  bg-blue-800 text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+    Finaliser <i class="pi pi-send"></i>
+  </button>
+
+ 
+</div>
+<div v-if="modalOpenFinaliser" class="fixed inset-0  items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
+  <div >
+  <div class="-black h-screen p-60 ">
+    <div class="row-span-2 grid h-2/3   bg-white  shadow-lg">
+      <div class="flex items-center  justify-between p-2 md:p-9 border-b rounded-t ">
+            <h3 class="text-xl  font-semibold text-gray-900 ...">Le devis est bien finalisé</h3>
+            <button @click=" closeModalFinaliser" type="button" ><i class="fa-solid fa-xmark"></i></button>
+          </div>
+      <div class="row-span-2 border pl-6 pt-6 ">
+        <h3 class="font-semibold">Envoyer par mail <i class="pi pi-send"></i></h3>
+
+      </div>
+      <div class="row-span-2 border pl-4 pt-4 ">
+        <h3 class="font-semibold">Partager le lien:</h3>
+      </div>
+      <div class="row-span-2 border pl-4 pt-4 ">
+        <button type="button" @click="exportToPDF" >Télécharger PDF:</button>
+      </div>
+      </div>
+      </div>
+      </div>
+
+
+</div>
+=======
   <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
    <i class="pi pi-save"></i> Enregistrer à 04:14
   </button>
@@ -17,16 +60,26 @@
   </button>
  
 </div>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
        
        
 
 
       <!-- INFORMATIONS -->
+<<<<<<< HEAD
+      <div id="pdf">
+      <div class="bg-white rounded shadow p-6 mb-8 " >
+        <h2 class="text-xl font-semibold mb-6">INFORMATIONS</h2>
+
+        <!-- Form -->
+        <form  @submit.prevent="saveDataDevis"  >
+=======
       <div class="bg-white rounded shadow p-6 mb-8">
         <h2  class="text-xl font-semibold mb-6 primaryColor">INFORMATIONS</h2>
 
         <!-- Form -->
         <form  @submit.prevent="saveData"  >
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
           <div class="grid grid-cols-2 gap-5">
              <div class="w-1/2">
               <div>
@@ -39,48 +92,88 @@
             <div >
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.nom_entreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
+                <input type="text" v-model="devis.num" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
               <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Code postal</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.code_postal" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
+                <input type="text" v-model="devis.ville" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+<<<<<<< HEAD
+                <input type="email" v-model="devis.email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
+              </div>
+              <div> 
+                <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
+                <input type="tel" v-model="devis.num_tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
+=======
                 <input type="email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
                 <input type="tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
               
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">SIRET Numéro</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.num_siret" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
+                <input type="text" v-model="devis.num_tva" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
                <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Interlocuteur</label>
+<<<<<<< HEAD
+                <input type="text" v-model="devis.inter" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Interlocuteur">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Délégataire</label>
+                <input type="text" v-model="devis.deleg" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Délégataire">
+=======
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Interlocuteur">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Délégataire</label>
                 <input type="text" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Délégataire">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               </div>
             </div>
           </div>
@@ -90,6 +183,28 @@
           <!-- Right Side -->
           <div class="mb-9">
               <p class="text-gray-700">Information général de Devis</p>
+<<<<<<< HEAD
+              <div  class="border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
+              <input type="text" v-model="devis.titre" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Titre">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
+              <input type="text" v-model="devis.numDevis" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Date d'émission</label>
+              <input type="text" v-model="devis.date_emission" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'émission">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Date d'expiration</label>
+              <input type="text" v-model="devis.date_expiration" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'expiration">
+            </div>
+            <div class="col-span-2">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <textarea v-model="devis.description" class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2" rows="3" placeholder="Description"></textarea>
+=======
               <div class="border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
@@ -110,6 +225,7 @@
             <div class="col-span-2">
               <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
               <textarea class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2" rows="3" placeholder="Description"></textarea>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
             </div>
           </div>
 
@@ -123,14 +239,34 @@
   <div class="p-5">
       
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"> Client</p>
+<<<<<<< HEAD
+      <select v-model="selectedClientId" @change="handleClientSelection" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+  <option selected>Selectionner un client</option>
+  <!-- Parcourir les données des clients récupérées et créer une option pour chaque client -->
+  <option v-for="client in client" :value="client._id" :key="client._id" >{{ client.name }} {{ client .prenom }}</option>
+=======
       <select id="small" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <option selected>Selectionner un client</option>
   <!-- Parcourir les données des clients récupérées et créer une option pour chaque client -->
   <option v-for="clients in result" :key="clients.id" >{{ clients.name }} {{ clients .prenom }}</option>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
 </select>
 
 <div >
   <div class="flex justify-end ">  
+<<<<<<< HEAD
+<button  @click="openModalC" class="border p-2 space-x-4 bg-gray-200"><i class="pi pi-plus"></i></button>
+  </div>  <!-- Modal -->
+
+  
+      <div v-if="modalOpenC" class="fixed inset-0  items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
+        <!-- Contenu de la modal -->
+        <div class="relative bg-white rounded-lg shadow ">
+          <!-- En-tête de la modal -->
+          <div class="flex items-center  justify-between p-2 md:p-9 border-b rounded-t ">
+            <h3 class="text-xl  font-semibold text-gray-900 ...">Nouveau Client</h3>
+            <button @click=" closeModalC" type="button" ><i class="fa-solid fa-xmark"></i></button>
+=======
 <button  @click="openModal1" class="bg-blue-800 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"><i class="pi pi-plus"></i></button>
   </div>  <!-- Modal -->
 
@@ -142,6 +278,7 @@
           <div class="flex items-center justify-between p-4 md:p-9 border-b rounded-t ">
             <h3 class="text-xl font-semibold text-gray-900 ...">Nouveau Client</h3>
             <button @click="closeModal1" type="button" ><i class="fa-solid fa-xmark"></i></button>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
           </div>
           <!-- Corps de la modal -->
           <div class="flex justify-end">
@@ -151,12 +288,21 @@
       <div class="mb-8">
         <ul class="flex border-b">
           <li  @click="activeTab1 = '1'"
+<<<<<<< HEAD
+              :class="[activeTab1 === '1' ? 'border-blue-500 text-blue-600 border-l border-t border-r ' : '    text-gray-500 hover:text-gray-700']"
+              class="-mb-px mr-1">
+            <a  class="bg-white inline-block rounded-t py-2 px-4 text-blue-500 font-semibold" href="#">Particulier</a>
+          </li>
+          <li @click="activeTab1 = '2'"
+              :class="[activeTab1 === '2' ? 'border-blue-600 text-blue-900 border-l border-t border-r ' : 'border-transparent   text-gray-500 hover:text-gray-700']"
+=======
               :class="[activeTab1 === '1' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
               class="-mb-px mr-1">
             <a  class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 font-semibold" href="#">Particulier</a>
           </li>
           <li @click="activeTab1 = '2'"
               :class="[activeTab1 === '2' ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
               class="mr-1">
             <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Professionnel</a>
           </li>
@@ -250,14 +396,22 @@
 
           
       </div>
+<<<<<<< HEAD
+        
+=======
           </div>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
           
         </form>
         
       </div>
       <content >
       <div id="content" class="flex justify-start  space-x-2 p-2 w-[1600px] p-6 mb-8 xl:p-20 print:p-2">
+<<<<<<< HEAD
+        <button @click="openChoisir"  class="bg-blue-800 h-[60px] w-[60px] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded "><i class="pi pi-plus text-2xl"></i></button>
+=======
         <button @click="openChoisir"  class="bg-blue-800 h-[60px] w-[60px] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded"><i class="pi pi-plus"></i></button>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
                  
     <!-- Modèle à afficher -->
     <div v-if="isOpen && !isOpenn"  class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
@@ -295,12 +449,20 @@
         <div class="py-4"> 
           <div>
     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Sélectionnez une option</label>
+<<<<<<< HEAD
+    <select  @change.prevent="handleShowProduct" v-model="selectedArticleId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+=======
     <select v-model="selectedArticleId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
         <option disabled selected>Choisir une action</option>
         <option disabled>Actions disponibles</option>
         
         <!-- Utilisation de v-for pour parcourir les articles et générer les options -->
+<<<<<<< HEAD
+        <option  class=" hover:bg-red-700 text-gray-900 font-bold py-2 px-4 rounded" v-for="item in produit" :key="item._id" :value="item._id">{{ item.nom_article }}</option>
+=======
         <option class=" hover:bg-red-700 text-gray-900 font-bold py-2 px-4 rounded" v-for="produits in resultProduit" :key="produits._id">{{ produits.nom_article }}</option>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
         
         <!-- Option pour créer un nouvel article -->
         
@@ -311,9 +473,15 @@
    </div>
    
           <div class="flex items-center p-4 md:p-5 border-t ...">
+<<<<<<< HEAD
+            <button  @click.prevent="closeChoisir" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Confirmer({{tableOfSelectedOptions.length}})</button>
+           
+           </div>
+=======
             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Enregistrer</button>
             <button @click="declineTerms" type="button" class="text-white bg-gray-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Annuler</button>
           </div>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
       </div>
       
     </form>
@@ -488,7 +656,11 @@
       
     </form>
         
+<<<<<<< HEAD
+       
+=======
         <!-- Bouton pour fermer le modèle -->
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
         </div>
       </div>
     </div>
@@ -498,6 +670,32 @@
                 <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black">
                   
                   <th class="px-4 py-2">Ref</th>
+<<<<<<< HEAD
+                  <th class="px-4 py-2 ">Description</th>
+                  <th class="px-4 py-2 ">Qté</th>
+                  <th class="px-4 py-2 ">unité</th>
+                  <th class="px-4 py-2 ">P.U HT</th>
+                  <th class="px-4 py-2 ">Total(ht)</th>
+                </tr>
+              </thead>
+              <tbody>
+                 <tr v-for="singleSelect in tableOfSelectedOptions" :key="singleSelect._id" class="px-8 py-2 border text-black-900 bg-white-500">
+      <td class="px-5 py-2  border tabular-nums slashed-zero">{{ singleSelect.reference }}</td>
+      <td class="px-5 py-2  border tabular-nums slashed-zero">{{ singleSelect.description }}</td>
+      <td class="px-5 py-2 border tabular-nums slashed-zero">
+  <button @click="()=> singleSelect.quantity ++ " class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-l">+</button> 
+  <span class="bg-white-500  text-black font-bold py-2 px-4 border ">{{ singleSelect.quantity }}</span>
+  <button @click="()=> singleSelect.quantity -- " class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded-r">-</button>
+</td>
+
+      <td class="px-5 py-2  border tabular-nums slashed-zero">{{ singleSelect.prix_unitaire }}</td>
+      <td class="px-5 py-2 border tabular-nums slashed-zero">{{ singleSelect.prix }}</td>
+      <td class="px-5 py-2 border tabular-nums slashed-zero">{{ singleSelect.quantity  * singleSelect.prix}}</td>
+      
+    </tr>
+                <tr >
+                  <button id="add-row-button" class="px-8 py-2 border text-black-900 bg-gray-100"><span class="pi pi-plus"></span>Ajouter ligne</button>
+=======
                   <th class="px-4 py-2 text-right">Description</th>
                   <th class="px-4 py-2 text-right">Qté</th>
                   <th class="px-4 py-2 text-right">unité</th>
@@ -518,6 +716,7 @@
                                </tr>
                 <tr>
                   <button id="add-row-button" class="px-6 py-2 border text-black-900 bg-gray-100"><span class="pi pi-plus"></span>Ajouter ligne</button>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
 
                 </tr>
               
@@ -532,7 +731,11 @@
 <br/>
 <br/>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+<<<<<<< HEAD
+    
+=======
     <!-- Section gauche avec les champs Remarque, Condition de Règlement et Mode de Paiement -->
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     <div class="col-span-1">
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Remarque</label>
@@ -545,6 +748,17 @@
         <div class="mt-4">
             <label class="block text-sm font-medium text-gray-700 mb-2">Mode de Paiement</label>
             <select class="w-full form-select border border-gray-300 rounded-md px-1/2 py-2">
+<<<<<<< HEAD
+               
+            </select>
+        </div>
+    </div>
+    
+    <div class="col-span-1 p-14" v-if="!isOpen && !modalOpenC" >
+        <div class="relative  shadow-md sm:rounded-lg">
+            <table class="w-full text-left table-auto print:text-sm" id="table-items">
+                
+=======
                 <!-- Options du select -->
             </select>
         </div>
@@ -554,11 +768,18 @@
         <div class="relative  shadow-md sm:rounded-lg">
             <table class="w-full text-left table-auto print:text-sm" id="table-items">
                 <!-- En-têtes du tableau -->
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
                 <thead>
                     <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black">
                         <th class="invisible"></th>
                         <th class="invisible"></th>
                         <th class="px-4 py-2 text-right border"><span class="flag-icon flag-icon-hu print:hidden"></span>Total HT</th>
+<<<<<<< HEAD
+                        <th class="px-4 py-2 text-right border text-right text-black border  bg-white tabular-nums slashed-zero">{{ calculateTotalHT() }}$</th>
+                    </tr>
+                    
+                   
+=======
                         <th class="px-4 py-2 text-right border text-right text-black border  bg-white tabular-nums slashed-zero">0.00 £</th>
                     </tr>
                     <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black" >
@@ -567,10 +788,49 @@
                   <td class="px-4 py-2 text-right border">Total avec remise</td>
                   <td class="px-4 py-2 text-right border text-right text-black border  bg-white tabular-nums slashed-zero"> 0.00 £</td>
                 </tr>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
                
                 </thead>
                 <!-- Corps du tableau -->
                 <tbody>
+<<<<<<< HEAD
+                  <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black">
+                        <td class="invisible"></td>
+                        <td class="invisible"></td>
+                        <td class="px-4 py-2 text-right border">
+  <span class="flag-icon flag-icon-hu print:hidden"></span>Remise 
+</td>
+<td class="px-4 py-2 text-right border text-center text-black border bg-white tabular-nums slashed-zero">
+  <div class="flex items-center">
+    <div class="relative">
+      <input v-model="remiseValue" type="number" class="space-x-2 px-3 py-4 border border-gray-300 rounded-md bg-white text-sm" placeholder="Montant de la remise">
+      <button @click="toggleDropdown" class="space-x-2  px-3 py-2 border p-2 border-gray-300 rounded-md bg-white text-sm">
+        {{ selectedOption }}
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      
+      <div v-show="dropdownOpen" @click="toggleDropdown" class="fixed inset-0 h-full w-full z-10"></div>
+      
+      <div v-show="dropdownOpen" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
+        <button @click="selectOption('$')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"> ($)</button>
+        <button @click="selectOption('%')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"> (%)</button>
+      </div>
+    </div>
+    
+  </div>
+</td>
+
+
+                    </tr>
+                   
+                     <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black" >
+                  <td class="invisible"></td>
+                  <td class="invisible"></td>
+                  <td class="px-4 py-2 font-extrabold text-right border"> Total TTC </td>
+                  <td class="px-4 py-2 text-right text-black border  bg-white tabular-nums slashed-zero"> {{ calculerTotalTTC() }} $</td>
+=======
                     <!-- Ligne du tableau -->
                     <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black">
                         <td class="invisible"></td>
@@ -582,6 +842,7 @@
                   <td class="invisible"></td>
                   <td class="px-4 py-2 font-extrabold text-right border"> Total TTC </td>
                   <td class="px-4 py-2 text-right text-black border  bg-white tabular-nums slashed-zero"> 0.00 £</td>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
                 </tr>
                     <!-- Autres lignes du tableau -->
                     <!-- ... -->
@@ -591,14 +852,22 @@
     </div>
 </div>
 
+<<<<<<< HEAD
+      </div>
+=======
 
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
 
 
         
       </div>
      
     </div>
+<<<<<<< HEAD
+    <div class=" fixed relative bg-gray-50 dark:bg-slate-900  flex"  v-if="!isOpen && !modalOpenC && !modalOpenFinaliser" >
+=======
     <div class=" fixed relative bg-gray-50 dark:bg-slate-900  flex"  v-if="!isOpen && !modalOpen1" >
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
       <div class="flex-grow flex justify-end">
         <nav class="z-20 flex flex-col gap-4 border-r border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 fixed top-2/4 -translate-y-2/4 right-6 h-[400px] w-[100px] rounded-lg border">
     <RouterLink 
@@ -638,7 +907,10 @@
     <a
         href="#personnaliser"
         class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800"
+<<<<<<< HEAD
+=======
         @click="openCustomizationPopup"
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     >
         <!-- HeroIcon - Chart Bar -->
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
@@ -655,8 +927,13 @@
 	<path d="M 61.635 62.286 c -1.306 1.385 -2.945 2.191 -4.697 2.423 l 24.658 23.238 c 2.004 1.888 5.159 1.795 7.047 -0.209 s 1.795 -5.159 -0.209 -7.047 L 63.776 57.453 C 63.648 59.216 62.94 60.9 61.635 62.286 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,153,106); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
 </g>
 </svg>
+<<<<<<< HEAD
+
+        <small class="text-center text-xs font-medium"> Personnalisé </small>
+=======
 <customization-popup :themes="themes" :primaryColor="primaryColor" @update-color="updateColor" @save="saveCustomization" @close="closeCustomizationPopup" v-if="showCustomizationPopup "></customization-popup>
         <small class="text-center text-xs font-medium"> Personnaliser </small>
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     </a>
 
     <a
@@ -711,9 +988,345 @@
   </div>
   </template>  
   <script>
+<<<<<<< HEAD
+ 
+  import axios from 'axios';
+  import html2pdf from "html2pdf.js/dist/html2pdf";
+
+
+  export default {
+    
+    
+
+    data() {
+      return {
+        dropdownOpen: false,
+      selectedOption: '$',
+      remiseValue: 0,
+        result:{},
+        activeTab1: '1',
+        activeTab: '1',
+         singleSelectedObject : {} , 
+        tableOfSelectedOptions :[],
+        resultProduit : {},
+        resultDevis : {},
+       
+        modalOpen2: false,
+        devis : {},
+        produits : { 
+          nom_article :'',
+        reference :'',
+        categorie :'',
+        description :'',
+        prix :'',
+        prix_unitaire:'',
+        tva :'' ,
+        type_unité :'',
+
+        },
+        produit :[],
+        client: [],
+        clients : {
+    civilite: '',
+      name: '',
+      prenom: '',
+      adresse: '',
+      suite_adresse: '',
+      email: '',
+      téléphone: '',
+      contact: '',
+      pays: '',
+      nom_societe: '',
+      siret: '',
+      tva: '',
+      },
+      produitSelectionne: null,
+        selectedArticleId: null,
+        selectedClientId: null,
+        isOpen:false,
+        isOpenn:false,
+        isOpen2:false,
+        modalOpenC: false,
+        modalOpenFinaliser : false,
+        activeDropdown: null,
+        dropdownItems1: [
+    { id: 1, text: 'Pièce jointe', link: '#', iconClass: 'fas fa-paperclip w-3.5 h-3.5 me-2' },
+    { id: 2, text: 'Personnalisé', link: '#', iconClass: ' fas fa-cookie-bite w-3.5 h-3.5 me-2',  },
+    { id: 3, text: 'Option', link: '#', iconClass: 'w-3.5 h-3.5 me-2', iconPath: 'votre_chemin_vers_icone_option' },
+   
+]
+
+      
+    };
+
+   
+    },
+    // computed: {
+
+    // },
+    watch:{
+
+    } ,   
+    mounted() {
+        
+        const generatePdfButton = document.getElementById('generate-pdf');
+        if (generatePdfButton !== null) {
+            
+            generatePdfButton.addEventListener('click', this.generatePDF);
+        } else {
+            console.error("L'élément avec l'ID 'generate-pdf' n'a pas été trouvé dans le DOM.");
+        }
+    },
+      methods: {
+        exportToPDF() {
+    html2pdf(document.getElementById("pdf"), {
+      margin: 1,
+      filename: "i-was-html.pdf",
+    })},
+
+        generatePDF() {
+            
+            const doc = new jsPDF();
+
+            
+            doc.text('Devis', 10, 10);
+            doc.text('Nom de l\'entreprise : Mon entreprise', 10, 20);
+            
+            doc.save('devis.pdf');
+        },
+        handleClientSelection(event) {
+        
+        const selectedClientId = event.target.value;
+   console.log(event.target.value)
+        
+        this.$emit('clientSelected', selectedClientId);
+    },
+       
+        calculerTotalTTC() {
+  const totalHT = this.calculateTotalHT(); 
+
+  if (this.selectedOption === '$') {
+    return totalHT - this.remiseValue; 
+  } else if (this.selectedOption === '%') {
+    const montantRemise = (totalHT * this.remiseValue) / 100; 
+    return totalHT - montantRemise;
+  }
+},
+        calculateTotalHT() {
+     var  totalHT = 0;
+    for (const item of this.tableOfSelectedOptions) {
+      totalHT += item.quantity * item.prix;
+    }
+    return totalHT;
+  },
+        editProduit(produit) {
+        // Mettre à jour le produit sélectionné lorsqu'un produit est cliqué
+        this.produitSelectionne = produit;
+      },
+      handleShowProduct(event){
+        const selectedArticleId = event.target.value;
+         console.log(event.target.value )      
+         this.produit.forEach((item)=>{
+          if(item._id === event.target.value){
+           const isExist =     this.tableOfSelectedOptions.some(item=> { 
+                    return item._id === event.target.value
+              })
+              
+              if(!isExist){ 
+                this.tableOfSelectedOptions.push({quantity :  0, ...item})
+
+              }
+              this.$emit('ProduitSelected', selectedArticleId);
+          }
+          // item._id === item.target.value ? console.log(item) : console.log('error')
+                 })        //  this.singleSelectedObject = 
+         },
+        
+      calculateTotal() {
+      let total = 0;
+      this.produit.forEach(produit => {
+        total += produit.total_ht;
+      });
+      return total;
+    },
+         
+
+    
+      openModalC() {
+        this.modalOpenC = true;
+        
+      },
+      openModalFinaliser() {
+        this.modalOpenFinaliser = true;
+        
+      },
+      toggleDropdown() {
+      this.dropdownOpen = !this.dropdownOpen;
+    },
+    selectOption(option) {
+      this.selectedOption = option;
+      this.dropdownOpen = false; 
+    },
+
+     
+      
+      closeModalC() {
+        this.modalOpenC = false;
+      },
+      closeModalFinaliser() {
+        this.modalOpenFinaliser= false;
+      },
+      closeModal2() {
+        this.modalOpen2 = false;
+      },
+       
+      acceptTerms() {
+        // Action lorsque les termes sont acceptés
+      },
+      declineTerms() {
+        // Action lorsque les termes sont refusés
+      },openChoisir() {
+         this.isOpen = true; 
+      },
+      openChoisir1() {
+        this.isOpenn = true; 
+      },
+      closeChoisir() {
+        this.isOpen = false; 
+      },
+      closeChoisir1() {
+        this.isOpenn = false; 
+      },
+     
+    handleSubmit() {
+      
+     
+     
+      this.article = {
+        title: ''
+      };
+      
+      this.showModal = false;
+    },
+    created(){
+ this.clientLoad("");
+ this.produitLoad("");
+ this.devisLoad("");
+  },
+ 
+  
+    clientLoad() {
+         axios.get("http://localhost:8080/api/client/")
+           .then(({data}) => {
+           
+            this.client= data;
+            this.result = data;
+           
+       });
+
+       },
+       
+
+      
+       produitLoad() {
+         axios.get("http://localhost:8080/api/produits/")
+         .then(({data}) => {
+           
+            this.resultProduit = data;
+           
+       });
+
+
+       },
+       devisLoad() {
+         axios.get("http://localhost:8080/api/devis/")
+         .then(({data}) => {
+            
+            this.resultDevis = data;
+           
+       });
+
+
+       },
+       saveData2() {
+ 
+
+  axios.post("http://localhost:8080/api/client/add", this.clients)
+  .then(response => {
+      const { data } = response;
+      
+      try {
+        
+          this.clientLoad(); 
+          this.clients = {};
+          
+          this.closeModalC(); 
+       
+      } catch (err) {
+        console.log(err);
+        alert("error,please try again");
+      }
+    })
+    
+  },
+  saveData() {
+  
+
+  axios.post("http://localhost:8080/api/produits/add", this.produits)
+    .then(response => {
+      const { data } = response;
+      console.log(data.status);
+      try {
+        
+          this.produitLoad(); 
+          this.produits = {};
+          this.selectedArticleId = null; 
+          this.closeChoisir1(); 
+       
+      } catch (err) {
+        console.log(err);
+        alert("error,please try again");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
+},
+saveDataDevis() {
+  
+  console.log("ID du client sélectionné :", this.selectedClientId);
+
+  console.log(this.selectedClientId);
+  this.devis.clientId = this.selectedClientId;
+ this.devis.produitId =this.selectedArticleId;
+  console.log({devis:this.devis});
+
+  axios.post("http://localhost:8080/api/devis/add", this.devis)
+    .then(async (response) => {
+  
+      const { data } = response;
+     
+      console.log({data});
+
+      this.devisLoad(); 
+      this.devis = {}; 
+     
+
+    })
+    .catch(error => {
+      console.error("Erreur lors de l'enregistrement du devis :", error);
+      alert("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
+    });
+},
+
+
+
+    },
+=======
   import customizationPopup from '../customizationPopup.vue';
   import axios from 'axios';
   export default {
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     mounted() {
     const addButton = document.querySelector('#add-row-button');
 
@@ -732,6 +1345,45 @@
       `;
 
       tableBody.insertBefore(newRow, addButton.parentNode);
+<<<<<<< HEAD
+      
+      
+
+    });
+    axios.get("http://localhost:8080/api/client/")
+    .then(({data}) => {
+      console.log(data); // Just for debugging purposes
+      this.client = data;
+      // Store the received data in the 'client' variable
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+      // Handle errors if any
+    });
+
+    axios.get("http://localhost:8080/api/produits/")
+    .then(({data}) => {
+      console.log(data); // Just for debugging purposes
+      this.produit = data;
+       // Store the received data in the 'client' variable
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+      // Handle errors if any
+    });
+
+     
+
+    
+  },
+  
+
+  };
+  </script>
+  
+  <style>
+  /* Styles pour la modal */
+=======
     });
     
   },
@@ -926,5 +1578,6 @@ showCustomizationPopup: false,
   
   <style scoped>
   
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
   </style>
   

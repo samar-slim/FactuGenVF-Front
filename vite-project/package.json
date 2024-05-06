@@ -20,8 +20,13 @@
     "chart.js": "^4.4.2",
     "flowbite": "^2.3.0",
     "footer": "^1.0.0",
+<<<<<<< HEAD
+    "html2pdf.js": "^0.10.1",
+    "jspdf": "^2.5.1",
+=======
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.1",
+>>>>>>> f53c9e6ac6a7bbc9c72eeaa0ac161d0988572462
     "primeicons": "^6.0.1",
     "primevue": "^3.50.0",
     "v-tooltip": "^2.1.3",
