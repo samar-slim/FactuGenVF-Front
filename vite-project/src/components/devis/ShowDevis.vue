@@ -1,6 +1,10 @@
 <template>
-    <div>
-     <div class="py-4">
+    <div class="max-w-3xl mx-auto">
+      <div class="flex justify-end mt-4">
+      <button  @click="openCustomizationPopup" type="button" class=" rounded-md bg-blue-500 py-1 px-2 text-center text-white hover:bg-blue-700 mr-20"> Personnaliser</button>
+      <customization-popup :themes="themes" :primaryColor="primaryColor" @update-color="updateColor" @save="saveCustomization" @close="closeCustomizationPopup" v-if="showCustomizationPopup "></customization-popup>
+    </div>
+     <div class="py-4 ">
        <div class="px-14 py-6">
          <table class="w-full border-collapse border-spacing-0">
            <tbody>
@@ -182,35 +186,40 @@
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
+import customizationPopup from '../customizationPopup.vue';
 
 export default {
-  props: ['id'],
-
+  components: {
+    customizationPopup,
+  },
   setup(props) {
+    const showCustomizationPopup = ref(false);
     const form = ref(null);
     const clientInfo = ref(null);
 
-    const getDevisById = async (id) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/devis/showDevis/${id}`);
-    console.log('HEREE',response.data);
-    form.value = response.data;
-    
-    console.log("ClientId:", form.value.clientId); 
-    await getClientInfo(form.value.clientId);
-  } catch (error) {
-    console.error("Erreur lors de la récupération du devis:", error);
-  }
-};
+    const openCustomizationPopup = () => {
+      showCustomizationPopup.value = true;
+    };
 
- 
- 
+    const closeCustomizationPopup = () => {
+      showCustomizationPopup.value = false;
+      console.log('Close event received');
+    };
+
+    const getDevisById = async (id) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/devis/showDevis/${id}`);
+        form.value = response.data;
+        await getClientInfo(form.value.clientId);
+      } catch (error) {
+        console.error("Erreur lors de la récupération du devis:", error);
+      }
+    };
+
     const getClientInfo = async (clientId) => {
       try {
         const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
-        console.log('MY RES :::',response)
         clientInfo.value = response.data;
-
         console.log('Num Tel :: ', clientInfo.value.téléphone);
       } catch (error) {
         console.error("Erreur lors de la récupération des informations du client:", error);
@@ -220,10 +229,12 @@ export default {
     onMounted(() => {
       const id = props.id;
       getDevisById(id);
-      getClientInfo(id) 
     });
 
     return {
+      showCustomizationPopup,
+      openCustomizationPopup,
+      closeCustomizationPopup,
       form,
       clientInfo
     };
