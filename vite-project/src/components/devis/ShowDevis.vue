@@ -208,7 +208,7 @@ export default {
 
     const getDevisById = async (id) => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/devis/showDevis/${id}`);
+        const response = await axios.get('http://localhost:6666/api/devis/showDevis/${id}');
         form.value = response.data;
         await getClientInfo(form.value.clientId);
       } catch (error) {
@@ -218,7 +218,7 @@ export default {
 
     const getClientInfo = async (clientId) => {
       try {
-        const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
+        const response = await axios.get('http://localhost:6666/api/client/${clientId}');
         clientInfo.value = response.data;
         console.log('Num Tel :: ', clientInfo.value.téléphone);
       } catch (error) {
