@@ -21,7 +21,7 @@ const features = [
     },
     {
         id: 3,
-        name: "Importer des Données Financières",
+        name: "Données Financières",
         details: {
             imageUrl: "images/illustration-features-tab-3.svg",
             title: "Importer des Données Financières",
