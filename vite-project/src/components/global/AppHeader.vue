@@ -81,6 +81,7 @@
 </template>
 
 <script>
+import {mapActions } from 'vuex';
 export default {
   name:"app-header",
   props: {
@@ -111,6 +112,15 @@ export default {
     toggle(event) {
       this.$refs.menu.toggle(event);
     },
+    ...mapActions(['logoutUser']),
+    logout(){
+      this.logoutUser().then(()=> {
+        this.$router.push('/login');
+      })
+      .catch(error=> {
+        console.error('Logout failed:', error );
+      });
+    }
   }
 
 }

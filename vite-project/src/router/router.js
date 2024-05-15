@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import About from '../views/About.vue';
+import Login from '../views/Login.vue';
+import SignUp from '../views/SignUp.vue';
 import Client from '../components/client/Client.vue';
 import ListeClient from '../components/client/ListeClient.vue';
 import master from '../components/pages/layout/master.vue'
@@ -14,7 +16,7 @@ import NewDevis from '../components/devis/NewDevis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
 import Produit  from '../components/produit/Produit.vue'
 import digitalisation from '../components/digitalisation.vue'
-import showDevis from '../components/devis/showDevis.vue'
+import showDevis from '../components/devis/ShowDevis.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -96,7 +98,21 @@ const router = createRouter({
       name: 'showDevis',
       component: showDevis
     },
-    
+    {
+      path: '/home',
+      name: 'home',
+      component: Home
+    } ,
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+    },
+    {
+      path: '/SignUp',
+      name: 'SignUp',
+      component: SignUp,
+    }
     
    
   ]

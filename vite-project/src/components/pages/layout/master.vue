@@ -1,6 +1,8 @@
+
 <template>
+  
   <div class="w-full h-full flex">
-    <Sidebar :dataOpenSideBar="openSidebar" 
+    <Sidebar v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
@@ -10,13 +12,14 @@
     />
     
     <Facture v-if="showFacture"/>
-    <Client v-if="showClient"/>
+    
     <ListeClient  v-if="showListeClient" />
     <ListeFacture v-if="showListeFacture" />
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <LandingHeader v-else />
       <div class="w-full h-[calc(100vh-50px)]">
         <router-view></router-view>
       </div>
@@ -24,7 +27,7 @@
   </div>
 </template>
 
-<script>
+<script >
 
 import AppHeader from './../../global/AppHeader.vue'
 import Sidebar from './../../global/Sidebar.vue'
@@ -33,16 +36,34 @@ import ListeClient from '../../client/ListeClient.vue'
 import ListeFacture from '../../facture/ListeFacture.vue'
 import Facture from '../../facture/Facture.vue'
 import Devis from '../../devis/Devis.vue'
+import LandingHeader from './../../global/LandingHeader.vue'
+import store from '../../../store.js';
+import { mapGetters} from 'vuex'; 
+
+
+
+
+
 export default {
-  components: { AppHeader, Sidebar ,Client,ListeClient , ListeFacture ,Devis,Facture},
+  components:{AppHeader, Sidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader},
+  computed: {
+        ...mapGetters(['getCount','getIsLogedIn'])
+    },
+  
   data() {
     return {
-      openSidebar: true,
+      openSidebar: false,
       showClient: false,
-    showListeClient : false,
-    showListeFacture : false,
-    showFacture : false,
-    showDevis : false,
+      showListeClient : false,
+      showListeFacture : false,
+      showFacture : false,
+      showDevis : false,
+      clinetPage: false,
+      Login :{
+        isLogedIn : false ,
+        token: null,
+        session: null,
+      }
     }
   },
   methods: {
@@ -50,20 +71,21 @@ export default {
       this.openSidebar = !this.openSidebar
     }
     ,openClientInterface() {
-    this.showClient = true;
+    this.showClient = false;
   },
   openListeClientInterface() {
-    this.showListeClient = true;
-},
-openListeFactureInterface() {
-    this.showListeFacture = true;
-},
-openFactureInterface() {
-    this.showFacture = true;
-},
-openDevisInterface() {
-    this.Devis = true;
-}
+    this.showListeClient = false;
+  },
+  openListeFactureInterface() {
+      this.showListeFacture = false;
+  },
+  openFactureInterface() {
+      this.showFacture = false;
+  },
+  openDevisInterface() {
+      this.Devis = false;
+  }
+
 
  
 
