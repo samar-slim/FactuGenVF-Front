@@ -6,11 +6,7 @@
           <label for="email" class="block text-gray-700 font-semibold mb-2">Email</label>
           <input type="email" id="email" v-model="email" placeholder="Enter your email" class="form-input w-full">
         </div>
-        <div class="mb-6">
-          <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
-          <input type="password" id="password" v-model="password" placeholder="Enter your password" class="form-input w-full">
-        </div>
-        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Login</button>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Send Email</button>
       </form>
     </div>
   </template>
@@ -26,15 +22,16 @@
       };
     },
     methods: {
-      ...mapActions(['loginUser']),
+      ...mapActions(['ForgetPasswrod']),
     login() {
       // Here you can perform any necessary validation before calling the login action
       console.log("email %s password %s", this.email, this.password)
-      if (this.email && this.password) {
-        this.loginUser({ accountIdentifier: this.email, password: this.password }) // Pass user credentials to loginUser action
+      if (this.email ) {
+        this.ForgetPasswrod({ accountIdentifier: this.email }) // Pass user credentials to loginUser action
           .then(() => {
             // Redirect or do something after successful login
-            this.$router.push('/Dashbord');
+            console.log("email was sent ")
+            // todo add show a message 
           })
           .catch(error => {
             console.error('Login failed:', error);
@@ -46,8 +43,3 @@
     }
   };
   </script>
-  
-  <style>
-  /* Add custom styles here */
-  </style>
-  

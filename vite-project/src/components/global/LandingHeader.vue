@@ -11,9 +11,9 @@
 <template>
     <!-- Navbar Start -->
     
-        <header class="flex justify-between py-12 items-center">
-            <div>
-                FactuGen
+        <header class="flex justify-between py-12 items-center m-4 mt-0">
+            <div class="mb-10 md:mb-0">
+                <img src="../../../public/images/log_1.png" alt="logo" class="logo"/> 
              </div>
             
             <nav class="flex justify-end flex-col md:flex-row">
@@ -26,16 +26,16 @@
 
                 <!-- Desktop Menu -->
                 <ul class="space-x-10 font-theme-heading font-medium items-center hidden md:flex  flex-col space-y-7 md:space-y-0 md:flex-row">
-                    <li class="uppercase hover:text-theme-secondary transition duration-200"><a href="#home" v-smooth-scroll>Home</a></li>
-                    <li class="uppercase hover:text-theme-secondary transition duration-200" ><a href="#1" v-smooth-scroll>Services</a></li>
-                    <li class="uppercase hover:text-theme-secondary transition duration-200"><a href="#Prices" v-smooth-scroll>Tarifs</a></li>
-                    <li class="uppercase hover:text-theme-secondary transition duration-200"><a href="/contact_us" v-smooth-scroll>Contactez Nous!</a></li>
+                    <li class="uppercase hover:text-tx-blue transition duration-200"><a href="#home" v-smooth-scroll>Home</a></li>
+                    <li class="uppercase hover:text-tx-blue transition duration-200" ><a href="#1" v-smooth-scroll>Services</a></li>
+                    <li class="uppercase hover:text-tx-blue transition duration-200"><a href="#Prices" v-smooth-scroll>Tarifs</a></li>
+                    <li class="uppercase hover:text-tx-blue transition duration-200"><a href="/contact_us" v-smooth-scroll>Contactez Nous!</a></li>
 
-                    <li class="uppercase by-theme-primary px-6 py-2 rounded-full shadow-md hover:bg-white border-2 border-transparent hover:border-theme-secondary hover:text-theme-secondary cursor-pointer transition duration-200">
+                    <li class="uppercase by-theme-primary px-6 py-2 rounded-full shadow-md hover:bg-white border-2 border-transparent hover:border-tx-blue hover:text-tx-blue cursor-pointer transition duration-200">
                         <a href="/Login
                         " v-smooth-scroll>Signin</a>
                     </li>
-                    <li class="uppercase bg-theme-grayish-blue px-6 py-2 text-white rounded-full  shadow-md hover:bg-white border-2 border-transparent hover:border-theme-secondary hover:text-theme-secondary cursor-pointer transition duration-200">
+                    <li class="uppercase bg-theme-grayish-blue px-6 py-2 text-white rounded-full  shadow-md hover:bg-white border-2 border-transparent hover:border-tx-blue hover:text-tx-blue cursor-pointer transition duration-200">
                         <a href="/SignUp" v-smooth-scroll>Sign Up</a>
                     </li>
                 </ul>
@@ -46,3 +46,10 @@
   
     <!-- Navbar End -->
 </template>
+
+<style>
+.logo {
+    max-width: 100px; /* Set maximum width for the logo */
+}
+
+</style>

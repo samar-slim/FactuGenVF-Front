@@ -21,6 +21,10 @@ const props = defineProps<Props>()
 
 <template>
     <section>
+        <div>
+            <h1 class="text-4xl xl:text-5xl font-bold text-center text-tx-blue m-2">Prix abordables</h1>
+            <p class="text-center text-blue-500"> Besoin de conseils ? Appelez-nous au  <span class="text-white bg-tx-blue">55743989</span>   </p>
+        </div>    
 
         <!-- Pricing toggle -->
         <div class="flex justify-center max-w-[14rem] m-auto mb-8 lg:mb-16">

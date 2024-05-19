@@ -3,6 +3,8 @@ import Home from '../views/Home.vue';
 import About from '../views/About.vue';
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
+import ForgetPassword from '../views/ForgetPassword.vue';
+import ResetPrassword from '../views/ResetPassword.vue';
 import Client from '../components/client/Client.vue';
 import ListeClient from '../components/client/ListeClient.vue';
 import master from '../components/pages/layout/master.vue'
@@ -21,7 +23,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/',
+      path: '/Dashbord',
       name: 'master',
       component: Dashbord
     },
@@ -99,7 +101,7 @@ const router = createRouter({
       component: showDevis
     },
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: Home
     } ,
@@ -112,6 +114,11 @@ const router = createRouter({
       path: '/SignUp',
       name: 'SignUp',
       component: SignUp,
+    },
+    {
+      path: '/forgetpassword',
+      name: 'forget',
+      component: ForgetPassword,
     }
     
    

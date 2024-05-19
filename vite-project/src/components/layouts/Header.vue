@@ -13,7 +13,7 @@
     <div class="container mx-auto px-5">
         <header class="flex justify-between py-12 items-center">
             <div>
-                FactuGen
+                <img src="/imges/logo_1.png" alt="logo"/>
              </div>
             
             <nav class="flex justify-end flex-col md:flex-row">
