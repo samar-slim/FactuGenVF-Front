@@ -2,7 +2,15 @@
 <template>
   
   <div class="w-full h-full flex">
-    <Sidebar v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" 
+   <!--  <Sidebar v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" 
+    :showClientInterface="openClientInterface" 
+    :showListeClientInterface="openListeClientInterface" 
+    :showListeFactureInterface="openListeFactureInterface"
+    :showLFactureInterface="openFactureInterface"
+    :showDevisInterface="openDevisInterface"
+
+    /> -->
+    <Sidebar  :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
@@ -18,9 +26,11 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
-      <LandingHeader v-else />
+      <!-- <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <LandingHeader v-else /> -->
+      <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <div class="w-full h-[calc(100vh-50px)]">
+     
         <router-view></router-view>
       </div>
     </div>
@@ -69,8 +79,8 @@ export default {
   methods: {
     toggleSidebar() {
       this.openSidebar = !this.openSidebar
-    }
-    ,openClientInterface() {
+    },
+  openClientInterface() {
     this.showClient = false;
   },
   openListeClientInterface() {

@@ -19,6 +19,7 @@ import ListeDevis from '../components/devis/ListeDevis.vue'
 import Produit  from '../components/produit/Produit.vue'
 import digitalisation from '../components/digitalisation.vue'
 import showDevis from '../components/devis/ShowDevis.vue'
+import listeUsers from '../admin/listeUsers.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -119,6 +120,11 @@ const router = createRouter({
       path: '/forgetpassword',
       name: 'forget',
       component: ForgetPassword,
+    },
+    {
+      path: '/listeUsers',
+      name: 'Users',
+      component: listeUsers,
     }
     
    

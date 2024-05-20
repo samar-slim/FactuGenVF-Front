@@ -9,7 +9,7 @@
         </button>
       </div>
      
-  <div class="mb-6 flex items-center space-x-2">
+  <div  class="mb-6 flex items-center space-x-2">
   <label for="theme" class="text-sm font-medium mr-2">Thème:</label>
   <div v-for="theme in themes" :key="theme.id">
     <button 
@@ -56,7 +56,8 @@
     textColor: String,
     tableStyle: String,
     },
-    emits: ['update-color'],
+    emits: ['update-color','close'],
+  
     data() {
       return {
         selectedTheme: null,

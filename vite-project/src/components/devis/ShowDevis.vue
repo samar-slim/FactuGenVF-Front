@@ -2,9 +2,9 @@
     <div class="max-w-3xl mx-auto">
       <div class="flex justify-end mt-4">
       <button  @click="openCustomizationPopup" type="button" class=" rounded-md bg-blue-500 py-1 px-2 text-center text-white hover:bg-blue-700 mr-20"> Personnaliser</button>
-      <customization-popup :themes="themes" :primaryColor="primaryColor" @update-color="updateColor" @save="saveCustomization" @close="closeCustomizationPopup" v-if="showCustomizationPopup "></customization-popup>
+      <customization-popup :themes="themes" :primaryColor="primaryColor" @updateColor="updateColor" @saveCustomization="saveCustomization" @close="closeCustomizationPopup" v-if="showCustomizationPopup "></customization-popup>
     </div>
-     <div class="py-4 ">
+     <div :class="['text-lg', 'py-4', fontClass, colorClass]" >
        <div class="px-14 py-6">
          <table class="w-full border-collapse border-spacing-0">
            <tbody>
@@ -189,6 +189,7 @@ import { ref, onMounted } from 'vue';
 import customizationPopup from '../customizationPopup.vue';
 
 export default {
+  
   components: {
     customizationPopup,
   },
@@ -205,6 +206,25 @@ export default {
       showCustomizationPopup.value = false;
       console.log('Close event received');
     };
+    
+    
+    /* const updateColor = ({ type, color }) => {
+      // Update the selected color in the invoice component
+      if (type === 'primary') {
+        // Update the primary color
+        console.log('Selected primary color:', color);
+      }
+    };
+
+    const saveCustomization = ({ selectedTheme, selectedFont, primaryColor, textColor, tableStyle }) => {
+      // Apply the selected customization options to the invoice component
+      this.selectedTheme = selectedTheme;
+      this.selectedFont = selectedFont;
+      this.primaryColor = primaryColor;
+      this.textColor = textColor;
+      this.tableStyle = tableStyle;
+    };
+ */
 
     const getDevisById = async (id) => {
       try {
@@ -236,7 +256,9 @@ export default {
       openCustomizationPopup,
       closeCustomizationPopup,
       form,
-      clientInfo
+      clientInfo,
+      fontClass: 'font-sans',
+      colorClass: 'text-black'
     };
   }
 };
