@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import UserModal from './UserModal.vue';
+import UserModal from './userModal.vue';
 
 export default {
   data() {

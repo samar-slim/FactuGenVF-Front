@@ -11,7 +11,7 @@ import master from '../components/pages/layout/master.vue'
 import ListeFacture from '../components/facture/ListeFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
-import Rechamation from '../components/rechamation/Rechamation.vue';
+import Reclamation from '../components/reclamation/Reclamation.vue';
 import Setting from '../components/profil/Setting.vue'
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
@@ -89,9 +89,9 @@ const router = createRouter({
       component: Devis
     },
     {
-      path: '/Rechamation',
-      name: 'Rechamation',
-      component: Rechamation
+      path: '/Reclamation',
+      name: 'Reclamation',
+      component: Reclamation
     },
     {
       path: '/ListeClient',
