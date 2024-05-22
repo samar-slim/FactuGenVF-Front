@@ -710,10 +710,12 @@
   
   <script>
   import axios from 'axios';
-  
+  import { mapGetters } from 'vuex'; 
   export default {
     
-    data() {
+    computed:{
+    ...mapGetters(['getToken'])
+  },data() {
       return {
         searchQuery: '',
     searchResults: [],
@@ -780,8 +782,24 @@
   this.devis.clientId = this.selectedClientId;
  this.devis.produitId =this.selectedArticleId;
   console.log(this.devis);
+  const storedState = localStorage.getItem('store');
+  let authToken = '';
 
-  axios.post("http://localhost:8080/api/devis/add", this.devis)
+  if (storedState) {
+    try {
+      const state = JSON.parse(storedState);
+      authToken = state.token;
+    } catch (e) {
+      console.error("Failed to parse stored state:", e);
+    }
+  }
+  
+
+  axios.post("http://localhost:8080/api/devis/add", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      }, this.devis)
     .then(async (response) => {
   
       const { data } = response;
@@ -800,7 +818,22 @@
     });
 },
 devisLoad() {
-  axios.get("http://localhost:8080/api/devis/")
+  const storedState = localStorage.getItem('store');
+  let authToken = '';
+
+  if (storedState) {
+    try {
+      const state = JSON.parse(storedState);
+      authToken = state.token;
+    } catch (e) {
+      console.error("Failed to parse stored state:", e);
+    }
+  }
+  axios.get("http://localhost:8080/api/devis/", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
      .then(({data}) => {
         // Accès à clientId et produitId dans chaque objet devis retourné
         data.forEach(devis => {
@@ -845,8 +878,23 @@ devisLoad() {
       },
       saveData() {
   console.log(this.produits);
+  const storedState = localStorage.getItem('store');
+  let authToken = '';
 
-  axios.post("http://localhost:8080/api/produits/add", this.produits)
+  if (storedState) {
+    try {
+      const state = JSON.parse(storedState);
+      authToken = state.token;
+    } catch (e) {
+      console.error("Failed to parse stored state:", e);
+    }
+  }
+
+  axios.post("http://localhost:8080/api/produits/add", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      }, this.produits)
     .then(response => {
       const { data } = response; 
       console.log(data.status);
@@ -872,7 +920,22 @@ devisLoad() {
   },
     },
     mounted() {
-      axios.get("http://localhost:8080/api/devis/")
+      const storedState = localStorage.getItem('store');
+      let authToken = '';
+
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
+      axios.get("http://localhost:8080/api/devis/", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
          .then(({data}) => {
             
             this.result= data;

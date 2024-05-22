@@ -33,6 +33,11 @@
                 <span class="ml-2">Client</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#pablo">
+               <span class="ml-2">Rechamation</span>
+              </a>
+            </li>
           </ul>
           <div  class="lg:flex lg:flex-grow items-center">
   <ul class="flex flex-col lg:flex-row list-none ml-auto">

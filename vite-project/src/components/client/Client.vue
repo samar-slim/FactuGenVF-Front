@@ -232,6 +232,7 @@
 
 <script>
 import axios from 'axios'; 
+import { mapGetters } from 'vuex';
 
 
 export default {
@@ -239,6 +240,9 @@ export default {
   components: {
     
 
+  },
+  computed:{
+    ...mapGetters(['getToken'])
   },
   data() {
     return {
@@ -267,6 +271,7 @@ export default {
   },
   
   methods: {
+    
     openModal() {
         this.modalOpen = true;
       },
@@ -274,7 +279,23 @@ export default {
         this.modalOpen = false;
       },
       clientLoad() {
-         axios.get("http://localhost:8080/api/client/")
+        const storedState = localStorage.getItem('store');
+  let authToken = '';
+
+  if (storedState) {
+    try {
+      const state = JSON.parse(storedState);
+      authToken = state.token;
+    } catch (e) {
+      console.error("Failed to parse stored state:", e);
+    }
+  }
+
+         axios.get("http://localhost:8080/api/clients/", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authtoken}`
+        }
+      })
            .then(({data}) => {
             console.log(data);
             this.result = data;
@@ -283,7 +304,23 @@ export default {
 
        },
        remove(clientID) {
-    axios.delete(`http://localhost:8080/api/client/${clientID}`)
+        const storedState = localStorage.getItem('store');
+  let authToken = '';
+
+  if (storedState) {
+    try {
+      const state = JSON.parse(storedState);
+      authToken = state.token;
+    } catch (e) {
+      console.error("Failed to parse stored state:", e);
+    }
+  }
+    
+    axios.delete(`http://localhost:8080/api/clients/${clientID}`, this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
         .then(response => {
             console.log(response.status);
             if (response.status === 200) {
@@ -312,8 +349,25 @@ export default {
            },
        saveData() {
   console.log(this.clients);
+  const storedState = localStorage.getItem('store');
+  let authToken = '';
 
-  axios.post("http://localhost:8080/api/client/add", this.clients)
+  if (storedState) {
+    try {
+      const state = JSON.parse(storedState);
+      authToken = state.token;
+    } catch (e) {
+      console.error("Failed to parse stored state:", e);
+    }
+  }
+  console.log("auth token", authToken);
+  console.log(this.getToken);
+
+  axios.post("http://localhost:8080/api/clients/add",  this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      },this.clients )
          .catch(error => {
       console.error("Error:", error);
       alert("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");

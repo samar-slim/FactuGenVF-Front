@@ -713,6 +713,7 @@
   <script>
   import customizationPopup from '../customizationPopup.vue';
   import axios from 'axios';
+  import { mapGetters } from 'vuex';
   export default {
     mounted() {
     const addButton = document.querySelector('#add-row-button');
@@ -740,7 +741,9 @@
   },
   
 
-    data() {
+  computed:{
+    ...mapGetters(['getToken'])
+  },data() {
       return {
         activeTab1: '1',
         activeTab: '1',
@@ -863,7 +866,23 @@ showCustomizationPopup: false,
  
   
     clientLoad() {
-         axios.get("http://localhost:8080/api/client/")
+
+      const storedState = localStorage.getItem('store');
+      let authToken = '';
+
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
+         axios.get("http://localhost:8080/api/client/" , this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
            .then(({data}) => {
             console.log(data);
             this.result = data;
@@ -872,7 +891,22 @@ showCustomizationPopup: false,
 
        },
        produitLoad() {
-         axios.get("http://localhost:8080/api/produits/")
+        const storedState = localStorage.getItem('store');
+      let authToken = '';
+
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
+         axios.get("http://localhost:8080/api/produits/", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      })
          .then(({data}) => {
             console.log(data);
             this.resultProduit = data;
@@ -883,8 +917,23 @@ showCustomizationPopup: false,
        },
        saveData2() {
   console.log(this.clients);
+  const storedState = localStorage.getItem('store');
+      let authToken = '';
 
-  axios.post("http://localhost:8080/api/client/add", this.clients)
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
+
+  axios.post("http://localhost:8080/api/clients/add", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      }, this.clients)
          .catch(error => {
       console.error("Error:", error);
       alert("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");
@@ -894,8 +943,23 @@ showCustomizationPopup: false,
       saveData() {
   console.log(this.produits);
   
+  
+  const storedState = localStorage.getItem('store');
+      let authToken = '';
 
-  axios.post("http://localhost:8080/api/produits/add", this.produits)
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
+  axios.post("http://localhost:8080/api/produits/add", this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      } , this.produits)
     .then(response => {
       const { data } = response; 
       console.log(data.status);

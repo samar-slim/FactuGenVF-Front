@@ -11,6 +11,7 @@ import master from '../components/pages/layout/master.vue'
 import ListeFacture from '../components/facture/ListeFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
+import Rechamation from '../components/rechamation/Rechamation.vue';
 import Setting from '../components/profil/Setting.vue'
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
@@ -20,6 +21,8 @@ import Produit  from '../components/produit/Produit.vue'
 import digitalisation from '../components/digitalisation.vue'
 import showDevis from '../components/devis/ShowDevis.vue'
 import listeUsers from '../admin/listeUsers.vue'
+import listeReclamation from '../admin/listeReclamation.vue';
+import backup from '../admin/backup.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -32,6 +35,15 @@ const router = createRouter({
       path: '/ListeDevis',
       name: 'ListeDevis',
       component: ListeDevis
+    },
+    {
+      path: '/ListeReclamation',
+      name: 'ListeReclamation',
+      component: listeReclamation
+    },{
+      path: '/backup',
+      name: 'backup',
+      component: backup
     },
    /*  {
       path: '/show/:id',
@@ -75,6 +87,11 @@ const router = createRouter({
       path: '/devis',
       name: 'Devis',
       component: Devis
+    },
+    {
+      path: '/Rechamation',
+      name: 'Rechamation',
+      component: Rechamation
     },
     {
       path: '/ListeClient',

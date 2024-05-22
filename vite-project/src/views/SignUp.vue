@@ -45,9 +45,12 @@
   
   <script>
   import axios from 'axios';
+  import { mapGetters } from 'vuex/dist/vuex.cjs.js';
   
   export default {
-    data() {
+    computed:{
+    ...mapGetters(['getToken'])
+  },data() {
       return {
         name: '',
         email: '',

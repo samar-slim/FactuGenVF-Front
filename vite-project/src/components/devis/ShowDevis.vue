@@ -187,10 +187,13 @@
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import customizationPopup from '../customizationPopup.vue';
+import { mapGetters } from 'vuex';
 
 export default {
   
-  components: {
+  computed:{
+    ...mapGetters(['getToken'])
+  },components: {
     customizationPopup,
   },
   setup(props) {
@@ -224,11 +227,27 @@ export default {
       this.textColor = textColor;
       this.tableStyle = tableStyle;
     };
- */
+ */ 
+ const storedState = localStorage.getItem('store');
+      let authToken = '';
+
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
 
     const getDevisById = async (id) => {
       try {
-        const response = await axios.get('http://localhost:6666/api/devis/showDevis/${id}');
+        
+        const response = await axios.get('http://localhost:6666/api/devis/showDevis/${id}', this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
         form.value = response.data;
         await getClientInfo(form.value.clientId);
       } catch (error) {
@@ -238,7 +257,11 @@ export default {
 
     const getClientInfo = async (clientId) => {
       try {
-        const response = await axios.get('http://localhost:6666/api/client/${clientId}');
+        const response = await axios.get('http://localhost:6666/api/client/${clientId}', this.form, {
+        headers: {
+          'Authorization': `Bearer ${authToken}`
+        }
+      });
         clientInfo.value = response.data;
         console.log('Num Tel :: ', clientInfo.value.téléphone);
       } catch (error) {
