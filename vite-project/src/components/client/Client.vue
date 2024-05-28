@@ -280,20 +280,20 @@ export default {
       },
       clientLoad() {
         const storedState = localStorage.getItem('store');
-  let authToken = '';
+        const authToken = '';
 
-  if (storedState) {
-    try {
-      const state = JSON.parse(storedState);
-      authToken = state.token;
-    } catch (e) {
-      console.error("Failed to parse stored state:", e);
-    }
-  }
+        if (storedState) {
+          try {
+            const state = JSON.parse(storedState);
+            authToken = state.token;
+          } catch (e) {
+            console.error("Failed to parse stored state:", e);
+          }
+        }
 
          axios.get("http://localhost:8080/api/clients/", this.form, {
         headers: {
-          'Authorization': `Bearer ${authtoken}`
+          'Authorization': `Bearer ${authToken}`
         }
       })
            .then(({data}) => {
@@ -305,16 +305,16 @@ export default {
        },
        remove(clientID) {
         const storedState = localStorage.getItem('store');
-  let authToken = '';
+        const authToken = '';
 
-  if (storedState) {
-    try {
-      const state = JSON.parse(storedState);
-      authToken = state.token;
-    } catch (e) {
-      console.error("Failed to parse stored state:", e);
-    }
-  }
+        if (storedState) {
+          try {
+            const state = JSON.parse(storedState);
+            authToken = state.token;
+          } catch (e) {
+            console.error("Failed to parse stored state:", e);
+          }
+        }
     
     axios.delete(`http://localhost:8080/api/clients/${clientID}`, this.form, {
         headers: {

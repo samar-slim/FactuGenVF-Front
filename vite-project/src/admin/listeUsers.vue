@@ -75,12 +75,12 @@
               <label :for="'checkbox-' + user.id" class="sr-only">checkbox</label>
             </div>
           </td>
-          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer" @click="showUserDetails(user)">{{ user.lastName }}</td>
-          <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.firstName }}</td>
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer" @click="showUserDetails(user)">{{ user.prenom }}</td>
+          <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.nom }}</td>
           <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.registrationDate }}</td>
           <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.type }}</td>
           <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.email }}</td>
-          <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.phoneNumber }}</td>
+          <td class="px-6 py-4 cursor-pointer" @click="showUserDetails(user)">{{ user.telephone }}</td>
           <td class="px-6 py-4">
             <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
           </td>
@@ -145,6 +145,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import UserModal from './userModal.vue';
 
 export default {
@@ -180,7 +181,11 @@ export default {
       usersPerPage: 10,
     };
   },
+  async created(){
+    this.users = await this.getAllUsers();
+  },
   computed: {
+
     totalUsers() {
       return this.users.length;
     },
@@ -200,6 +205,28 @@ export default {
     }
   },
   methods: {
+
+    
+    async getAllUsers(){
+      
+      let storedState = localStorage.getItem('store');
+      let authToken = '';
+      if (storedState){
+        try{
+        let state = JSON.parse(storedState);
+        authToken = state.token;
+      } catch (e){
+        console.error("Failed to parse stored state", e);
+
+      }}
+     let response = await axios.get('http://localhost:8080/api/Users/',{
+      headers: {
+        'Authorization': `Bearer ${authToken}`
+      }
+     });
+     let users = response.data;
+     return users
+    },
     showUserDetails(user) {
       this.selectedUser = user;
       this.isModalVisible = true;

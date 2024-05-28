@@ -77,6 +77,7 @@
             type: 'user'
           },
           account: {
+            accountIdentifier: this.email,
             accountType: 'free',
             password: this.password
           }
