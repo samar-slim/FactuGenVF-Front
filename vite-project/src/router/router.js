@@ -23,6 +23,7 @@ import showDevis from '../components/devis/ShowDevis.vue'
 import listeUsers from '../admin/listeUsers.vue'
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
+import adminDashboard from '../admin/dashboard.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -142,7 +143,12 @@ const router = createRouter({
       path: '/listeUsers',
       name: 'Users',
       component: listeUsers,
-    }
+    },
+    {
+      path: '/adminDashboard',
+      name: 'adminDashboard',
+      component: adminDashboard,
+    },
     
    
   ]

@@ -1,27 +1,26 @@
 <template>
     <div class="mt-12">
-      <!-- Statistiques des cartes -->
-      <!-- cards -->
+      
+      <!-- cards row 1 -->
       <div class="w-full px-6 py-6 mx-auto">
         <!-- row 1 -->
         <div class="flex flex-wrap -mx-3">
           <!-- card1 -->
           <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="text-white relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border bg-gradient-to-tl from-blue-500 to-violet-500">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Today's Money</p>
-                      <h5 class="mb-2 font-bold dark:text-white">$53,000</h5>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Utilisateurs</p>
+                      <h5 class="mb-2 font-bold dark:text-white">15,000</h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+55%</span>
-                        since yesterday
+                        updated at 4:05pm
                       </p>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
-                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-blue-500 to-violet-500">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle ">
                       <i class="ni leading-none ni-money-coins text-lg relative top-3.5 text-white"></i>
                     </div>
                   </div>
@@ -32,21 +31,21 @@
 
           <!-- card2 -->
           <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="text-white relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border bg-gradient-to-tl from-pink-500 to-red-400">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Today's Users</p>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Devis</p>
                       <h5 class="mb-2 font-bold dark:text-white">2,300</h5>
                       <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+3%</span>
-                        since last week
+              
+                        updated at 4:05pm
                       </p>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
-                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-red-600 to-orange-600">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle ">
                       <i class="ni leading-none ni-world text-lg relative top-3.5 text-white"></i>
                     </div>
                   </div>
@@ -56,22 +55,21 @@
           </div>
 
           <!-- card3 -->
-          <div class="w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+          <div class="text-white w-full max-w-full px-3 mb-6 sm:w-1/2 sm:flex-none xl:mb-0 xl:w-1/4">
+            <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border  bg-gradient-to-tl from-emerald-500 to-teal-400">
               <div class="flex-auto p-4">
-                <div class="flex flex-row -mx-3">
+                <div class="flex flex-row -mx-3 ">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">New Clients</p>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Factures</p>
                       <h5 class="mb-2 font-bold dark:text-white">+3,462</h5>
-                      <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-red-600">-2%</span>
-                        since last quarter
-                      </p>
+                      <p class="mb-0 text-white ">
+                        <span class="text-sm font-bold leading-normal text-emerald-500"></span>
+                          updated at 4:05pm                    </p>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
-                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-emerald-500 to-teal-400">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle">
                       <i class="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white"></i>
                     </div>
                   </div>
@@ -82,21 +80,20 @@
 
           <!-- card4 -->
           <div class="w-full max-w-full px-3 sm:w-1/2 sm:flex-none xl:w-1/4">
-            <div class="relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border">
+            <div class="text-white relative flex flex-col min-w-0 break-words bg-white shadow-xl dark:bg-slate-850 dark:shadow-dark-xl rounded-2xl bg-clip-border bg-gradient-to-tl from-orange-500 to-yellow-500">
               <div class="flex-auto p-4">
                 <div class="flex flex-row -mx-3">
                   <div class="flex-none w-2/3 max-w-full px-3">
                     <div>
-                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Sales</p>
+                      <p class="mb-0 font-sans text-sm font-semibold leading-normal uppercase dark:text-white dark:opacity-60">Exportation</p>
                       <h5 class="mb-2 font-bold dark:text-white">$103,430</h5>
-                      <p class="mb-0 dark:text-white dark:opacity-60">
-                        <span class="text-sm font-bold leading-normal text-emerald-500">+5%</span>
-                        than last month
-                      </p>
+                      <p class="mb-0 text-white ">
+                        <span class="text-sm font-bold leading-normal text-emerald-500"></span>
+                          updated at 4:05pm                    </p>
                     </div>
                   </div>
                   <div class="px-3 text-right basis-1/3">
-                    <div class="inline-block w-12 h-12 text-center rounded-circle bg-gradient-to-tl from-orange-500 to-yellow-500">
+                    <div class="inline-block w-12 h-12 text-center rounded-circle ">
                       <i class="ni leading-none ni-cart text-lg relative top-3.5 text-white"></i>
                     </div>
                   </div>
@@ -105,316 +102,69 @@
             </div>
           </div>
         </div>
-
-        <!-- cards row 2 -->
-        <div class="flex flex-wrap mt-6 -mx-3">
-          <div class="w-full max-w-full px-3 mt-0 lg:w-7/12 lg:flex-none">
-            <div class="border-black/12.5 dark:bg-slate-850 dark:shadow-dark-xl shadow-xl relative z-20 flex min-w-0 flex-col break-words rounded-2xl border-0 border-solid bg-white bg-clip-border">
-              <div class="border-black/12.5 mb-0 rounded-t-2xl border-b-0 border-solid p-6 pt-4 pb-0">
-                
-
-  <div class="flex justify-between mb-4">
-    <div>
-      <h5 class="leading-none text-3xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5>
-      <p class="text-base font-normal text-gray-500 dark:text-gray-400">Sales this week</p>
-    </div>
-    <div
-      class="flex items-center px-2.5 py-0.5 text-base font-semibold text-green-500 dark:text-green-500 text-center">
-      23%
-      <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13V1m0 0L1 5m4-4 4 4"/>
-      </svg>
-    </div>
-  </div>
-  <div id="data-labels-chart"></div>
-  <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-5">
-    <div class="flex justify-between items-center pt-5">
-      <!-- Button -->
-      <button
-        id="dropdownDefaultButton"
-        data-dropdown-toggle="lastDaysdropdown"
-        data-dropdown-placement="bottom"
-        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
-        type="button">
-        Last 7 days
-        <svg class="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-        </svg>
-      </button>
-      <!-- Dropdown menu -->
-      <div id="lastDaysdropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
-            </li>
-          </ul>
       </div>
-      <a
-        href="#"
-        class="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-        Sales Report
-        <svg class="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-      </a>
-    </div>
-  </div>
 
-
-              </div>
-              <div class="flex-auto p-4">
-                <div>
-                  <canvas id="chart-line" height="300"></canvas>
-                </div>
-              </div>
-            </div>
+        <!-- cards row 2 line chart-->
+        <div class="flex flex-wrap mt-6 ml-4 -mx-3 w-full">
+          <div class=" flex w-full" id="data-labels-chart"></div> 
           </div>
-
-          <div class="w-full max-w-full px-3 lg:w-5/12 lg:flex-none">
-            <div slider class="relative w-full h-full overflow-hidden rounded-2xl">
-              <!-- slide 1 -->
-            
-              <!-- slide 2 -->
-              
-
-              <!-- slide 3 -->
-             
-            <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-              <div class="p-4 pb-0 mb-0 bg-white border-b-0 border-b-solid rounded-t-2xl border-b-transparent">
-                <div class="flex flex-wrap -mx-3">
-                  <div class="flex items-center flex-none w-1/2 max-w-full px-3">
-                    <h6 class="mb-0">Factures</h6>
-                  </div>
-                  <div class="flex-none w-1/2 max-w-full px-3 text-right">
-                    <button class="inline-block px-8 py-2 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro ease-soft-in text-xs bg-150 active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 border-fuchsia-500 text-fuchsia-500 hover:opacity-75">View All</button>
-                  </div>
-                </div>
-              </div>
-              <div class="flex-auto p-4 pb-0">
-                <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                  <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-t-inherit text-inherit rounded-xl">
-                    <div class="flex flex-col">
-                      <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">March, 01, 2020</h6>
-                      <span class="leading-tight text-xs">#MS-415646</span>
-                    </div>
-                    <div class="flex items-center leading-normal text-sm">
-                      $180
-                      <button class="inline-block px-0 py-3 mb-0 ml-6 font-bold leading-normal text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer ease-soft-in bg-150 text-sm active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 text-slate-700"><i class="mr-1 fas fa-file-pdf text-lg"></i> PDF</button>
-                    </div>
-                  </li>
-                  <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-xl text-inherit">
-                    <div class="flex flex-col">
-                      <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">February, 10, 2021</h6>
-                      <span class="leading-tight text-xs">#RV-126749</span>
-                    </div>
-                    <div class="flex items-center leading-normal text-sm">
-                      $250
-                      <button class="inline-block px-0 py-3 mb-0 ml-6 font-bold leading-normal text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer ease-soft-in bg-150 text-sm active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 text-slate-700"><i class="mr-1 fas fa-file-pdf text-lg"></i> PDF</button>
-                    </div>
-                  </li>
-                  <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-xl text-inherit">
-                    <div class="flex flex-col">
-                      <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">April, 05, 2020</h6>
-                      <span class="leading-tight text-xs">#FB-212562</span>
-                    </div>
-                    <div class="flex items-center leading-normal text-sm">
-                      $560
-                      <button class="inline-block px-0 py-3 mb-0 ml-6 font-bold leading-normal text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer ease-soft-in bg-150 text-sm active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 text-slate-700"><i class="mr-1 fas fa-file-pdf text-lg"></i> PDF</button>
-                    </div>
-                  </li>
-                  <li class="relative flex justify-between px-4 py-2 pl-0 mb-2 bg-white border-0 rounded-xl text-inherit">
-                    <div class="flex flex-col">
-                      <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">June, 25, 2019</h6>
-                      <span class="leading-tight text-xs">#QW-103578</span>
-                    </div>
-                    <div class="flex items-center leading-normal text-sm">
-                      $120
-                      <button class="inline-block px-0 py-3 mb-0 ml-6 font-bold leading-normal text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer ease-soft-in bg-150 text-sm active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 text-slate-700"><i class="mr-1 fas fa-file-pdf text-lg"></i> PDF</button>
-                    </div>
-                  </li>
-                  <li class="relative flex justify-between px-4 py-2 pl-0 bg-white border-0 rounded-b-inherit rounded-xl text-inherit">
-                    <div class="flex flex-col">
-                      <h6 class="mb-1 font-semibold leading-normal text-sm text-slate-700">March, 01, 2019</h6>
-                      <span class="leading-tight text-xs">#AR-803481</span>
-                    </div>
-                    <div class="flex items-center leading-normal text-sm">
-                      $300
-                      <button class="inline-block px-0 py-3 mb-0 ml-6 font-bold leading-normal text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer ease-soft-in bg-150 text-sm active:opacity-85 hover:scale-102 tracking-tight-soft bg-x-25 text-slate-700"><i class="mr-1 fas fa-file-pdf text-lg"></i> PDF</button>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-           
-          </div>
-
-              <!-- Control buttons -->
-              <button btn-next class="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-right active:scale-110 top-6 right-4"></button>
-              <button btn-prev class="absolute z-10 w-10 h-10 p-2 text-lg text-white border-none opacity-50 cursor-pointer hover:opacity-100 far fa-chevron-left active:scale-110 top-6 right-16"></button>
-            </div>
-          </div>
-        </div>
-
+ 
         <!-- cards row 3 -->
-
-        <div class="flex flex-wrap mt-6 -mx-3">
+        <div class="flex flex-wrap mt-6 ml-4 -mx-3">
+          <!-- table -->
           <div class="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-7/12 lg:flex-none">
             <div class="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid shadow-xl dark:bg-slate-850 dark:shadow-dark-xl dark:bg-gray-950 border-black-125 rounded-2xl bg-clip-border">
               <div class="p-4 pb-0 mb-0 rounded-t-4">
                 <div class="flex justify-between">
-                  <h6 class="mb-2 dark:text-white">Sales by Country</h6>
+                  <h6 class="mb-2 dark:text-white">Users per Country</h6>
                 </div>
               </div>
               <div class="overflow-x-auto">
                 <table class="items-center w-full mb-4 align-top border-collapse border-gray-200 dark:border-white/40">
-                  <tbody>
-                    <tr>
-                      <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                        <div class="flex items-center px-2 py-1">
-                          <div>
-                            <img src="./assets/img/icons/flags/US.png" alt="Country flag" />
-                          </div>
-                          <div class="ml-6">
-                            <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Country:</p>
-                            <h6 class="mb-0 text-sm leading-normal dark:text-white">United States</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Sales:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">2500</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Value:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">$230,900</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="flex-1 text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Bounce:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">29.9%</h6>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                        <div class="flex items-center px-2 py-1">
-                          <div>
-                            <img src="./assets/img/icons/flags/DE.png" alt="Country flag" />
-                          </div>
-                          <div class="ml-6">
-                            <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Country:</p>
-                            <h6 class="mb-0 text-sm leading-normal dark:text-white">Germany</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Sales:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">3.900</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Value:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">$440,000</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="flex-1 text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Bounce:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">40.22%</h6>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
-                        <div class="flex items-center px-2 py-1">
-                          <div>
-                            <img src="./assets/img/icons/flags/GB.png" alt="Country flag" />
-                          </div>
-                          <div class="ml-6">
-                            <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Country:</p>
-                            <h6 class="mb-0 text-sm leading-normal dark:text-white">Great Britain</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Sales:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">1.400</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Value:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">$190,700</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
-                        <div class="flex-1 text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Bounce:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">23.44%</h6>
-                        </div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="p-2 align-middle bg-transparent border-0 w-3/10 whitespace-nowrap">
-                        <div class="flex items-center px-2 py-1">
-                          <div>
-                            <img src="./assets/img/icons/flags/BR.png" alt="Country flag" />
-                          </div>
-                          <div class="ml-6">
-                            <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Country:</p>
-                            <h6 class="mb-0 text-sm leading-normal dark:text-white">Brasil</h6>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Sales:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">562</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
-                        <div class="text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Value:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">$143,960</h6>
-                        </div>
-                      </td>
-                      <td class="p-2 text-sm leading-normal align-middle bg-transparent border-0 whitespace-nowrap">
-                        <div class="flex-1 text-center">
-                          <p class="mb-0 text-xs font-semibold leading-tight dark:text-white dark:opacity-60">Bounce:</p>
-                          <h6 class="mb-0 text-sm leading-normal dark:text-white">32.14%</h6>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                  <thead>
+                   <tr>
+                    <th class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">Pays</th>
+                    <th class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Utilisateurs</th>
+                    <th class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">Pourcentage</th>
+                    <th class="p-2 text-sm leading-normal align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40"></th>
+                   </tr>
+                 </thead>
+                 <tbody>
+      <tr v-for="(item, index) in countries" :key="index">
+        <td class="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
+          <div class="flex items-center px-2 py-1">
+            <div>
+              <img :src="getImageSrc(item.flag)" :alt="`${item.country} flag`" class="w-6 h-auto"/>
+            </div>
+            <div class="ml-6">
+              <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ item.country }}</h6>
+            </div>
+          </div>
+        </td>
+        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+          <div class="text-center">
+            <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ item.users }}</h6>
+          </div>
+        </td>
+        <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+          <div class="text-center">
+            <h6 class="mb-0 text-sm leading-normal dark:text-white">{{ item.percentage }}%</h6>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+          </table>
               </div>
             </div>
           </div>
-          
-<div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+         
+          <!-- pie chart -->
+      <div class="max-w-xl w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
 
-<div class="flex justify-between items-start w-full">
-    <div class="flex-col items-center">
-      <div class="flex items-center mb-1">
-          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Website traffic</h5>
+     <div class="flex justify-between items-start w-full">
+       <div class="flex-col items-center">
+        <div class="flex items-center mb-1">
+          <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white me-1">Avis utilisateurs</h5>
           <svg data-popover-target="chart-info" data-popover-placement="bottom" class="w-3.5 h-3.5 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white cursor-pointer ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/>
           </svg>
@@ -542,19 +292,82 @@
     </a>
   </div>
 </div>
-</div>
+      </div>
       </div>
 
       </div>
       
-       
-
-    </div>
+    
   </template>
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import ApexCharts from 'apexcharts';
 import 'flowbite/dist/flowbite.min.js';
+import Chart from 'chart.js/auto';
+
+const countries = ref([
+  {
+    flag: 'US.png',
+    country: 'United States',
+    users: 5000,
+    percentage: 25.0,
+  },
+  {
+    flag: 'DE.png',
+    country: 'Germany',
+    users: 3000,
+    percentage: 15.0,
+  },
+  {
+    flag: 'GB.png',
+    country: 'Great Britain',
+    users: 2000,
+    percentage: 10.0,
+  },
+  {
+    flag: 'BR.png',
+    country: 'Brasil',
+    users: 1000,
+    percentage: 5.0,
+  },
+  {
+    flag: 'TN.png',
+    country: 'Tunisia',
+    users: 700,
+    percentage: 3.5,
+  },
+  {
+    flag: 'FR.png',
+    country: 'France',
+    users: 4000,
+    percentage: 20.0,
+  },
+  {
+    flag: 'MG.png',
+    country: 'Morocco',
+    users: 800,
+    percentage: 4.0,
+  },
+  {
+    flag: 'ALG.png',
+    country: 'Algeria',
+    users: 600,
+    percentage: 3.0,
+  },
+  {
+    flag: 'IT.png',
+    country: 'Italy',
+    users: 2500,
+    percentage: 12.5,
+  },
+]);
+
+const getImageSrc = (flag) => `/src/assets/img/icons/flags/${flag}`;
+
+
+
+
+
 onMounted(() => {
   const getChartOptions = () => {
     return {
@@ -580,7 +393,7 @@ onMounted(() => {
           }
         },
       },
-      labels: ["Direct", "Organic search", "Referrals"],
+      labels: ["Satisfaits", "Non satisfaits", "non mentionnées"],
       dataLabels: {
         enabled: true,
         style: {
@@ -612,152 +425,127 @@ onMounted(() => {
         },
       },
     }
-  }
+  };
 
   if (document.getElementById("pie-chart")) {
     const chart = new ApexCharts(document.getElementById("pie-chart"), getChartOptions());
     chart.render();
   }
-});
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const salesData = {
-      labels: ["United States", "Germany", "Great Britain", "Brasil"],
-      datasets: [{
-        label: 'Sales',
-        data: [2500, 3900, 1400, 562],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)'
-        ],
-        borderWidth: 1
-      }]
-    };
-    
-const options = {
-// enable and customize data labels using the following example, learn more from here: https://apexcharts.com/docs/datalabels/
-dataLabels: {
-  enabled: true,
-  // offsetX: 10,
-  style: {
-    cssClass: 'text-xs text-white font-medium'
-  },
-},
-grid: {
-  show: false,
-  strokeDashArray: 4,
-  padding: {
-    left: 16,
-    right: 16,
-    top: -26
-  },
-},
-series: [
-  {
-    name: "Developer Edition",
-    data: [150, 141, 145, 152, 135, 125],
-    color: "#1A56DB",
-  },
-  {
-    name: "Designer Edition",
-    data: [64, 41, 76, 41, 113, 173],
-    color: "#7E3BF2",
-  },
-],
-chart: {
-  height: "100%",
-  maxWidth: "100%",
-  type: "area",
-  fontFamily: "Inter, sans-serif",
-  dropShadow: {
-    enabled: false,
-  },
-  toolbar: {
-    show: false,
-  },
-},
-tooltip: {
-  enabled: true,
-  x: {
-    show: false,
-  },
-},
-legend: {
-  show: true
-},
-fill: {
-  type: "gradient",
-  gradient: {
-    opacityFrom: 0.55,
-    opacityTo: 0,
-    shade: "#1C64F2",
-    gradientToColors: ["#1C64F2"],
-  },
-},
-stroke: {
-  width: 6,
-},
-xaxis: {
-  categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
-  labels: {
-    show: false,
-  },
-  axisBorder: {
-    show: false,
-  },
-  axisTicks: {
-    show: false,
-  },
-},
-yaxis: {
-  show: false,
-  labels: {
-    formatter: function (value) {
-      return '$' + value;
+  const dates = [
+    { x: new Date('2023-01-01').getTime(), y: 1000000 },
+    { x: new Date('2023-01-02').getTime(), y: 2000000 },
+    { x: new Date('2023-01-03').getTime(), y: 3000000 },
+    { x: new Date('2023-01-04').getTime(), y: 2500000 },
+    { x: new Date('2023-01-05').getTime(), y: 3500000 }
+  ];
+  
+  
+  const options = {
+    series: [{
+      name: 'XYZ MOTORS',
+      data: dates
+    }],
+    chart: {
+      type: 'area',
+      stacked: false,
+      height: 350,
+      zoom: {
+        type: 'x',
+        enabled: true,
+        autoScaleYaxis: true
+      },
+      toolbar: {
+        autoSelected: 'zoom'
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    markers: {
+      size: 0,
+    },
+    title: {
+      text: "Variation de l'usage de plateforme",
+      align: 'left'
+    },
+    fill: {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        inverseColors: false,
+        opacityFrom: 0.5,
+        opacityTo: 0,
+        stops: [0, 90, 100]
+      },
+    },
+    yaxis: {
+      labels: {
+        formatter: function (val) {
+          return (val / 1000000).toFixed(0);
+        },
+      },
+      title: {
+        text: 'Usage'
+      },
+    },
+    xaxis: {
+      type: 'datetime',
+    },
+    tooltip: {
+      shared: false,
+      y: {
+        formatter: function (val) {
+          return (val / 1000000).toFixed(0)
+        }
+      }
     }
-  }
-},
-}
+  };
 
-if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
+  if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
     const chart = new ApexCharts(document.getElementById("data-labels-chart"), options);
     chart.render();
-}
+  }
 
-const salesChartCanvas = document.getElementById('salesChart');
-if (salesChartCanvas) {
+  const salesData = {
+    labels: ["United States", "Germany", "Great Britain", "Brasil"],
+    datasets: [{
+      label: 'Sales',
+      data: [2500, 3900, 1400, 562],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)'
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)'
+      ],
+      borderWidth: 1
+    }]
+  };
+
+  const salesChartCanvas = document.getElementById('salesChart');
+  if (salesChartCanvas) {
     const salesChartContext = salesChartCanvas.getContext('2d');
     if (salesChartContext) {
-        new Chart(salesChartContext, {
-            type: 'bar',
-            data: salesData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+      new Chart(salesChartContext, {
+        type: 'bar',
+        data: salesData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
             }
-        });
+          }
+        }
+      });
     }
-}
-
-  });
-
-
-
-
-
-
-
+  }
+});
 </script>
 
 
