@@ -28,7 +28,9 @@ const store = new Vuex.Store ({
         },
         getUser: state => {
           return state.profile.accountId
-        }
+        },
+        isAdmin: state => state.profile.role === 'admin',
+
       
     },
     mutations: {

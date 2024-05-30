@@ -304,6 +304,7 @@ import { ref, onMounted } from 'vue';
 import ApexCharts from 'apexcharts';
 import 'flowbite/dist/flowbite.min.js';
 import Chart from 'chart.js/auto';
+import axios from 'axios';
 
 const countries = ref([
   {
@@ -365,8 +366,35 @@ const countries = ref([
 const getImageSrc = (flag) => `/src/assets/img/icons/flags/${flag}`;
 
 
+async function getData(){
+    let storedState = localStorage.getItem('store');
+          let authToken = '';
+          let accountID = '';
+
+          if (storedState) {
+            try {
+              let state = JSON.parse(storedState);
+              authToken = state.token;
+              accountID = state.profile.accountIdentifier;
+            } catch (e) {
+              console.error("Failed to parse stored state", e);
+            }
+          }
+        
+      const newData = await axios.post("http://localhost:8080/api/admindashbord/", 
+              {
+        accountID: accountID
+      }
+          , {
+          headers: {
+                'Authorization': `Bearer ${authToken}`
+              }
+      }, );
+    
+    return newData.data.Dashbord
 
 
+}
 
 onMounted(() => {
   const getChartOptions = () => {
@@ -439,8 +467,11 @@ onMounted(() => {
     { x: new Date('2023-01-04').getTime(), y: 2500000 },
     { x: new Date('2023-01-05').getTime(), y: 3500000 }
   ];
-  
-  
+
+  let newData = getData();
+  console.log('new data :', newData);
+  console.log("users", newData.Users);
+    
   const options = {
     series: [{
       name: 'XYZ MOTORS',
