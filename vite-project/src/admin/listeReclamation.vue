@@ -113,6 +113,8 @@
   </template>
   
   <script>
+import axios from 'axios';
+
   export default {
     data() {
       return {
@@ -136,8 +138,40 @@
             description: 'I was charged twice for the same order.',
           },
         ],
+        reclamationsList: []
       };
     },
+    async created() {
+      this.reclamationsList = await this.getAllReclamation();
+    },
+    methods: {
+    async getAllReclamation() {
+      let storedState = localStorage.getItem('store');
+      let authToken = '';
+
+      if (storedState) {
+        try {
+          let state = JSON.parse(storedState);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state", e);
+        }
+      }
+
+      try {
+        let response = await axios.get('http://localhost:8080/api/reclamation/', {
+          headers: {
+            'Authorization': `Bearer ${authToken}`
+          }
+        });
+
+        return response.data;
+      } catch (error) {
+        console.error("Failed to fetch reclamations", error);
+        return [];
+      }
+    }
+  },
     name: 'ListeReclamations',
   };
   </script>
@@ -145,4 +179,3 @@
   <style scoped>
   /* Your component styles here */
   </style>
-  

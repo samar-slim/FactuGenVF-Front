@@ -38,7 +38,7 @@
                 class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2"
                 rows="3"
                 placeholder="Description"
-                v-model="form.description"
+                v-model="form.discription"
               ></textarea>
             </div>
           </div>
@@ -55,21 +55,21 @@ import { mapGetters} from 'vuex';
 
 export default {
   computed:{
-    ...mapGetters(['getToken'])
+    ...mapGetters(['getToken','getUser'])
   },
   data() {
     return {
       form: {
         title: '',
-        description: ''
+        discription: ''
       }
     };
   },
   methods: {
     submitForm() {
       const authToken = this.getToken; // Adjust this line based on where you store your token
-
-      axios.post("http://localhost:8080/api/produits/add", this.form, {
+      this.form.user = this.getUser; 
+      axios.post("http://localhost:8080/api/reclamation/add", this.form, {
         headers: {
           'Authorization': `Bearer ${authToken}`
         }

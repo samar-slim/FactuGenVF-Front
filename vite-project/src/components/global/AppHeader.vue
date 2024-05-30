@@ -6,7 +6,16 @@
       </div>
      
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
+        <ul v-if="isAdmin" class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+          <li>
+            <router-link to="/ListeUsers" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">User Management</router-link>
+          </li>
+          <li>
+            <router-link to="/ListeReclamation" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">reclamation</router-link>
+          </li>
+        </ul>
+
+      <ul v-if="!isAdmin" class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
         <li>
           <router-link to="/devis"
            
@@ -84,7 +93,7 @@
 </template>
 
 <script>
-import {mapActions } from 'vuex';
+import {mapActions , mapGetters} from 'vuex';
 export default {
   name:"app-header",
   props: {
@@ -108,7 +117,25 @@ export default {
             this.$toast.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted', life: 3000 });
           }
         },
-      ]
+      ],
+      
+    }
+  },
+  computed: {
+    ...mapGetters(['isLoggedIn']),
+    isAdmin() {
+      const storedState = localStorage.getItem('store');
+      let isAdmin = false;
+      if (storedState) {
+        try {
+          const state = JSON.parse(storedState);
+          isAdmin = state.profile.role === 'admin';
+        } catch (e) {
+          console.error("Failed to parse stored state:", e);
+        }
+      }
+      console.log("is admin :", isAdmin)
+      return isAdmin;
     }
   },
   methods: {
@@ -116,6 +143,10 @@ export default {
       this.$refs.menu.toggle(event);
     },
     ...mapActions(['logoutUser']),
+    
+
+    
+
     logout(){
       this.logoutUser().then(()=> {
         this.$router.push('/login');
@@ -123,7 +154,12 @@ export default {
       .catch(error=> {
         console.error('Logout failed:', error );
       });
-    }
+    },
+    
+  },
+  mounted() {
+    // Force update of isAdmin to trigger reactivity
+    this.isAdmin = this.isAdmin;
   }
 
 }

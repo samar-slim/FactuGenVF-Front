@@ -106,17 +106,18 @@ export default {
   </template>
   
   <script>
-  import { mapActions, useStore} from 'vuex';
+  import { mapActions, mapGetters} from 'vuex';
 
-  export default {
-    data() {
-      return {
-        email: '',
-        password: ''
-      };
-    },
-    methods: {
-      ...mapActions(['loginUser']),
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    ...mapActions(['loginUser']),
+
     login() {
       // Here you can perform any necessary validation before calling the login action
       console.log("email %s password %s", this.email, this.password)
@@ -124,8 +125,26 @@ export default {
         this.loginUser({ accountIdentifier: this.email, password: this.password }) // Pass user credentials to loginUser action
           .then(() => {
             // Redirect or do something after successful login
-            this.$router.push('/Dashbord');
-          })
+
+            const storedState = localStorage.getItem('store');
+            let isAdmin = false;
+
+            if (storedState) {
+              try {
+                const state = JSON.parse(storedState);
+                isAdmin = state.profile.role === 'admin';
+              } catch (e) {
+                console.error("Failed to parse stored state:", e);
+              }
+            }
+            console.log("is admin :" , isAdmin); // Use isAdmin directly here
+            if (isAdmin){
+              this.$router.push('/adminDashboard');
+            } else {
+              this.$router.push('/Dashbord');
+            }
+          }
+        )
           .catch(error => {
             console.error('Login failed:', error);
           });
@@ -133,8 +152,8 @@ export default {
         console.error('Email and password are required.');
       }
     }
-    }
-  };
+  }
+};
   </script>
   
   <style>

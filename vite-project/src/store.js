@@ -10,11 +10,6 @@ const store = new Vuex.Store ({
             count : 0,
             isLogedIn : false,
             token: null ,
-            profile: {
-              accountId : null,
-              accountIdentifier : null,
-              role: null,
-            }
         }},
     getters: {
         getCount: state => {
@@ -25,9 +20,6 @@ const store = new Vuex.Store ({
         },
         getToken: state => {
           return state.token
-        },
-        getUser: state => {
-          return state.profile.accountId
         }
       
     },
@@ -46,13 +38,9 @@ const store = new Vuex.Store ({
         },
         logout (state) {
             state.isLogedIn = false ;
-          
         },
         setToken(state, token) {
             state.token = token;
-        },
-        setProfile(state, profile){
-          state.profile = profile;
         }
     },
     actions: {
@@ -66,10 +54,8 @@ const store = new Vuex.Store ({
                 })
                 .then(
                   response => {
-                  const {token, profile} = response.data; // Extract token from response
-                  console.log("profile : ", profile);
-                  commit('setToken', token);
-                  commit('setProfile', profile) // Commit mutation to store token
+                  const token = response.data.token; // Extract token from response
+                  commit('setToken', token); // Commit mutation to store token
                   commit('login'); // Commit mutation to indicate successful login
                   resolve(); // Resolve the promise to indicate successful login
                 })
