@@ -10,14 +10,14 @@
     :showDevisInterface="openDevisInterface"
 
     /> -->
-    <Sidebar  :dataOpenSideBar="openSidebar" 
+    <!-- <Sidebar  :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
     :showLFactureInterface="openFactureInterface"
     :showDevisInterface="openDevisInterface"
 
-    />
+    /> -->
     
     <Facture v-if="showFacture"/>
     
@@ -26,9 +26,9 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <!-- <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
-      <LandingHeader v-else /> -->
-      <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <LandingHeader v-else />
+     <!--  <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" /> -->
       <div class="w-full h-[calc(100vh-50px)]">
      
         <router-view></router-view>

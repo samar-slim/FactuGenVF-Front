@@ -1,4 +1,5 @@
 <script setup>
+import LandingHeader from '../global/LandingHeader.vue'
 import HeroSection from "../sections/HeroSection.vue";
 import FeatureSection from "../sections/FeatureSection.vue";
 import DownloadSection from "../sections/DownloadSection.vue";
@@ -9,6 +10,7 @@ import PriceSection from "../sections/PriceSection.vue";
 </script>
 
 <template>
+    <LandingHeader />
     <HeroSection />
 
     <SuccesSection />

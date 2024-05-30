@@ -4,10 +4,9 @@ import About from '../views/About.vue';
 import Login from '../views/Login.vue';
 import SignUp from '../views/SignUp.vue';
 import ForgetPassword from '../views/ForgetPassword.vue';
-import ResetPrassword from '../views/ResetPassword.vue';
+import resetPassword from '../views/ResetPassword.vue';
 import Client from '../components/client/Client.vue';
 import ListeClient from '../components/client/ListeClient.vue';
-import master from '../components/pages/layout/master.vue'
 import ListeFacture from '../components/facture/ListeFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
@@ -148,6 +147,11 @@ const router = createRouter({
       path: '/adminDashboard',
       name: 'adminDashboard',
       component: adminDashboard,
+    },
+    {
+      path: '/resetPassword',
+      name: 'resetPassword',
+      component: resetPassword,
     },
     
    
