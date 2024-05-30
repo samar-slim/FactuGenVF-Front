@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     async login() {
-      console.log("email %s password %s", this.email, this.data);
+      console.log("email %s password %s", this.email, this.password);
       if (this.email && this.password) {
         try {
           const response = await axios.post('http://localhost:8080/api/auth/login', {

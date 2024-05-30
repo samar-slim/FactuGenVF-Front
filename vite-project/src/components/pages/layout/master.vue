@@ -10,14 +10,23 @@
     :showDevisInterface="openDevisInterface"
 
     /> -->
-    <!-- <Sidebar  :dataOpenSideBar="openSidebar" 
+    <Sidebar  :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
     :showLFactureInterface="openFactureInterface"
     :showDevisInterface="openDevisInterface"
 
-    /> -->
+    />
+    <adminSidebar  :dataOpenSideBar="openAdminSidebar" 
+    :showClientInterface="openClientInterface" 
+    :showListeClientInterface="openListeClientInterface" 
+    :showListeFactureInterface="openListeFactureInterface"
+    :showLFactureInterface="openFactureInterface"
+    :showDevisInterface="openDevisInterface"
+
+    />
+    
     
     <Facture v-if="showFacture"/>
     
@@ -26,9 +35,10 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <!-- <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <LandingHeader v-else />
-     <!--  <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" /> -->
+      <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" /> -->
+      <adminHeader :dataOpenSideBar="openAdminSidebar" :clickHambuger="toggleAdminSidebar" />
       <div class="w-full h-[calc(100vh-50px)]">
      
         <router-view></router-view>
@@ -40,7 +50,9 @@
 <script >
 
 import AppHeader from './../../global/AppHeader.vue'
+import adminHeader from './../../global/adminHeader.vue'
 import Sidebar from './../../global/Sidebar.vue'
+import adminSidebar from './../../global/adminSidebar.vue'
 import Client from '../../client/Client.vue'
 import ListeClient from '../../client/ListeClient.vue'
 import ListeFacture from '../../facture/ListeFacture.vue'
@@ -55,7 +67,7 @@ import { mapGetters} from 'vuex';
 
 
 export default {
-  components:{AppHeader, Sidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader},
+  components:{AppHeader, Sidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader, adminSidebar, adminHeader},
   computed: {
         ...mapGetters(['getCount','getIsLogedIn'])
     },
@@ -63,6 +75,7 @@ export default {
   data() {
     return {
       openSidebar: false,
+      openAdminSidebar: false,
       showClient: false,
       showListeClient : false,
       showListeFacture : false,
@@ -79,6 +92,9 @@ export default {
   methods: {
     toggleSidebar() {
       this.openSidebar = !this.openSidebar
+    },
+    toggleAdminSidebar() {
+      this.openAdminSidebar = !this.openAdminSidebar
     },
   openClientInterface() {
     this.showClient = false;
