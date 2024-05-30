@@ -2,15 +2,7 @@
 <template>
   
   <div class="w-full h-full flex">
-   <!--  <Sidebar v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" 
-    :showClientInterface="openClientInterface" 
-    :showListeClientInterface="openListeClientInterface" 
-    :showListeFactureInterface="openListeFactureInterface"
-    :showLFactureInterface="openFactureInterface"
-    :showDevisInterface="openDevisInterface"
-
-    /> -->
-    <Sidebar  :dataOpenSideBar="openSidebar" 
+     <adminSidebar v-if="$route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
@@ -18,15 +10,14 @@
     :showDevisInterface="openDevisInterface"
 
     />
-    <adminSidebar  :dataOpenSideBar="openAdminSidebar" 
+    <Sidebar v-if="$route.path.startsWith('/user')" :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
     :showLFactureInterface="openFactureInterface"
     :showDevisInterface="openDevisInterface"
 
-    />
-    
+    /> 
     
     <Facture v-if="showFacture"/>
     
@@ -35,7 +26,7 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <!-- <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <LandingHeader v-else />
       <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" /> -->
       <adminHeader :dataOpenSideBar="openAdminSidebar" :clickHambuger="toggleAdminSidebar" />
@@ -66,8 +57,9 @@ import { mapGetters} from 'vuex';
 
 
 
+
 export default {
-  components:{AppHeader, Sidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader, adminSidebar, adminHeader},
+  components:{AppHeader, Sidebar,adminSidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader, adminSidebar, adminHeader},
   computed: {
         ...mapGetters(['getCount','getIsLogedIn'])
     },

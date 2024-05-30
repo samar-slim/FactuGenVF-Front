@@ -23,35 +23,60 @@ import listeUsers from '../admin/listeUsers.vue'
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import adminDashboard from '../admin/dashboard.vue';
+import { mapGetters } from 'vuex/dist/vuex.cjs.js';
+
+
 const router = createRouter({
   history: createWebHistory(),
+  ...mapGetters(['getIsLogedIn']),
   routes: [
-    {
-      path: '/Dashbord',
-      name: 'master',
-      component: Dashbord
-    },
-    {
-      path: '/ListeDevis',
-      name: 'ListeDevis',
-      component: ListeDevis
-    },
-    {
-      path: '/ListeReclamation',
-      name: 'ListeReclamation',
-      component: listeReclamation
-    },{
-      path: '/backup',
-      name: 'backup',
-      component: backup
-    },
-   /*  {
-      path: '/show/:id',
-      name: 'ShowDevis',
-      component: ShowDevis,
-      props: true
-    }, */
     
+    
+    {path: '/admin',
+
+      children:[
+        { path: 'dashboard', component: adminDashboard },
+        { path: 'listeUsers', component: listeUsers},
+        { path: 'listeReclamation', component: listeReclamation},
+        { path: 'backup', component: backup},
+        { path: 'NewDevis', component: NewDevis },
+        { path: 'produit', component: Produit},
+        { path: 'calendrier', component: Calendrier},
+        { path: 'client', component: Client },
+        { path: 'setting', component: Setting},
+        { path: 'ListeFacture' ,  component: ListeFacture},
+        { path: 'Digitalisation',  component: digitalisation},
+        { path: 'showDevis',  component: showDevis},       
+        { path: 'setting',   component: Setting},
+        { path: 'facture',  component: Facture},
+        { path: 'ListeClient', component:ListeClient },
+        { path: 'Devis',  component: Devis}, 
+        { path: 'setting',   component: Setting },
+      ]
+
+    },
+    ,
+    {path: '/user',
+
+      children:[
+        { path: 'dashboard', component: Dashbord },
+        { path: 'NewDevis', component: NewDevis },
+        { path: 'produit', component: Produit},
+        { path: 'calendrier', component: Calendrier},
+        { path: 'client', component: Client },
+        { path: 'setting', component: Setting},
+        { path: 'ListeFacture' ,  component: ListeFacture},
+        { path: 'Digitalisation',  component: digitalisation},
+        { path: 'showDevis',   component: showDevis},       
+        { path: 'setting',    component: Setting},
+        { path: 'facture',component: Facture},
+        { path: 'ListeClient', component:ListeClient },
+        { path: 'Devis',  component: Devis}, 
+        { path: 'setting',   component: Setting },
+      ]
+
+    },
+
     {
       path: '/newDevis',
       name: 'NewDevis',
@@ -157,9 +182,4 @@ const router = createRouter({
    
   ]
 });
-
 export default router;
-
-
-
-

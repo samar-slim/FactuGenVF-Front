@@ -98,7 +98,7 @@ export default {
           type: 'user'
         },
         account: {
-          accountType: 'free',
+          accountIdentifier: this.email,
           password: this.password
         }
       };
