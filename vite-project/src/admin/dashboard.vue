@@ -105,8 +105,8 @@
       </div>
 
         <!-- cards row 2 line chart-->
-        <div class="flex flex-wrap mt-6 ml-4 -mx-3 w-full">
-          <div class=" flex w-full" id="data-labels-chart"></div> 
+        <div  id="data-labels-chart">
+          
           </div>
  
         <!-- cards row 3 -->
@@ -473,65 +473,65 @@ onMounted(() => {
   console.log("users", newData.Users);
     
   const options = {
-    series: [{
-      name: 'XYZ MOTORS',
-      data: dates
-    }],
-    chart: {
-      type: 'area',
-      stacked: false,
-      height: 350,
-      zoom: {
-        type: 'x',
-        enabled: true,
-        autoScaleYaxis: true
-      },
-      toolbar: {
-        autoSelected: 'zoom'
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    markers: {
-      size: 0,
-    },
-    title: {
-      text: "Variation de l'usage de plateforme",
-      align: 'left'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shadeIntensity: 1,
-        inverseColors: false,
-        opacityFrom: 0.5,
-        opacityTo: 0,
-        stops: [0, 90, 100]
-      },
-    },
-    yaxis: {
-      labels: {
-        formatter: function (val) {
-          return (val / 1000000).toFixed(0);
+        series: [{
+          name: 'XYZ MOTORS',
+          data: dates
+        }],
+        chart: {
+          type: 'area',
+          stacked: false,
+          height: 350,
+          zoom: {
+            type: 'x',
+            enabled: true,
+            autoScaleYaxis: true
+          },
+          toolbar: {
+            autoSelected: 'zoom'
+          }
         },
-      },
-      title: {
-        text: 'Usage'
-      },
-    },
-    xaxis: {
-      type: 'datetime',
-    },
-    tooltip: {
-      shared: false,
-      y: {
-        formatter: function (val) {
-          return (val / 1000000).toFixed(0)
+        dataLabels: {
+          enabled: false
+        },
+        markers: {
+          size: 0,
+        },
+        title: {
+          text: "Variation de l'usage de plateforme",
+          align: 'left'
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            inverseColors: false,
+            opacityFrom: 0.5,
+            opacityTo: 0,
+            stops: [0, 90, 100]
+          },
+        },
+        yaxis: {
+          labels: {
+            formatter: function (val) {
+              return (val / 1000000).toFixed(0);
+            },
+          },
+          title: {
+            text: 'Usage'
+          },
+        },
+        xaxis: {
+          type: 'datetime',
+        },
+        tooltip: {
+          shared: false,
+          y: {
+            formatter: function (val) {
+              return (val / 1000000).toFixed(0)
+            }
+          }
         }
-      }
-    }
-  };
+    };
 
   if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
     const chart = new ApexCharts(document.getElementById("data-labels-chart"), options);

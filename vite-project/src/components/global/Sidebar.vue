@@ -10,7 +10,7 @@
          @click="toggleSubMenu('dashbord')"
          :class="{'bg-gray-100  border-solid border-1 shadow-md': openSubMenu === 'dashbord'}"
          class="  py-3 rounded-md cursor-pointer text-black-300 hover:text-white">
-           <router-link :to="dashboardRoute" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
+           <router-link to="/user/dashboard" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 256 256" xml:space="preserve">
  
  <defs>
@@ -22,7 +22,7 @@
  </svg> <span v-show="dataOpenSideBar">Dashboard</span></router-link>
          </div>
         
-         <div v-if="isAdmin">
+         <div v-if="this.isAdmin">
           <div
             @click="toggleSubMenu('admin')"
             :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'admin'}"
@@ -80,7 +80,7 @@
                         <a 
                              @click="openDevisInterface()" >
                            
-       <router-link to="/devis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+       <router-link to="/user/devis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                             
                                 
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="26" viewBox="-100 -50 300 350" xml:space="preserve">
@@ -113,7 +113,7 @@
                                  <a  
                                  @click="openFactureInterface()"
                                 >
-                                <router-link to="/facture" class="flex items-center  text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                                <router-link to="/user/facture" class="flex items-center  text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="18" viewBox="0 5 28 256" xml:space="preserve">
  
  <defs>
@@ -147,7 +147,7 @@
                  @click="openClientInterface()"
                 
                 >
-             <router-link to="/client" class="flex items-center p-2 space-x-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+             <router-link to="/user/client" class="flex items-center p-2 space-x-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
               
                
                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="20" viewBox="-10 0 100 256" xml:space="preserve">
@@ -176,7 +176,7 @@
              :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'liste'}"
              class="py-3 rounded-md cursor-pointer  text-black-300 hover:text-white">
                                     
-        <router-link to="/liste" class="flex items-center space-x-2 p-2 text-gray-900 font-bold rounded-lg dark:text-white dark:hover:bg-gray-700 group"> 
+        <router-link to="/user/liste" class="flex items-center space-x-2 p-2 text-gray-900 font-bold rounded-lg dark:text-white dark:hover:bg-gray-700 group"> 
               <span class="pi pi-list text-blue-600" v-tooltip.newright="'liste'"></span> <span  v-show="dataOpenSideBar" > Archive </span>
          </router-link>
      </div>             
@@ -197,7 +197,7 @@
                  <li>
                                  <a   @click="openListeDevisInterface()" >
                                   
-                                   <router-link to="/Listedevis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                                   <router-link to="/user/Listedevis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                             
                                 
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="26" viewBox="-100 -50 300 350" xml:space="preserve">
@@ -226,7 +226,7 @@
                                <a  
                                  @click="openListeFactureInterface()"
                                 >
-                               <router-link to="/ListeFacture" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                               <router-link to="/user/ListeFacture" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                                
                                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="18" viewBox="0 5 28 256" xml:space="preserve">
  
@@ -260,7 +260,7 @@
                  @click="openListeClientInterface()"
                  
                 >             
-             <router-link to="/ListeClient" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+             <router-link to="/user/ListeClient" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="20" viewBox="-10 0 100 256" xml:space="preserve">
  
  <defs>
@@ -292,7 +292,7 @@
          @click="toggleSubMenu('calendrier') "
          :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'calendrier'}"
          class="  py-3 font-bold rounded-md cursor-pointer text-black-300 hover:text-white">
-           <router-link to="/calendrier" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+           <router-link to="/user/calendrier" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
              <span class="pi pi-calendar" v-tooltip.right="'calendrier'"></span> <span v-show="dataOpenSideBar">Calandrier</span></router-link>
          </div>
          <div>
@@ -301,7 +301,7 @@
              @click="toggleSubMenu('setting') "
              :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'setting'}"
                                  class="py-3 font-bold rounded-md cursor-pointer text-black-300 hover:text-white">
-                                 <router-link to="/setting" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                 <router-link to="/user/setting" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="28" height="24" viewBox="30 0 256 256" xml:space="preserve">
  
  <defs>

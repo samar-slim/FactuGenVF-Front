@@ -28,12 +28,12 @@
     >
     <div class="menu-man text-left px-2 whitespace-nowrap ">
     <div class="   py-3 rounded-sm cursor-pointer text-black-700  hover:bg-lightBlue-100 hover:text-white transition-colors">
-      <router-link to="/" class="px-2 flex space-x-2 text-black"><span class="pi pi-microsoft " v-tooltip.newright="'Dashboard'"></span> <span v-show="open">Dashboard</span></router-link>
+      <router-link to="/user/dashboard" class="px-2 flex space-x-2 text-black"><span class="pi pi-microsoft " v-tooltip.newright="'Dashboard'"></span> <span v-show="open">Dashboard</span></router-link>
     </div>
     <div
     @click="toggleSubMenu('new')"
     class="   py-3 rounded-md cursor-pointer  hover:bg-lightBlue-100  text-black-700 hover:text-white transition-colors">
-      <router-link to="/" class="px-2 flex space-x-2">
+      <router-link to="/user" class="px-2 flex space-x-2">
         <span class="pi pi-plus mr-2" v-tooltip.newright="'New'"></span>
         
         
@@ -82,7 +82,7 @@
           <!-- Éléments de la barre latérale -->
           <!-- Exemple d'un client -->
           <li>
-            <router-link to="/client" class="px-2 flex space-x-2">
+            <router-link to="/user/client" class="px-2 flex space-x-2">
             <a
             
               @click="openClientInterface()"
@@ -103,7 +103,7 @@
                                 @click="toggleSubMenu('liste')"
                                 class="flex items-center cursor-pointer p-3 rounded-md text-black hover:bg-lightBlue-100 hover:text-white duration-200 transition-colors">
                                    
-                                <router-link to="/liste" class="px-2 flex space-x-2"> 
+                                <router-link to="/user/liste" class="px-2 flex space-x-2"> 
                                   <span class="pi-list" v-tooltip.newright="'liste'"></span> 
                                   <span  v-show="open" class="font-medium text-black">Listes   <i class="pi pi-chevron-down"></i></span>
                                   
@@ -130,7 +130,7 @@
                                 </a>
                             </li>
                             <li>
-                              <router-link to="/listeClient" class="px-2 flex space-x-2">
+                              <router-link to="/user/listeClient" class="px-2 flex space-x-2">
                                 <a
                                 @click="openListeClientInterface()"
                                 class="flex items-center cursor-pointer p-3 rounded-md text-white-700 white:text-white-0/80 hover:bg-lightBlue-100 duration-200 transition-colors">
@@ -147,7 +147,7 @@
     </div>
     
     <div class="  py-3 rounded-md cursor-pointer text-black--300 hover:bg-lightBlue-100  hover:text-white transition-colors">
-      <router-link to="/setting" class="px-2 flex space-x-2"><span class="pi pi-slack" ></span> <span v-show="open">Settings</span></router-link>
+      <router-link to="/user/setting" class="px-2 flex space-x-2"><span class="pi pi-slack" ></span> <span v-show="open">Settings</span></router-link>
     </div>
   
   </div>

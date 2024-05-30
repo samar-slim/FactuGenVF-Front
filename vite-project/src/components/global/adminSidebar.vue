@@ -10,7 +10,7 @@
            @click="toggleSubMenu('dashbord')"
            :class="{'bg-gray-100  border-solid border-1 shadow-md': openSubMenu === 'dashbord'}"
            class="  py-3 rounded-md cursor-pointer text-black-300 hover:text-white">
-             <router-link to="/dashbord" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
+             <router-link to="/admin/dashbord" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 256 256" xml:space="preserve">
    
    <defs>
@@ -22,7 +22,34 @@
    </svg> <span v-show="dataOpenSideBar">Dashboard</span></router-link>
            </div>
           
-   
+           <div>
+            <div
+              @click="toggleSubMenu('admin')"
+              :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'admin'}"
+              class="py-3 rounded-md cursor-pointer text-black-300 hover:text-white"
+            >
+              <div class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"  width="35" height="26" viewBox="-100 -50 300 350" xml:space="preserve">
+                  <defs>
+                  </defs>
+                  <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >               
+                  <path fill="#1F8ED9" d="M 45 49.519 L 45 49.519 c -7.68 0 -13.964 -6.284 -13.964 -13.964 v -5.008 c 0 -7.68 6.284 -13.964 13.964 -13.964 h 0 c 7.68 0 13.964 6.284 13.964 13.964 v 5.008 C 58.964 43.236 52.68 49.519 45 49.519 z"/>
+                  <path fill="#1F8ED9" d="M 52.863 51.438 c -2.362 1.223 -5.032 1.927 -7.863 1.927 s -5.501 -0.704 -7.863 -1.927 C 26.58 53.014 18.414 62.175 18.414 73.152 v 14.444 c 0 1.322 1.082 2.403 2.403 2.403 h 48.364 c 1.322 0 2.403 -1.082 2.403 -2.403 V 73.152 C 71.586 62.175 63.42 53.014 52.863 51.438 z"/>
+                  <path fill="#1F8ED9" d="M 71.277 34.854 c -2.362 1.223 -5.032 1.927 -7.863 1.927 c -0.004 0 -0.007 0 -0.011 0 c -0.294 4.412 -2.134 8.401 -4.995 11.43 c 10.355 3.681 17.678 13.649 17.678 24.941 v 0.263 h 11.511 c 1.322 0 2.404 -1.082 2.404 -2.404 V 56.568 C 90 45.59 81.834 36.429 71.277 34.854 z"/>
+                  <path fill="#1F8ED9" d="M 63.414 0 c -7.242 0 -13.237 5.589 -13.898 12.667 c 8 2.023 13.947 9.261 13.947 17.881 v 2.385 c 7.657 -0.027 13.914 -6.298 13.914 -13.961 v -5.008 C 77.378 6.284 71.094 0 63.414 0 z"/>
+                  <path fill="#1F8ED9" d="M 13.915 73.152 c 0 -11.292 7.322 -21.261 17.677 -24.941 c -2.861 -3.029 -4.702 -7.019 -4.995 -11.43 c -0.004 0 -0.007 0 -0.011 0 c -2.831 0 -5.5 -0.704 -7.863 -1.927 C 8.166 36.429 0 45.59 0 56.568 v 14.444 c 0 1.322 1.082 2.404 2.404 2.404 h 11.511 V 73.152 z"/>
+                  <path fill="#1F8ED9" d="M 26.536 32.932 v -2.385 c 0 -8.62 5.946 -15.858 13.947 -17.881 C 39.823 5.589 33.828 0 26.586 0 c -7.68 0 -13.964 6.284 -13.964 13.964 v 5.008 C 12.622 26.635 18.879 32.905 26.536 32.932 z"/>
+                  </g>
+                </svg>
+                <span v-show="dataOpenSideBar" >Admin Section</span>
+              </div>
+            </div>
+            <!-- Sub-items for Admin Section -->
+            <div v-if="openSubMenu === 'admin'" class="pl-6">
+              <router-link to="/admin/listeUsers" class="block py-2 px-4 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">User Section</router-link>
+              <router-link to="/admin/listeReclamations" class="block py-2 px-4 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Reclamation</router-link>
+            </div>
+          </div> 
            <div 
              @click="toggleSubMenu('new')"
              :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'new'}"
@@ -53,7 +80,7 @@
                           <a 
                                @click="openDevisInterface()" >
                              
-         <router-link to="/devis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+         <router-link to="/admin/devis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                               
                                   
                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="26" viewBox="-100 -50 300 350" xml:space="preserve">
@@ -86,7 +113,7 @@
                                    <a  
                                    @click="openFactureInterface()"
                                   >
-                                  <router-link to="/facture" class="flex items-center  text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                                  <router-link to="/admin/facture" class="flex items-center  text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="45" height="18" viewBox="0 5 28 256" xml:space="preserve">
    
    <defs>
@@ -120,7 +147,7 @@
                    @click="openClientInterface()"
                   
                   >
-               <router-link to="/client" class="flex items-center p-2 space-x-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+               <router-link to="/admin/client" class="flex items-center p-2 space-x-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                 
                  
                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="20" viewBox="-10 0 100 256" xml:space="preserve">
@@ -149,7 +176,7 @@
                :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'liste'}"
                class="py-3 rounded-md cursor-pointer  text-black-300 hover:text-white">
                                       
-          <router-link to="/liste" class="flex items-center space-x-2 p-2 text-gray-900 font-bold rounded-lg dark:text-white dark:hover:bg-gray-700 group"> 
+          <router-link to="/admin/liste" class="flex items-center space-x-2 p-2 text-gray-900 font-bold rounded-lg dark:text-white dark:hover:bg-gray-700 group"> 
                 <span class="pi pi-list text-blue-600" v-tooltip.newright="'liste'"></span> <span  v-show="dataOpenSideBar" > Archive </span>
            </router-link>
        </div>             
@@ -170,7 +197,7 @@
                    <li>
                                    <a   @click="openListeDevisInterface()" >
                                     
-                                     <router-link to="/Listedevis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                                     <router-link to="/admin/Listedevis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                               
                                   
                               <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="26" viewBox="-100 -50 300 350" xml:space="preserve">
@@ -199,7 +226,7 @@
                                  <a  
                                    @click="openListeFactureInterface()"
                                   >
-                                 <router-link to="/ListeFacture" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                                 <router-link to="/admin/ListeFacture" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                                  
                                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="18" viewBox="0 5 28 256" xml:space="preserve">
    
@@ -233,7 +260,7 @@
                    @click="openListeClientInterface()"
                    
                   >             
-               <router-link to="/ListeClient" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+               <router-link to="/admin/ListeClient" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="30" height="20" viewBox="-10 0 100 256" xml:space="preserve">
    
    <defs>
@@ -259,13 +286,13 @@
            <div 
            :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'Suivie'}"
            class=" font-bold py-3 rounded-md cursor-pointer text-black-300 hover:text-white">
-             <router-link to="/suivie" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group"><span class="pi pi-chart-line text-red-500 " v-tooltip.right="'Suivie'"></span> <span v-show="dataOpenSideBar">Suivie</span></router-link>
+             <router-link to="/admin/suivie" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group"><span class="pi pi-chart-line text-red-500 " v-tooltip.right="'Suivie'"></span> <span v-show="dataOpenSideBar">Suivie</span></router-link>
            </div>
            <div
            @click="toggleSubMenu('calendrier') "
            :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'calendrier'}"
            class="  py-3 font-bold rounded-md cursor-pointer text-black-300 hover:text-white">
-             <router-link to="/calendrier" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+             <router-link to="/admin/calendrier" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                <span class="pi pi-calendar" v-tooltip.right="'calendrier'"></span> <span v-show="dataOpenSideBar">Calandrier</span></router-link>
            </div>
            <div>
@@ -274,7 +301,7 @@
                @click="toggleSubMenu('setting') "
                :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'setting'}"
                                    class="py-3 font-bold rounded-md cursor-pointer text-black-300 hover:text-white">
-                                   <router-link to="/setting" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                                   <router-link to="/admin/setting" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="28" height="24" viewBox="30 0 256 256" xml:space="preserve">
    
    <defs>
@@ -302,7 +329,7 @@
    
    <script>
    export default {
-     name:"Sidebar",
+     name:"adminSidebar",
      data(){
        return {
          openSubMenu:null,

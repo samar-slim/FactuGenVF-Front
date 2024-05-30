@@ -2,22 +2,22 @@
 <template>
   
   <div class="w-full h-full flex">
-   <!--  <Sidebar v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" 
+     <adminSidebar v-if="$route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
     :showLFactureInterface="openFactureInterface"
     :showDevisInterface="openDevisInterface"
 
-    /> -->
-    <!-- <Sidebar  :dataOpenSideBar="openSidebar" 
+    />
+    <Sidebar v-if="$route.path.startsWith('/user')" :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
     :showLFactureInterface="openFactureInterface"
     :showDevisInterface="openDevisInterface"
 
-    /> -->
+    /> 
     
     <Facture v-if="showFacture"/>
     
@@ -26,7 +26,7 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <AppHeader v-if="$route.path.startsWith('/user') || $route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <LandingHeader v-else />
      <!--  <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" /> -->
       <div class="w-full h-[calc(100vh-50px)]">
@@ -49,13 +49,14 @@ import Devis from '../../devis/Devis.vue'
 import LandingHeader from './../../global/LandingHeader.vue'
 import store from '../../../store.js';
 import { mapGetters} from 'vuex'; 
+import adminSidebar from './../../global/adminSidebar.vue'
 
 
 
 
 
 export default {
-  components:{AppHeader, Sidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader},
+  components:{AppHeader, Sidebar,adminSidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader},
   computed: {
         ...mapGetters(['getCount','getIsLogedIn'])
     },

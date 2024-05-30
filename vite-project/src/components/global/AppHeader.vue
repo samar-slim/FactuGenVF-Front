@@ -6,29 +6,32 @@
       </div>
      
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <ul v-if="isAdmin" class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+        <ul v-show="isAdmin" class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
           <li>
-            <router-link to="/ListeUsers" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">User Management</router-link>
+            <router-link to="/admin/ListeUsers" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">User Management</router-link>
           </li>
           <li>
-            <router-link to="/ListeReclamation" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">reclamation</router-link>
+            <router-link to="/admin/ListeReclamation" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">reclamation</router-link>
+          </li>
+          <li>
+            <router-link to="/admin/backup" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">backup </router-link>
           </li>
         </ul>
 
-      <ul v-if="!isAdmin" class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
+      <ul v-show="!isAdmin" class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-blue-100 rounded-lg  md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
         <li>
-          <router-link to="/devis"
+          <router-link to="/user/devis"
            
           class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Devis</router-link>
         </li>
         <li>
-          <router-link to="/facture" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Facture</router-link>
+          <router-link to="/user/facture" class="block py-2 px-3 text-white rounded hover:bg-white-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Facture</router-link>
         </li>
         <li>
-          <router-link to="/client" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Client</router-link>
+          <router-link to="/user/client" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Client</router-link>
         </li>
         <li>
-          <router-link to="/reclamation" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Reclamation</router-link>
+          <router-link to="/user/reclamation" class="block py-2 px-3 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent font-bold dark:border-gray-700">Reclamation</router-link>
         </li>
       </ul>
     </div>
