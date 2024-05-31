@@ -30,33 +30,10 @@ const router = createRouter({
   history: createWebHistory(),
   ...mapGetters(['getIsLogedIn']),
   routes: [
-    {
-      path: '/Dashbord',
-      name: 'master',
-      component: Dashbord
-    },
-    {
-      path: '/ListeDevis',
-      name: 'ListeDevis',
-      component: ListeDevis
-    },
-    {
-      path: '/ListeReclamation',
-      name: 'ListeReclamation',
-      component: listeReclamation
-    },{
-      path: '/backup',
-      name: 'backup',
-      component: backup
-    },
-   /*  {
-      path: '/show/:id',
-      name: 'ShowDevis',
-      component: ShowDevis,
-      props: true
-    }, */
-    ,{path: '/admin',
-      
+    
+    
+    {path: '/admin',
+
       children:[
         { path: 'dashboard', component: adminDashboard },
         { path: 'listeUsers', component: listeUsers},
@@ -78,8 +55,9 @@ const router = createRouter({
       ]
 
     },
-    ,{path: '/user',
-      
+    ,
+    {path: '/user',
+
       children:[
         { path: 'dashboard', component: Dashbord },
         { path: 'NewDevis', component: NewDevis },
@@ -98,7 +76,7 @@ const router = createRouter({
       ]
 
     },
-    
+
     {
       path: '/newDevis',
       name: 'NewDevis',
@@ -204,9 +182,4 @@ const router = createRouter({
    
   ]
 });
-
 export default router;
-
-
-
-

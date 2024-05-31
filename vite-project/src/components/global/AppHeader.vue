@@ -1,8 +1,7 @@
 <template>
   <div class="w-full bg-blue-400 ">
-    <div class="flex justify-between  items-center h-[50px]">
+    <div class="flex justify-between items-center h-[50px]">
       <div class="p-4 cursor-pointer  hover:bg-gray-50" @click="clickHambuger">
-        <i class="pi pi-bars"></i>
       </div>
      
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -101,7 +100,8 @@ export default {
   name:"app-header",
   props: {
     dataOpenSideBar: Boolean,
-    clickHambuger: Function
+    clickHambuger: Function,
+    showDropDown: Boolean
   },
   data() {
     return {
@@ -121,7 +121,7 @@ export default {
           }
         },
       ],
-      
+      showDropDown: false
     }
   },
   computed: {
@@ -161,7 +161,6 @@ export default {
     
   },
   mounted() {
-    // Force update of isAdmin to trigger reactivity
     this.isAdmin = this.isAdmin;
   }
 
