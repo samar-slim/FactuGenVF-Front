@@ -99,6 +99,7 @@ export default {
         },
         account: {
           accountIdentifier: this.email,
+          accountType: 'free',
           password: this.password
         }
       };
