@@ -26,10 +26,9 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <AppHeader v-if="getIsLogedIn" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <AppHeader v-if="$route.path.startsWith('/user') || $route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <LandingHeader v-else />
-      <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" /> -->
-      <adminHeader :dataOpenSideBar="openAdminSidebar" :clickHambuger="toggleAdminSidebar" />
+
       <div class="w-full h-[calc(100vh-50px)]">
      
         <router-view></router-view>
