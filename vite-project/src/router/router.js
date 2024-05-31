@@ -73,6 +73,7 @@ const router = createRouter({
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
         { path: 'setting',   component: Setting },
+        { path: 'reclamation',  component: Reclamation},
       ]
 
     },
