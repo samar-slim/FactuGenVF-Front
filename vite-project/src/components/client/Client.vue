@@ -280,7 +280,7 @@ export default {
       },
       clientLoad() {
         const storedState = localStorage.getItem('store');
-        const authToken = '';
+        let authToken = '';
 
         if (storedState) {
           try {
@@ -305,7 +305,7 @@ export default {
        },
        remove(clientID) {
         const storedState = localStorage.getItem('store');
-        const authToken = '';
+        let  authToken = '';
 
         if (storedState) {
           try {
