@@ -74,7 +74,8 @@
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-               
+                <p @click="logout" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">logout</p>
+             
               </div>
           
            
@@ -146,7 +147,9 @@ export default {
       this.$refs.menu.toggle(event);
     },
     ...mapActions(['logoutUser']),
-    
+    toggleDrop() {
+      this.showDropDown = !this.showDropDown;
+    },
 
     
 
