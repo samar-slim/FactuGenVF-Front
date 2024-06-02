@@ -123,29 +123,7 @@ import UserModal from './userModal.vue';
 export default {
   data() {
     return {
-      users: [
-        { id: '001', lastName: 'Dupont', firstName: 'Jean', registrationDate: '2023-01-15', type: 'Professionnel', email: 'jean.dupont@example.com', phoneNumber: '0123456789' },
-        { id: '002', lastName: 'Martin', firstName: 'Marie', registrationDate: '2022-11-22', type: 'Entreprise', email: 'marie.martin@example.com', phoneNumber: '0987654321' },
-        { id: '003', lastName: 'Durand', firstName: 'Paul', registrationDate: '2023-03-10', type: 'Particulier', email: 'paul.durand@example.com', phoneNumber: '0123987654' },
-        { id: '004', lastName: 'Petit', firstName: 'Anne', registrationDate: '2021-06-08', type: 'Entreprise', email: 'anne.petit@example.com', phoneNumber: '0712345678' },
-        { id: '005', lastName: 'Robert', firstName: 'Luc', registrationDate: '2020-04-18', type: 'Professionnel', email: 'luc.robert@example.com', phoneNumber: '0612345678' },
-        { id: '006', lastName: 'Leroy', firstName: 'Chloe', registrationDate: '2022-09-11', type: 'Particulier', email: 'chloe.leroy@example.com', phoneNumber: '0776543210' },
-        { id: '007', lastName: 'Moreau', firstName: 'Sophie', registrationDate: '2023-02-14', type: 'Entreprise', email: 'sophie.moreau@example.com', phoneNumber: '0654321876' },
-        { id: '008', lastName: 'Simon', firstName: 'Pierre', registrationDate: '2021-12-21', type: 'Professionnel', email: 'pierre.simon@example.com', phoneNumber: '0678901234' },
-        { id: '009', lastName: 'Laurent', firstName: 'Emma', registrationDate: '2023-04-05', type: 'Particulier', email: 'emma.laurent@example.com', phoneNumber: '0612345098' },
-        { id: '010', lastName: 'Bernard', firstName: 'Julie', registrationDate: '2022-03-09', type: 'Entreprise', email: 'julie.bernard@example.com', phoneNumber: '0712345609' },
-        { id: '011', lastName: 'Dupuis', firstName: 'Lucas', registrationDate: '2023-01-30', type: 'Particulier', email: 'lucas.dupuis@example.com', phoneNumber: '0612389765' },
-        { id: '012', lastName: 'Roux', firstName: 'Camille', registrationDate: '2020-10-22', type: 'Professionnel', email: 'camille.roux@example.com', phoneNumber: '0687654321' },
-        { id: '013', lastName: 'Fournier', firstName: 'Thomas', registrationDate: '2021-11-13', type: 'Entreprise', email: 'thomas.fournier@example.com', phoneNumber: '0654321098' },
-        { id: '014', lastName: 'Girard', firstName: 'Clara', registrationDate: '2022-08-07', type: 'Particulier', email: 'clara.girard@example.com', phoneNumber: '0612309876' },
-        { id: '015', lastName: 'Gauthier', firstName: 'Hugo', registrationDate: '2023-05-01', type: 'Professionnel', email: 'hugo.gauthier@example.com', phoneNumber: '0687234567' },
-        { id: '016', lastName: 'Perrin', firstName: 'Léa', registrationDate: '2021-07-19', type: 'Entreprise', email: 'lea.perrin@example.com', phoneNumber: '0612345987' },
-        { id: '017', lastName: 'Faure', firstName: 'Nathan', registrationDate: '2022-05-15', type: 'Particulier', email: 'nathan.faure@example.com', phoneNumber: '0698765432' },
-        { id: '018', lastName: 'Dumont', firstName: 'Alice', registrationDate: '2021-01-23', type: 'Professionnel', email: 'alice.dumont@example.com', phoneNumber: '0676543210' },
-        { id: '019', lastName: 'Blanc', firstName: 'Mathieu', registrationDate: '2023-03-12', type: 'Entreprise', email: 'mathieu.blanc@example.com', phoneNumber: '0654321089' },
-        { id: '020', lastName: 'Moulin', firstName: 'Elise', registrationDate: '2022-06-17', type: 'Particulier', email: 'elise.moulin@example.com', phoneNumber: '0623456789' },
-        { id: '021', lastName: 'Dupont', firstName: 'Paul', registrationDate: '2022-07-20', type: 'Particulier', email: 'paul.dupont@example.com', phoneNumber: '0656781234' },
-    ],
+      users: [],
     isModalVisible: false,
       selectedUser: {},
       selectedUsers: [],
@@ -216,7 +194,7 @@ export default {
       }
      });
      let users = response.data;
-     console.log("users :",users);
+
      return users
     },
     showUserDetails(user) {

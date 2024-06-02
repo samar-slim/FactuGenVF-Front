@@ -30,7 +30,7 @@
       <div class="nav-item">
         <div class="px-3 py-2 flex items-center text-xs uppercase font-bold leading-snug text-white hover:opacity-75" href="#pablo">
           <Avatar icon="pi pi-user" class="mr-2" style="background-color:#9c27b0; color: #ffffff"   shape="circle"  aria-haspopup="true" aria-controls="overlay_menu" />
-            <div class="text-xs text-gray-500 dark:text-gray-400">Admin</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">A</div>
           
       
   </div>
