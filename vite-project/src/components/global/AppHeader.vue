@@ -1,7 +1,8 @@
 <template>
   <div class="w-full bg-blue-400 ">
     <div class="flex justify-between items-center h-[50px]">
-      <div class="p-4 cursor-pointer  hover:bg-gray-50" @click="clickHambuger">
+      <div class="p-4 cursor-pointer  hover:bg-gray-50 " @click="clickHambuger">
+        <i class="fa-solid fa-bars text-white  hover:text-blue-700 "></i>
       </div>
      
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -74,7 +75,7 @@
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Account settings</a>
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Support</a>
                 <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">License</a>
-                <p @click="logout" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-2">logout</p>
+                <p @click="logout" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-3">logout</p>
              
               </div>
           
