@@ -24,7 +24,7 @@ import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import adminDashboard from '../admin/dashboard.vue';
 import { mapGetters } from 'vuex/dist/vuex.cjs.js';
-
+import profilesettings from '../components/global/profilesettings.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -74,6 +74,7 @@ const router = createRouter({
         { path: 'Devis',  component: Devis}, 
         { path: 'setting',   component: Setting },
         { path: 'reclamation',  component: Reclamation},
+        { path: 'Profilesettigns',  component: profilesettings},
       ]
 
     },
