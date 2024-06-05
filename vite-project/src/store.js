@@ -81,9 +81,8 @@ const store = new Vuex.Store ({
 
         async logoutUser({ commit, getters }) {
             try {
-              let localStorage = window.localStorage;
-              let authToken = localStorage.getItem('token');
-             
+              const authToken = getters.getToken;
+              console.log(authToken);
               if ( !authToken) {
                 throw new Error('No token available for logout');
               }

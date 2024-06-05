@@ -10,12 +10,12 @@ import ListeClient from '../components/client/ListeClient.vue';
 import ListeFacture from '../components/facture/ListeFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
+import ListeDevis from '../components/devis/ListeDevis.vue'
 import Reclamation from '../components/reclamation/Reclamation.vue';
-import Setting from '../components/profil/Setting.vue'
+import Setting from '../components/global/profilesettings.vue'
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
 import NewDevis from '../components/devis/NewDevis.vue'
-import ListeDevis from '../components/devis/ListeDevis.vue'
 import Produit  from '../components/produit/Produit.vue'
 import digitalisation from '../components/digitalisation.vue'
 import showDevis from '../components/devis/ShowDevis.vue'
@@ -40,6 +40,7 @@ const router = createRouter({
         { path: 'listeReclamation', component: listeReclamation},
         { path: 'backup', component: backup},
         { path: 'NewDevis', component: NewDevis },
+        { path: 'ListeDevis', component: ListeDevis },
         { path: 'produit', component: Produit},
         { path: 'calendrier', component: Calendrier},
         { path: 'client', component: Client },
@@ -59,7 +60,7 @@ const router = createRouter({
     {path: '/user',
 
       children:[
-        { path: 'Dashbord', component: Dashbord },
+        { path: 'dashboard', component: Dashbord },
         { path: 'NewDevis', component: NewDevis },
         { path: 'produit', component: Produit},
         { path: 'calendrier', component: Calendrier},
@@ -75,15 +76,13 @@ const router = createRouter({
         { path: 'setting',   component: Setting },
         { path: 'reclamation',  component: Reclamation},
         { path: 'Profilesettigns',  component: profilesettings},
+        { path: '/newDevis', component: NewDevis },
+        { path: 'ListeDevis', component: ListeDevis },
       ]
 
     },
 
-    {
-      path: '/newDevis',
-      name: 'NewDevis',
-      component: NewDevis
-    },
+    { path: '/newDevis', component: NewDevis },
     {
       path: '/produit',
       name: 'Produit',
