@@ -24,7 +24,8 @@ import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import adminDashboard from '../admin/dashboard.vue';
 import { mapGetters } from 'vuex/dist/vuex.cjs.js';
-import profilesettings from '../components/global/profilesettings.vue'
+import profilesettings from '../components/global/profilesettings.vue';
+import AIPage from '../components/global/AIPage.vue';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -179,6 +180,11 @@ const router = createRouter({
       name: 'resetPassword',
       component: resetPassword,
     },
+    {
+      path: '/aiPage',
+      name: 'ai',
+      component: AIPage,
+    }
     
    
   ]

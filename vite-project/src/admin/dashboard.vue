@@ -121,11 +121,8 @@
 
 
           </div>
-          <div class="flex-auto p-4">
-            <div>
-              <canvas id="chart-line" height="300"></canvas>
-            </div>
-          </div>
+         
+          
         </div>
       </div> 
         <!-- cards row 3 -->
