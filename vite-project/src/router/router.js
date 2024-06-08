@@ -26,12 +26,18 @@ import adminDashboard from '../admin/dashboard.vue';
 import { mapGetters } from 'vuex/dist/vuex.cjs.js';
 import profilesettings from '../components/global/profilesettings.vue';
 import AIPage from '../components/global/AIPage.vue';
+import Avoir from '../components/Avoir/Avoir.vue';
+import UserCard from '../components/profil/UserCard.vue';
+import Settingfil from '../components/profil/Setting.vue';
 
+import MainDouvre from '../components/Article/MainDouvre.vue';
+import ListeTraveau   from '../components/Article/Traveaux.vue';
 const router = createRouter({
   history: createWebHistory(),
   ...mapGetters(['getIsLogedIn']),
   routes: [
-    
+    { path: '/Avoir', component: Avoir, name: 'Avoir',},
+
     
     {path: '/admin',
 
