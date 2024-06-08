@@ -11,16 +11,8 @@ export default {
   },
  
   theme: {
-    fontFamily:{
-      'body':['"Poppins"']
-    },
     extend: {
       colors: {
-        "theme-primary": "#5368DF",
-        "theme-secondary": "#FA5757",
-        "theme-grayish-blue": "#9194A1",
-        "theme-dark-blue": "rgb(37, 43, 70)",
-        "theme-dark-blue-tp": "rgba(37, 43, 70, 0.9)",
         lightBlue: {
           50: '#f0f9ff',
           100: '#e0f2fe',
@@ -33,7 +25,6 @@ export default {
           800: '#075985',
           900: '#0c4a6e',
         },
-        "tx-blue": "#00CBB8",
       },
     },
   },
@@ -41,7 +32,6 @@ export default {
     
     require('flowbite/plugin')({
       charts: true,
-      
   }),
      
     ],

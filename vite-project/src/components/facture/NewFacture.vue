@@ -1,18 +1,18 @@
-<!-- devis.vue -->
+<!-- facture.vue -->
 <template>
-    <div class="" >
+    <div >
       <div  class="flex-1 bg-gray-50">
-      <div class="container mx-auto py-8 px-2" >
-        <h1 class="text-2xl font-semibold mb-8" >Nouvelle Devis</h1>
+      <div class="container mx-auto py-8 px-4" >
+        <h1 class="text-2xl font-semibold mb-8" >Nouvelle Facture</h1>
         <div class="flex justify-end">
 
   <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
    <i class="pi pi-trash"></i>
   </button>
-  <button type="submit" @click="saveDataDevis" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+  <button type="submit" @click="saveDatafacture" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
   <i class="pi pi-save"></i> Enregistrer à 04:14
 </button>
-<button type="button"  @click="onShow()" class="px-4 py-2 text-sm font-medium text-gray-900  border border-gray-200  hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+<button type="button"   class="px-4 py-2 text-sm font-medium text-gray-900  border border-gray-200  hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
   <i class="fa-solid fa-eye"></i> Preview
   </button>
 
@@ -31,7 +31,7 @@
 <div v-if="modalOpenFinaliser" class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
   <div class="max-w-md bg-white p-8 rounded shadow-lg">
     <div class="flex items-center justify-between border-b pb-4">
-      <h3 class="text-lg font-semibold text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Le devis est bien finalisé</h3>
+      <h3 class="text-lg font-semibold text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Le facture est bien finalisé</h3>
       <button @click="closeModalFinaliser" type="button" class="text-gray-600 hover:text-gray-900">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -54,10 +54,10 @@
     </div>
     <!-- Rectangle : Télécharger PDF -->
     <div class="border p-4 mt-4 text-center">
-      <button type="button" class="font-semibold hover:text-blue-700" @click="exportToPDF(devis._id)">Télécharger PDF</button>
+      <button type="button" class="font-semibold hover:text-blue-700" @click="exportToPDF(facture._id)">Télécharger PDF</button>
       <i class="fa-solid fa-download text-xl"></i>
     </div>
-    <show-devis :devisId="devis._id" v-if="showDevisModal" @close="showDevisModal = false" />
+    <show-facture :factureId="facture._id" v-if="showfactureModal" @close="showfactureModal = false" />
   </div>
 </div>
 
@@ -65,13 +65,13 @@
        
 
 
-      <!-- INFORMATIONS -->
-      <div id="pdf">
+     <!-- INFORMATIONS -->
+     <div id="pdf">
       <div class="bg-white rounded shadow p-6 mb-8 " >
         <h2 class="text-xl font-semibold mb-6">INFORMATIONS</h2>
 
         <!-- Form -->
-        <form  @submit.prevent="saveDataDevis"   >
+        <form  @submit.prevent="saveDatafacture"   >
           <div class="grid grid-cols-2 gap-5">
              <div class="w-1/2">
               <div>
@@ -84,48 +84,48 @@
             <div >
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise</label>
-                <input type="text" v-model="devis.nom_entreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
+                <input type="text" v-model="facture.nom_entreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
-                <input type="text" v-model="devis.num" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+                <input type="text" v-model="facture.num" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
               </div>
               <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Code postal</label>
-                <input type="text" v-model="devis.code_postal" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
+                <input type="text" v-model="facture.code_postal" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
-                <input type="text" v-model="devis.ville" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
+                <input type="text" v-model="facture.ville" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
               </div>
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
-                <input type="email" v-model="devis.email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
+                <input type="email" v-model="facture.email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
               </div>
               <div> 
                 <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
-                <input type="tel" v-model="devis.num_tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
+                <input type="tel" v-model="facture.num_tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
               </div>
               
 
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">SIRET Numéro</label>
-                <input type="text" v-model="devis.num_siret" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
+                <input type="text" v-model="facture.num_siret" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
-                <input type="text" v-model="devis.num_tva" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
+                <input type="text" v-model="facture.num_tva" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
               </div>
                <div class="grid grid-cols-2 gap-5">
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Interlocuteur</label>
-                <input type="text" v-model="devis.inter" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Interlocuteur">
+                <input type="text" v-model="facture.inter" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Interlocuteur">
               </div>
               <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Délégataire</label>
-                <input type="text" v-model="devis.deleg" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Délégataire">
+                <input type="text" v-model="facture.deleg" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Délégataire">
               </div>
             </div>
           </div>
@@ -134,31 +134,29 @@
 
           <!-- Right Side -->
           <div class="mb-9">
-              <p class="text-gray-700">Information général de Devis</p>
+              <p class="text-gray-700">Information général de facture</p>
               <div  class="border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Titre</label>
-              <input type="text" v-model="devis.titre" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Titre">
+              <input type="text" v-model="facture.titre" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Titre">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
-              <input type="text" v-model="devis.numDevis" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
+              <input type="text" v-model="facture.numfacture" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Date d'émission</label>
-              <input type="text" v-model="devis.date_emission" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'émission">
+              <input type="text" v-model="facture.date_emission" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'émission">
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Date d'expiration</label>
-              <input type="text" v-model="devis.date_expiration" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'expiration">
+              <input type="text" v-model="facture.date_expiration" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Date d'expiration">
             </div>
             <div class="col-span-2">
               <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
-              <textarea v-model="devis.description" class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2" rows="3" placeholder="Description"></textarea>
+              <textarea v-model="facture.description" class="form-textarea w-full border border-gray-300 rounded-md px-3 py-2" rows="3" placeholder="Description"></textarea>
             </div>
           </div>
-
-
             <br/>
             <br/>
             <div class="grid grid-cols-2 gap-5">   
@@ -186,7 +184,7 @@
           <!-- En-tête de la modal -->
           <div class="flex items-center  justify-between p-2 md:p-9 border-b rounded-t ">
             <h3 class="text-xl  font-semibold text-gray-900 ...">Nouveau Client</h3>
-            <button @click="closeModalC" type="button" ><i class="fa-solid fa-xmark"></i></button>
+            <button @click=" closeModalC" type="button" ><i class="fa-solid fa-xmark"></i></button>
           </div>
           <!-- Corps de la modal -->
           <div class="flex justify-end">
@@ -302,7 +300,7 @@
       </div>
       <content >
       <div id="content" class="flex justify-start  space-x-2 p-2 w-[1600px] p-6 mb-8 xl:p-20 print:p-2">
-       
+        <button @click="openChoisir"  class="bg-blue-800 h-[60px] w-[60px] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded "><i class="pi pi-plus text-2xl"></i></button>
                  
     <!-- Modèle à afficher -->
     <div v-if="isOpen && !isOpenn"  class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
@@ -318,39 +316,47 @@
         <form >
       <div class="mb-8">
         <ul class="flex border-b">
-  <li @click="activeTab = 'produit'; fetchData('produit')"
-      :class="[activeTab === 'produit' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
-      class="-mb-px mr-1 relative">
-    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Produit</a>
-    <div v-if="activeTab === 'produit'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
-  </li>
-  <li @click="activeTab = 'traveaux'; fetchData('traveaux')"
-      :class="[activeTab === 'traveaux' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
-      class="mr-1 relative">
-    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Travaux</a>
-    <div v-if="activeTab === 'traveaux'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
-  </li>
-  <li @click="activeTab = 'mainoeuvre'; fetchData('mainoeuvre')"
-      :class="[activeTab === 'mainoeuvre' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
-      class="mr-1 relative">
-    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">MainOeuvre</a>
-    <div v-if="activeTab === 'mainoeuvre'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
-  </li>
-</ul>
-<div class="py-4">
-  <div>
+                <li @click="activeTab1 = '1'"
+                    :class="[activeTab1 === '1' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="-mb-px mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Produit</a>
+                    <div v-if="activeTab1 === '1'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '2'"
+                    :class="[activeTab1 === '2' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Travaux</a>
+                    <div v-if="activeTab1 === '2'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '3'"
+                    :class="[activeTab1 === '3' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">MainOeuvre</a>
+                    <div v-if="activeTab1 === '3'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+            </ul>
+        <div class="py-4"> 
+          <div>
     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Sélectionnez une option</label>
-    <select @change.prevent="handleShowProduct" v-model="selectedArticleId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-      <option disabled selected>Choisir une action</option>
-      <option disabled>Actions disponibles</option>
-      <option class="hover:bg-red-700 text-gray-900 font-bold py-2 px-4 rounded" v-for="item in filteredData" :key="item._id" :value="item._id">{{ item.nom_article }}</option>
+    <select  @change.prevent="handleShowProduct" v-model="selectedArticleId" id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option disabled selected>Choisir une action</option>
+        <option disabled>Actions disponibles</option>
+        
+        <!-- Utilisation de v-for pour parcourir les articles et générer les options -->
+        <option  class=" hover:bg-red-700 text-gray-900 font-bold py-2 px-4 rounded" v-for="item in produit" :key="item._id" :value="item._id">{{ item.nom_article }}</option>
+        
+        <!-- Option pour créer un nouvel article -->
+        
     </select>
+    <!-- Bouton pour ouvrir la modal de création d'un nouvel article -->
     <button class="border p-2 space-x-4 bg-gray-200" @click="openChoisir1">Nouvel Article</button>
-  </div>
 </div>
-<div class="flex items-center p-4 md:p-5 border-t ...">
-  <button @click.prevent="closeChoisir" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Confirmer({{tableOfSelectedOptions.length}})</button>
-</div>
+   </div>
+   
+          <div class="flex items-center p-4 md:p-5 border-t ...">
+            <button @click.prevent="closeChoisir" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Confirmer({{tableOfSelectedOptions.length}})</button>
+           
+           </div>
       </div>
       
     </form>
@@ -360,93 +366,56 @@
         </div>
       </div>
     </div>
-       
+        <!-- Modèle à afficher Nouveau Article -->
         <div v-if="isOpenn"   class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
-      
+      <!-- Contenu du modèle -->
       <div class="relative bg-white rounded-lg shadow ...">
-          
+          <!-- En-tête de la modal -->
           <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
-            <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Article</h3>
+            <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Produit</h3>
             <button @click="closeChoisir1" type="button" ><i class="fa-solid fa-xmark"></i></button>
           
           </div>
           <div class="modal-content">
-  <form @submit.prevent="saveData">
-    <div class="mb-8">
-      <ul class="flex border-b">
-        <li
-          @click="setActiveTab('produit')"
-          :class="getTabClass('produit')"
-          class="mr-1 relative"
-        >
-          <a
-            class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold"
-            href="#"
-            >Produit</a
-          >
-          <div
-            v-if="activeTab === 'produit'"
-            class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"
-          ></div>
-        </li>
-        <li
-          @click="setActiveTab('traveaux')"
-          :class="getTabClass('traveaux')"
-          class="mr-1 relative"
-        >
-          <a
-            class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold"
-            href="#"
-            >Travaux</a
-          >
-          <div
-            v-if="activeTab === 'traveaux'"
-            class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"
-          ></div>
-        </li>
-        <li
-          @click="setActiveTab('mainoeuvre')"
-          :class="getTabClass('mainoeuvre')"
-          class="mr-1 relative"
-        >
-          <a
-            class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold"
-            href="#"
-            >MainOeuvre</a
-          >
-          <div
-            v-if="activeTab === 'mainoeuvre'"
-            class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"
-          ></div>
-        </li>
-      </ul>
-      <div class="py-4">
-        <div v-if="activeTab === 'produit'" class="block">
-         
+    <form @submit.prevent="saveData">
+        <div class="mb-8">
+          <ul class="flex border-b">
+                <li @click="activeTab1 = '1'"
+                    :class="[activeTab1 === '1' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="-mb-px mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Produit</a>
+                    <div v-if="activeTab1 === '1'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '2'"
+                    :class="[activeTab1 === '2' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">Travaux</a>
+                    <div v-if="activeTab1 === '2'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+                <li @click="activeTab1 = '3'"
+                    :class="[activeTab1 === '3' ? 'border-b-2 border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700']"
+                    class="mr-1 relative">
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 font-semibold" href="#">MainOeuvre</a>
+                    <div v-if="activeTab1 === '3'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                </li>
+            </ul>
+        <div class="py-4"> 
+          <div v-if="activeTab1 === '1'" class="block">
+            <!-- Contenu pour le formulaire particulier -->
             <div class="grid gap-6 mb-6 md:grid-cols-3">
-              <div class="mb-4">
-              <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom Produit</label>
+            <div class="mb-4">
+              <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
               <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>  
-            <div>
-           
-           <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-           <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-         </div >
+            </div>
            
             <div class="mb-4">
               <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
               <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            <div class="p-5">
-  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Catégorie</p>
-  <select v-model="selectedCategorieId" @change="handleCategorieSelection" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-    <option class="bg-blue-700 border hover hover-red" value="nouvelle">Nouveau Categorie</option>
-    <option selected value="">Selectionner une catégorie</option>
-    <option class="text-gray-900" v-for="categorie in categories" :value="categories._id" :key="categorie._id">{{ categorie.categorie_nom }}</option>
-    
-  </select>
-</div>
+            <div class="mb-4">
+              <label for="categorie" class="block text-gray-700 text-sm font-bold mb-2">Categorie</label>
+              <input type="text" v-model="produits.categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
             </div>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div class="mb-4">
@@ -472,67 +441,62 @@
             </div>
             <!-- Ajoutez d'autres champs pour le formulaire particulier ici -->
           </div>
-          <div v-else-if="activeTab === 'traveaux'" class="block">
-         
-         <div class="grid gap-6 mb-6 md:grid-cols-3">
-          <div  class="mb-4 flex items-center justify-center" >
-        
-        <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-        <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-      </div>
-           <div class="mb-4">
-           <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
-           <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>  
-        
-        
-         <div class="mb-4">
-           <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
-           <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>
-         
-         </div>
-         <div class="grid gap-6 mb-6 md:grid-cols-2">
-         <div class="mb-4">
-           <label  for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-           <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>
-         <div class="mb-4">
-           <label for="prix" class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
-           <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>
-       </div>
-         <div class="mb-4">
-           <label for="prix_unitaire"  class="block text-gray-700 text-sm font-bold mb-2">prix unitaire*</label>
-           <input type="text" id="prix_unitaire" v-model="produits.prix_unitaire" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>
-         <div class="mb-4">
-           <label  for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
-           <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>
-         <div class="mb-4">
-           <label  for="type_unite"  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
-           <input type="text" v-model="produits.type_unité"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-         </div>
-         
-       </div>
-          <div v-else-if="activeTab === 'mainoeuvre'" class="block">
+          <div v-if="activeTab1 === '2'" class="">
+            <!-- Contenu pour le formulaire professionnel -->
             <div class="grid gap-6 mb-6 md:grid-cols-3">
-              <div class="mb-4">
-              <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
-              <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>  
-            <div>
+            <div class="mb-4">
+              <label   class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
+              <input type="text" id="nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
            
-           <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-           <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-         </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
+              <input type="text" id="reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Ctegorie</label>
+              <input type="text" id="categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            </div>
+            <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+              <input type="text" id="categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
+              <input type="text" id="prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+          </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">prix unitaire*</label>
+              <input type="text" id="prix_unitaire"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
+              <input type="text" id="tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+            <div class="mb-4">
+              <label  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
+              <input type="text" id="type_unité"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
+          </div>
+          <div v-if="activeTab1 === '3'" class="block">
+            <!-- Contenu pour le formulaire particulier -->
+            <div class="grid gap-6 mb-6 md:grid-cols-3">
+            <div class="mb-4">
+              <label for="article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
+              <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
            
             <div class="mb-4">
               <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
               <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-            
+            <div class="mb-4">
+              <label for="categorie" class="block text-gray-700 text-sm font-bold mb-2">Categorie</label>
+              <input type="text" v-model="produits.categorie"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            </div>
             </div>
             <div class="grid gap-6 mb-6 md:grid-cols-2">
             <div class="mb-4">
@@ -556,136 +520,51 @@
               <label  for="type_unite"  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
               <input type="text" v-model="produits.type_unité"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
             </div>
-           
-          
-       </div>
-     </div>
-   </div>
-   <div class="flex items-center p-4 md:p-5 border-t ...">
-     <button
-       type="submit"
-       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-     >
-       Enregistrer
-     </button>
-     <button
-       @click="declineTerms1"
-       type="button"
-       class="text-white bg-gray-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-     >
-       Annuler
-     </button>
-   </div>
- </form>
- <div
-    v-if="modalOpenCategorie"
-    class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs"
-  >
-    <div class="relative bg-white rounded-lg shadow">
-      <div class="p-4 md:p-5 border-b rounded-t">
-        <h3 class="text-xl font-semibold text-gray-900">Nouvelle Catégorie</h3>
-        <button
-          @click="closeModalCategorie"
-          type="button"
-          class="text-gray-400 hover:text-gray-500 bg-transparent rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
-        >
-          <svg
-            aria-hidden="true"
-            class="w-5 h-5"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clip-rule="evenodd"
-            ></path>
-          </svg>
-          <span class="sr-only">Fermer</span>
-        </button>
+            <!-- Ajoutez d'autres champs pour le formulaire particulier ici -->
+          </div>
+          </div>
+          <div class="flex items-center p-4 md:p-5 border-t ...">
+            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Enregistrer</button>
+            <button @click="declineTerms1" type="button" class="text-white bg-gray-400 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" >Annuler</button>
+          </div>
       </div>
-      <div class="p-6 space-y-6">
-        <div>
-          <label
-            for="categorie_nom"
-            class="block mb-2 text-sm font-medium text-gray-900"
-            >Nom de la catégorie</label
-          >
-          <input
-            type="text"
-            id="nom_categorie"
-            v-model="categorie.categorie_nom"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Saisir le nom de la catégorie"
-          />
+      
+    </form>
+        
+       
         </div>
-        <div>
-          <label
-            for="Libéllé"
-            class="block mb-2 text-sm font-medium text-gray-900"
-            >Libellé de la catégorie</label
-          >
-          <input
-            type="text"
-            id="libelle_categorie"
-            v-model="categorie.Libéllé"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-            placeholder="Saisir le libellé de la catégorie"
-          />
-        </div>
-      </div>
-      <div class="p-4 md:p-5 border-t">
-        <button
-          @click="createCategorie"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
-        >
-          Enregistrer
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
       </div>
     </div>
   
-    <table class="w-full ml-0 text-left table-auto print:text-sm" id="table-items">
-    <thead>
-        <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black">
-            <th class="px-4 py-2 border tabular-nums slashed-zero ml-0">Ref</th>
-            <th class="px-4 py-2 border tabular-nums slashed-zero">Description</th>
-            <th class="px-4 py-2 border tabular-nums slashed-zero">Qté</th>
-            <th class="px-4 py-2 border tabular-nums slashed-zero">unité</th>
-            <th class="px-4 py-2 border tabular-nums slashed-zero">P.U HT</th>
-            <th class="px-4 py-2 border tabular-nums slashed-zero">Total(ht)</th>
-        </tr>
-    </thead>
+        <table class="w-full text-left table-auto print:text-sm" id="table-items">
+              <thead >
+                <tr class="text-white bg-blue-900 print:bg-gray-300 print:text-black">
+                  
+                  <th class="px-4 py-2">Ref</th>
+                  <th class="px-4 py-2 ">Description</th>
+                  <th class="px-4 py-2 ">Qté</th>
+                  <th class="px-4 py-2 ">unité</th>
+                  <th class="px-4 py-2 ">P.U HT</th>
+                  <th class="px-4 py-2 ">Total(ht)</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr class="bg-white justify-center">
-                  <td id="invoice-button-cell" colspan="7" class="px-2 py-2 border text-black-900 justify-end bg-white-900">
-    <!-- Icône ou bouton pour créer une facture -->
-    <div class="px-80 py-1  ml-40 justify-end  hover:text-white">
-        <img  v-if="showImage"  src="" class="w-[180px]  justify-end">
-    </div>
-</td> 
-        </tr>
                 <tr v-for="singleSelect in tableOfSelectedOptions" :key="singleSelect._id" class="px-8 py-2 border text-black-900 bg-white-500">
     <td class="px-5 py-2  border tabular-nums slashed-zero">{{ singleSelect.reference }}</td>
     <td class="px-5 py-2  border tabular-nums slashed-zero">{{ singleSelect.description }}</td>
     <td class="px-5 py-2 border tabular-nums slashed-zero">
-        <!-- Utilisation de v-model pour lie la quantité à un champ d'entrée -->
+        <!-- Utilisation de v-model pour lier la quantité à un champ d'entrée -->
         <input type="number" v-model="singleSelect.quantity" @change="updateQuantity(singleSelect)" class="bg-white-500 text-black font-bold py-2 px-4 border text-center border-gray-300 rounded-md">
     </td>
     <td class="px-5 py-2  border tabular-nums slashed-zero">{{ singleSelect.prix_unitaire }}</td>
     <td class="px-5 py-2 border tabular-nums slashed-zero">{{ singleSelect.prix }}</td>
     <td class="px-5 py-2 border tabular-nums slashed-zero">{{ singleSelect.total }}</td>
-    <div class="px-5 py-2  tabular-nums slashed-zero">
-      <button @click="removeItem(index)" class="px-3 py-1 border border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white"><i class="fa-solid fa-trash-can"></i></button>
-    </div>
+    <td class="px-5 py-2 border tabular-nums slashed-zero">
+      <button @click="removeItem(index)" class="px-3 py-1 border border-red-500 text-red-500 rounded-md hover:bg-red-500 hover:text-white">Supprimer</button>
+    </td>
 </tr>
 <tr>
-  <button @click="openChoisir"  class="py-2 bg-blue-900 h-[60px] w-[200px] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded "><span class="space-x-2 px-2 item-center"><i class="pi pi-plus text-xl"></i></span>Nouveau</button>
+    <button id="add-row-button" class="px-8 py-2 border text-black-900 bg-gray-100"><span class="pi pi-plus"></span>Ajouter ligne</button>
 </tr>
 
               </tbody>
@@ -700,21 +579,19 @@
     <div class="col-span-1">
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-2">Remarque</label>
-            <input type="text" v-model="devis.remarque" class="w-full form-input border border-gray-300 rounded-md px-1/2 py-2">
+            <input type="text" class="w-full form-input border border-gray-300 rounded-md px-1/2 py-2">
         </div>
         <div class="mt-4">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Condition de Règlement</label>
-        <textarea class="w-full form-textarea border border-gray-300 rounded-md px-1/2 py-2" v-model="devis.condition" rows="3"></textarea>
-      </div>
-      <div class="mt-4">
-        <label class="block text-sm font-medium text-gray-700 mb-2">Mode de Paiement</label>
-        <select v-model="devis.paiement" class="w-full form-select border border-gray-300 rounded-md px-1/2 py-2">
-          <option value="">Sélectionner un mode de paiement</option>
-          <option value="carte">Carte de crédit</option>
-          <option value="paypal">PayPal</option>
-          <option value="virement">Virement bancaire</option>
-        </select>
-      </div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Condition de Règlement</label>
+            <textarea class="w-full form-textarea border border-gray-300 rounded-md px-1/2 py-2"  rows="3"></textarea>
+        </div>
+        <div class="mt-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Mode de Paiement</label>
+            <select 
+          class="w-full form-select border border-gray-300 rounded-md px-1/2 py-2">
+               
+            </select>
+        </div>
     </div>
     
     <div class="col-span-1 p-14" v-if="!isOpen && !modalOpenC" >
@@ -727,7 +604,7 @@
                         <th class="invisible"></th>
                         <th class="px-4 py-2 text-right border"><span class="flag-icon flag-icon-hu print:hidden"></span>Total HT</th>
                        
-                        <th class="px-4 py-2 text-right border text-right text-black border  bg-white tabular-nums slashed-zero">{{ totalHT}}$</th>
+                        <th class="px-4 py-2 text-right border text-right text-black border  bg-white tabular-nums slashed-zero">$</th>
                     </tr>
                     
                    
@@ -744,7 +621,7 @@
 <td class="px-4 py-2 text-right border text-center text-black border bg-white tabular-nums slashed-zero">
   <div class="flex items-center">
     <div class="relative">
-      <input v-model="devis.remise" type="number" class="space-x-2 px-3 py-4 border border-gray-300 rounded-md bg-white text-sm" placeholder="Montant de la remise">
+      <input  type="number" class="space-x-2 px-3 py-4 border border-gray-300 rounded-md bg-white text-sm" placeholder="Montant de la remise">
       <button @click="toggleDropdown" class="space-x-2  px-3 py-2 border p-2 border-gray-300 rounded-md bg-white text-sm">
         {{ selectedOption }}
         <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -770,7 +647,7 @@
                   <td class="invisible"></td>
                   <td class="invisible"></td>
                   <td class="px-4 py-2 font-extrabold text-right border"> Total TTC </td>
-                  <td class="px-4 py-2 text-right text-black border  bg-white tabular-nums slashed-zero" > {{ totalTTC}} $</td>
+                  <td class="px-4 py-2 text-right text-black border  bg-white tabular-nums slashed-zero" > $</td>
                 </tr>
                     <!-- Autres lignes du tableau -->
                     <!-- ... -->
@@ -901,46 +778,41 @@
   <script >
  
   import axios from 'axios';
- 
- import ShowDevis from './ShowDevis.vue';
+  
   export default {
-    props: ['produitId'],
-    components: {
-    ShowDevis
-  },
+   
     
     
 
     data() {
       return {
-        categories: [], 
-       
-      showNewCategorieModal: false, 
-      categorie: {
-        
-        
-      },
-        activeTab: 'article',
-        showImage: true,
         lienPartage: '',
         dropdownOpen: false,
       selectedOption: '$',
       remiseValue: 0,
-      totalTTC: 0,
-      totalHT: 0,
         result:{},
         activeTab1: '1',
         activeTab: '1',
          singleSelectedObject : {} , 
         tableOfSelectedOptions :[],
         resultProduit : {},
-        resultDevis : {},
-        showDevisModal: false,
+        resultfacture : {},
+        showfactureModal: false,
         modalOpen2: false,
-        devis : {
+        facture : {
          
         },
-        produits : [],
+        produits : { 
+          nom_article :'',
+        reference :'',
+        categorie :'',
+        description :'',
+        prix :'',
+        prix_unitaire:'',
+        tva :'' ,
+        type_unité :'',
+
+        },
         produit :[],
         client: [],
         clients : {
@@ -960,15 +832,12 @@
       produitSelectionne: null,
         selectedArticleId: null,
         selectedClientId: null,
-        selectedCategorieId: null,
         isOpen:false,
         isOpenn:false,
         isOpen2:false,
         modalOpenC: false,
-        modalOpenCategorie: false,
-        
         modalOpenFinaliser : false,
-        
+       
        
 
       
@@ -980,15 +849,8 @@
     watch:{
 
     } ,   
-    created(){
-      this.fetchCategories();
-
-
-
-    },
     mounted() {
-      
-      this.setActiveTab('article');
+        
         const generatePdfButton = document.getElementById('generate-pdf');
         if (generatePdfButton !== null) {
             
@@ -998,86 +860,6 @@
         }
     },
       methods: {
-        fetchData(type) {
-    axios.get(`http://localhost:8080/api/produits/type/${type}`)
-      .then(({ data }) => {
-        if (type === 'produit') {
-          this.produits = data;
-        } else if (type === 'traveaux') {
-          this.travaux = data;
-        } else if (type === 'mainoeuvre') {
-          this.mainoeuvres = data;
-        }
-        this.filteredData = data;
-        console.log('filterthom',this.filteredData)
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-},
-
-        handleCategorieSelection( event) {
-          const selectedCategorieId = event.target.value;
-
-    if (this.selectedCategorieId === 'nouvelle') {
-      this.modalOpenCategorie = true;
-
-    }
-    this.$emit('categorieSelected', selectedCategorieId);
-  },
-        fetchCategories() {
-      
-      axios.get('/api/categories/')
-        .then(response => {
-          this.categories = response.data;
-        })
-        .catch(error => {
-          console.error('Erreur lors de la récupération des catégories :', error);
-        });
-    },
-    createCategorie() {
-      
-      axios.post('/api/categories/add', this.categorie)
-      .then(response => {
-      const { data } = response;
-
-      
-      try {
-        
-          
-        
-          this.categorieload(); 
-          this.categories = {};
-          
-          this.closeModalCategorie(); 
-          
-          
-       
-      }
-        catch (err) {
-          console.error('Erreur lors de la création de la catégorie :', error);
-        }})
-      },
-        setActiveTab(tab) {
-      this.activeTab = tab;
-      this.produits.type = tab;
-    },
-    getTabClass(tab) {
-      return this.activeTab === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700';
-    },
-        handleImageProduitUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        // Convertir l'image en une URL de données pour l'affichage ou l'envoi au serveur
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        
-        reader.onload = () => {
-          this.produits.imageUrl = reader.result;
-          console.log('urlll',this.produits.imageUrl)
-        };
-      }
-    },
         handleImageUpload(event) {
       const file = event.target.files[0];
       if (file) {
@@ -1085,8 +867,8 @@
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onload = () => {
-          this.devis.imageUrl = reader.result;
-          console.log('urlll',this.devis.imageUrl)
+          this.facture.imageUrl = reader.result;
+          console.log('urlll',this.facture.imageUrl)
         };
       }
     },
@@ -1107,10 +889,10 @@
     this.calculateTotalTTC(); 
     this.calculateTotalHT(); // Mettre à jour totalHT après la mise à jour de la quantité
   },
-  exportToPDF(devisId) {
-      this.showDevisModal = true;
+  exportToPDF(factureId) {
+      this.showfactureModal = true;
       
-      this.$refs.showDevis.loadData(devisId);
+      this.$refs.showfacture.loadData(factureId);
     },
 
         generatePDF() {
@@ -1118,12 +900,12 @@
             const doc = new jsPDF();
 
             
-            doc.text('Devis', 10, 10);
+            doc.text('facture', 10, 10);
             doc.text('Nom de l\'entreprise : Mon entreprise', 10, 20);
             
-            doc.save('devis.pdf');
+            doc.save('facture.pdf');
         },
-       
+        
         handleClientSelection(event) {
         
         const selectedClientId = event.target.value;
@@ -1132,25 +914,14 @@
         
         this.$emit('clientSelected', selectedClientId);
     },
-    selectOption(option) {
-      this.selectedOption = option;
-     
-      this.dropdownOpen = false;
-      
-      this.remiseValue = this.devis.remise
-    
-      this.calculateTotalTTC();
-    },
     calculateTotalHT() {
   let totalHT = 0;
   for (const item of this.tableOfSelectedOptions) {
     totalHT += item.quantity * item.prix;
   }
-  this.totalHT = totalHT; 
+  this.totalHT = totalHT; // Mettre à jour la propriété totalHT
   return totalHT;
 },
-
-
 calculateTotalTTC() {
   const totalHT = this.calculateTotalHT(); 
   let totalTTC = 0;
@@ -1160,7 +931,7 @@ calculateTotalTTC() {
     const montantRemise = (totalHT * this.remiseValue) / 100; 
     totalTTC = totalHT - montantRemise;
   }
-  this.totalTTC = totalTTC;
+  this.totalTTC = totalTTC; // Mettre à jour la propriété totalTTC
   return totalTTC;
 },
 
@@ -1168,11 +939,10 @@ calculateTotalTTC() {
 
 
         editProduit(produit) {
-        
+        // Mettre à jour le produit sélectionné lorsqu'un produit est cliqué
         this.produitSelectionne = produit;
       },
       handleShowProduct(event){
-        this.showImage = false;
          console.log(event.target.value )      
          this.produit.forEach((item)=>{
           if(item._id === event.target.value){
@@ -1187,8 +957,8 @@ calculateTotalTTC() {
 
               }
           }
-        
-                 })       
+          // item._id === item.target.value ? console.log(item) : console.log('error')
+                 })        //  this.singleSelectedObject = 
          },
       calculateTotal() {
       let total = 0;
@@ -1204,10 +974,6 @@ calculateTotalTTC() {
         this.modalOpenC = true;
         
       },
-      openModalCategorie() {
-        this.modalOpenCategorie = true;
-        
-      },
       openModalFinaliser() {
         this.modalOpenFinaliser = true;
         
@@ -1215,11 +981,11 @@ calculateTotalTTC() {
       toggleDropdown() {
       this.dropdownOpen = !this.dropdownOpen;
     },
-   
+    selectOption(option) {
+      this.selectedOption = option;
+      this.dropdownOpen = false; 
+    }, 
 
-    closeModalCategorie() {
-        this.modalOpenCategorie = false;
-      },
      
       
       closeModalC() {
@@ -1263,8 +1029,7 @@ calculateTotalTTC() {
     created(){
  this.clientLoad("");
  this.produitLoad("");
- this.devisLoad("");
- this.categorieload("");
+ this.factureLoad("");
   },
  
   
@@ -1291,22 +1056,11 @@ calculateTotalTTC() {
 
 
        },
-       
-       categorieload() {
-         axios.get("http://localhost:8080/api/categories/")
-         .then(({data}) => {
-           
-            this.categories = data;
-           
-       });
-
-
-       },
-       devisLoad() {
-         axios.get("http://localhost:8080/api/devis/")
+       factureLoad() {
+         axios.get("http://localhost:8080/api/facture/")
          .then(({data}) => {
             
-            this.resultDevis = data;
+            this.resultfacture = data;
            
        });
 
@@ -1336,62 +1090,58 @@ calculateTotalTTC() {
   saveData() {
   
 
-   axios.post("http://localhost:8080/api/produits/add", this.produits)
-      .then(response => {
-        try {
-          const { data } = response;
-          console.log(data.status);
-
+  axios.post("http://localhost:8080/api/produits/add", this.produits)
+    .then(response => {
+      const { data } = response;
+      console.log(data.status);
+      try {
+        
           this.produitLoad(); 
           this.produits = {};
           this.selectedArticleId = null; 
           this.closeChoisir1(); 
-        } catch (err) {
-          console.log(err);
-          alert("Une erreur s'est produite, veuillez réessayer.");
-        }
-      })
-      .catch(error => {
-        console.error("Erreur:", error);
-        alert("Erreur lors de l'envoi des données. Veuillez réessayer.");
-      });
-  
+       
+      } catch (err) {
+        console.log(err);
+        alert("error,please try again");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
 },
-async saveDataDevis() {
+async saveDatafacture() {
 
-  this.devis.clientId = this.selectedClientId;
-  this.devis.categorieId = this.selectedCategorieId;
-  this.devis.produitId = this.selectedArticleId;
-  this.devis.totalHT = this.totalHT;
-      this.devis.totalTTC = this.totalTTC,
-  this.devis.remarque = this.remarque;
+  this.facture.clientId = this.selectedClientId;
+  this.facture.produitId = this.selectedArticleId;
+  this.facture.remarque = this.remarque;
 
 
   try {
     
     const postData = {
-      devis: this.devis,
+      facture: this.facture,
       produitsSelectionnes: this.tableOfSelectedOptions
     };
-    console.log('deviss mta3iiii',this.devis)
+    console.log('factures mta3iiii',this.facture)
 
-    // Envoi des données du devis au serveur
-    const responseDevis = await axios.post("http://localhost:8080/api/devis/add", postData);
+    // Envoi des données du facture au serveur
+    const responsefacture = await axios.post("http://localhost:8080/api/facture/add", postData);
 
-    
-    if (responseDevis.status === 200 || responseDevis.status === 201) {
-      console.log('Devis enregistré avec succès:', responseDevis.data);
+    // Si l'enregistrement du facture est réussi
+    if (responsefacture.status === 200 || responsefacture.status === 201) {
+      console.log('facture enregistré avec succès:', responsefacture.data);
 
-      
-      this.devisLoad();
-      this.devis = {};
+      // Réinitialisation des données du facture après l'enregistrement
+      this.factureLoad();
+      this.facture = {};
     } else {
-      console.error('Erreur lors de l\'enregistrement du devis:', responseDevis.statusText);
-      alert("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
+      console.error('Erreur lors de l\'enregistrement du facture:', responsefacture.statusText);
+      alert("Erreur lors de l'enregistrement du facture, veuillez réessayer.");
     }
   } catch (error) {
-    console.error('Erreur lors de l\'enregistrement du devis:', error.message);
-    alert("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
+    console.error('Erreur lors de l\'enregistrement du facture:', error.message);
+    alert("Erreur lors de l'enregistrement du facture, veuillez réessayer.");
   
 }
 
@@ -1402,7 +1152,27 @@ async saveDataDevis() {
 
     },
     mounted() {
-   
+    const addButton = document.querySelector('#add-row-button');
+
+    addButton.addEventListener('click', () => {
+      const tableBody = document.querySelector('#table-items tbody');
+
+      const newRow = document.createElement('tr');
+
+      newRow.innerHTML = `
+        <td class="px-2 py-4 border"></td>
+        <td class="px-5 py-2 text-right border tabular-nums slashed-zero"></td>
+        <td class="px-4 py-2 text-right border tabular-nums slashed-zero"></td>
+        <td class="px-4 py-2 text-right border tabular-nums slashed-zero"></td>
+        <td class="px-4 py-2 text-right border tabular-nums slashed-zero"></td>
+        <td class="px-4 py-2 text-right border tabular-nums slashed-zero"></td>
+      `;
+
+      tableBody.insertBefore(newRow, addButton.parentNode);
+      
+      
+
+    });
     axios.get("http://localhost:8080/api/client/")
     .then(({data}) => {
       console.log(data); // Just for debugging purposes
@@ -1418,16 +1188,6 @@ async saveDataDevis() {
     .then(({data}) => {
       console.log(data); 
       this.produit = data;
-       // Store the received data in the 'client' variable
-    })
-    .catch(error => {
-      console.error("Error fetching data:", error);
-      // Handle errors if any
-    });
-    axios.get("http://localhost:8080/api/categories/")
-    .then(({data}) => {
-      console.log(data); 
-      this.categories = data;
        // Store the received data in the 'client' variable
     })
     .catch(error => {

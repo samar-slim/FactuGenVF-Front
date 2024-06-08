@@ -4,7 +4,7 @@
       <button @click="close" class="absolute border-2xl top-4 right-4 text-red-600 dark:text-gray-300 hover:text-black dark:hover:text-white">
         <i class="fa-regular fa-circle-xmark"></i>
       </button>
-      <h1 class="text-2xl font-semibold mb-8">{{ modalTitle }} N°: {{ formDevis?.numDevis }}</h1>
+      <h1 class="text-2xl font-semibold mb-8">{{ modalTitle }} N°: {{ formFacture?.numDevis }}</h1>
       <div id="pdf">
       <div class="bg-white rounded shadow p-6 mb-8 " >
          <table class="w-full border-collapse border-spacing-0">
@@ -12,7 +12,7 @@
              <tr>
                <td class="w-full align-top">
                  <div>
-                  <img class=" w-30 h-20" :src="formDevis?.imageUrl"    />
+                  <img class=" w-30 h-20" :src="formFacture?.imageUrl"    />
                  </div>
                </td>
  
@@ -24,21 +24,21 @@
                          <td class="border-r pr-4">
                            <div>
                              <p class="whitespace-nowrap text-slate-400 text-right">Date d'émission</p>
-                             <span class="whitespace-nowrap font-bold text-main text-right">{{formDevis?.date_emission}}</span>
+                             <span class="whitespace-nowrap font-bold text-main text-right">{{formFacture?.date_emission}}</span>
                            </div>
                            <div>
                              <p class="whitespace-nowrap text-slate-400 text-right">Date d'expiration</p>
-                             <span class="whitespace-nowrap font-bold text-main text-right">{{formDevis?.date_expiration}}</span>
+                             <span class="whitespace-nowrap font-bold text-main text-right">{{formFacture?.date_expiration}}</span>
                            </div>
                          </td>
                          <td class="pl-4">
                            <div>
                              <p class="whitespace-nowrap text-slate-400 text-right">Invoice #</p>
-                             <span class="whitespace-nowrap font-bold text-main text-right">{{ formDevis?.numDevis}}</span>
+                             <span class="whitespace-nowrap font-bold text-main text-right">{{ formFacture?.numDevis}}</span>
                            </div>
                            <div>
                              <p class="whitespace-nowrap text-slate-400 text-right">Invoice Titre</p>
-                             <span class="whitespace-nowrap font-bold text-main text-right">{{ formDevis?.titre}}</span>
+                             <span class="whitespace-nowrap font-bold text-main text-right">{{ formFacture?.titre}}</span>
                            </div>
                        
                            
@@ -60,18 +60,18 @@
                <td class="w-1/2 align-top">
                  <div class="text-sm text-neutral-600">
                    <p class="font-bold">Supplier Company INC</p>
-                   <p>Number:<span>{{formDevis?.num }}</span></p>
-                   <p>SIRET Numéro: <span>{{formDevis?.num_siret }}</span></p>
-                   <p>Inter:<span>{{formDevis?.inter}}</span></p>
-                   <p>deleg  :<span>{{formDevis?.deleg}}</span></p>
-                   <p>email  :<span>{{formDevis?.email}}</span></p>
+                   <p>Number:<span>{{formFacture?.num }}</span></p>
+                   <p>SIRET Numéro: <span>{{formFacture?.num_siret }}</span></p>
+                   <p>Inter:<span>{{formFacture?.inter}}</span></p>
+                   <p>deleg  :<span>{{formFacture?.deleg}}</span></p>
+                   <p>email  :<span>{{formFacture?.email}}</span></p>
                  </div>
                </td>
                <td class="w-1/2 align-top text-right">
                  <div class="text-sm text-neutral-600">
                    <p class="font-bold">Customer Company</p>
                    <p >Numéro Client: {{ clientInfo?.numero }}</p>
-    <span>Nom:{{ formDevis?.clientInfo?.civilite }} {{ clientInfo?.name }}</span>
+    <span>Nom:{{ formFacture?.clientInfo?.civilite }} {{ clientInfo?.name }}</span>
     <p >Prénom: {{ clientInfo?.prenom }}</p>
     <p >mail: {{ clientInfo?.email }}</p>
     <p >Téléphone: {{ clientInfo?.téléphone }}</p>
@@ -121,7 +121,7 @@
                                  <div class="whitespace-nowrap text-slate-400">Net total:</div>
                                </td>
                                <td class="border-b p-3 text-right">
-                                 <div class="whitespace-nowrap font-bold text-main"></div>
+                                 <div class="whitespace-nowrap font-bold text-main"> {{formFacture?.totalTTC}}</div>
                                </td>
                              </tr>
                              <tr>
@@ -129,7 +129,7 @@
                                  <div class="whitespace-nowrap text-slate-400">VAT total:</div>
                                </td>
                                <td class="p-3 text-right">
-                                 <div class="whitespace-nowrap font-bold text-main">$64.00</div>
+                                 <div class="whitespace-nowrap font-bold text-main">{{formFacture?.totalHT}}</div>
                                </td>
                              </tr>
                              <tr>
@@ -137,7 +137,7 @@
                                  <div class="whitespace-nowrap font-bold text-white">Total:</div>
                                </td>
                                <td class="bg-main p-3 text-right">
-                                 <div class="whitespace-nowrap font-bold text-white">$384.00</div>
+                                 <div class="whitespace-nowrap font-bold text-white">{{formFacture?.totalTTC}}</div>
                                </td>
                              </tr>
                            </tbody>
@@ -154,12 +154,12 @@
  
        <div class="px-14 text-sm text-neutral-700">
          <p class="text-main font-bold">PAYMENT DETAILS</p>
-        <p>{{ formDevis?.condition}}</p>
+        <p>{{ formFacture?.condition}}</p>
        </div>
  
        <div class="px-14 py-10 text-sm text-neutral-700">
          <p class="text-main font-bold">Notes</p>
-         <p class="italic">{{formDevis?.remarque}}</p>
+         <p class="italic">{{formFacture?.remarque}}</p>
          </div>
  
          <footer class="fixed bottom-0 left-0 bg-slate-100 w-full text-neutral-600 text-center text-xs py-3">
@@ -173,11 +173,11 @@
        <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
    <i class="pi pi-trash"></i>
   </button>
-  <button type="submit" @click="saveDataDevis" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+  <button type="submit" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
     enovoyer  <i class="pi pi-send"></i>
 </button>
-<button @click="generateDocument('facture')">{{ buttonText }}</button>
-<button @click="close">{{ closeButtonText }}</button>
+<button></button>
+<button @click="close">{{ closeButtonText }} v</button>
 
 
   <button @click="exportToPDF" type="button" class="px-4 py-2 text-sm font-medium  bg-blue-800 text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
@@ -310,7 +310,7 @@ import { useRouter } from 'vue-router';
 export default {
   props: ['id', 'modalTitle', 'buttonText', 'closeButtonText'],
   setup(props, { emit }) {
-    const formDevis = ref(null);
+    const formFacture = ref(null);
     const formProduit = ref(null);
     const clientInfo = ref(null);
     const produitInfo = ref(null);
@@ -325,67 +325,72 @@ export default {
       });
     };
     const generateDocument = async (type) => {
-      if (type === 'devis') {
-        modalTitle.value = 'Devis';
-        sessionStorage.setItem('keepModalOpen', 'true');
-        sessionStorage.setItem('currentDevisId', props.id);
-        console.log('Redirection vers Listedevis avec modal ouvert');
-        await redirectToListeDevis();
-      } else if (type === 'facture') {
-        modalTitle.value = 'Facture';
-        sessionStorage.setItem('keepModalOpen', 'true');
-        sessionStorage.setItem('currentDevisId', props.id);
-        console.log('Redirection vers ListeFacture avec modal ouvert');
-        await createAndRedirectToFacture();
-      }
+  if (type === 'devis') {
+    modalTitle.value = 'Devis';
+    sessionStorage.setItem('keepModalOpen', 'true');
+    sessionStorage.setItem('currentDevisId', props.id);
+    console.log('Redirection vers Listedevis avec modal ouvert');
+    await redirectToListeDevis();
+  }else if (type === 'facture') {
+    modalTitle.value = 'Facture';
+    sessionStorage.setItem('keepModalOpen', 'true');
+    sessionStorage.setItem('currentDevisId', props.id);
+    console.log('Redirection vers ListeFacture avec modal ouvert');
+    const newFactureId = await createAndRedirectToFacture();
+    sessionStorage.setItem('showFactureModal', 'true');
+    sessionStorage.setItem('currentFactureId', newFactureId);
+  }
+};
+
+const createAndRedirectToFacture = async () => {
+  try {
+    // Récupérer les informations du devis à partir de l'ID du devis
+    const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
+    const factdata = {
+      nom_entreprise: devisInfo.data.devis.nom_entreprise,
+      num: devisInfo.data.devis.num,
+      code_postal: devisInfo.data.devis.code_postal,
+      ville: devisInfo.data.devis.ville,
+      email: devisInfo.data.devis.email,
+      num_tel: devisInfo.data.devis.num_tel,
+      num_siret: devisInfo.data.devis.num_siret,
+      num_tva: devisInfo.data.devis.num_tva,
+      inter: devisInfo.data.devis.inter,
+      deleg: devisInfo.data.devis.deleg,
+      titre: devisInfo.data.devis.titre,
+      numfacture: devisInfo.data.devis.numDevis, // Utilisation du numéro de devis comme numéro de facture
+      remarque: devisInfo.data.devis.remarque,
+      remise: devisInfo.data.devis.remise,
+      condition: devisInfo.data.devis.condition,
+      paiement: devisInfo.data.devis.paiement,
+      clientId: devisInfo.data.devis.clientId,
+      produitId: devisInfo.data.devis.produitId,
+      totalHT: devisInfo.data.devis.totalHT,
+      totalTTC: devisInfo.data.devis.totalTTC,
+      imageUrl: devisInfo.data.devis.imageUrl,
+      date_expiration: devisInfo.data.devis.date_expiration,
+      date_emission: devisInfo.data.devis.date_emission,
+
+
     };
-    const createAndRedirectToFacture = async () => {
-      try {
-        const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
-        const factdata = {
-          nom_entreprise: devisInfo.data.devis.nom_entreprise,
-          num: devisInfo.data.devis.num,
-          code_postal: devisInfo.data.devis.code_postal,
-          ville: devisInfo.data.devis.ville,
-          email: devisInfo.data.devis.email,
-          num_tel: devisInfo.data.devis.num_tel,
-          num_siret: devisInfo.data.devis.num_siret,
-          num_tva: devisInfo.data.devis.num_tva,
-          inter: devisInfo.data.devis.inter,
-          deleg: devisInfo.data.devis.deleg,
-          titre: devisInfo.data.devis.titre,
-          numfacture: devisInfo.data.devis.numDevis,
-          remarque: devisInfo.data.devis.remarque,
-          remise: devisInfo.data.devis.remise,
-          condition: devisInfo.data.devis.condition,
-          paiement: devisInfo.data.devis.paiement,
-          clientId: devisInfo.data.devis.clientId,
-          produitId: devisInfo.data.devis.produitId,
-          totalHT: devisInfo.data.devis.totalHT,
-          totalTTC: devisInfo.data.devis.totalTTC,
-          imageUrl: devisInfo.data.devis.imageUrl,
-          date_expiration: devisInfo.data.devis.date_expiration,
-          date_emission: devisInfo.data.devis.date_emission,
-        };
+    // Créer une nouvelle facture en utilisant les informations du devis
+    const response = await axios.post('http://localhost:8080/api/facture/add', {
+      // Mappage des champs du devis aux champs de la facture
+      facture:factdata,
+      produitsSelectionnes: devisInfo.data.produitsSelectionnes, // Inclure les produits sélectionnés
+    });
 
-        const response = await axios.post('http://localhost:8080/api/facture/add', {
-          facture: factdata,
-          produitsSelectionnes: devisInfo.data.produitsSelectionnes,
-        });
-
-        console.log("Facture créée avec succès:", response.data);
-        
-        // Stocker l'ID de la nouvelle facture dans session storage pour ouvrir le modal
-        await redirectToListeFacture();
-      } catch (error) {
-        console.error("Erreur lors de la création de la facture à partir du devis:", error);
-      }
-    };
-
+    // Vérifier la réponse et rediriger vers la liste des factures
+    console.log("Facture créée avec succès:", response.data);
+    await redirectToListeFacture();
+  } catch (error) {
+    console.error("Erreur lors de la création de la facture à partir du devis:", error);
+  }
+};
 
     const saveDataDevis = async () => {
       try {
-        await axios.put(`http://localhost:8080/api/devis/${props.id}`, formDevis.value);
+        await axios.put(`http://localhost:8080/api/devis/${props.id}`, formFacture.value);
         emit('close');
       } catch (error) {
         console.error("Erreur lors de la mise à jour du devis:", error);
@@ -401,6 +406,26 @@ export default {
         console.error("Erreur lors de la récupération des informations du produit:", error);
       }
     };
+    const getFactureById = async (id) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/facture/showFacture/${id}`);
+    formFacture.value = response.data.facture;
+    formProduit.value = response.data.produitsSelectionnes;
+    console.log('rrr',formFacture.value)
+
+    for (const produit of formProduit.value) {
+      console.log("Nom de l'article :", produit.nom_article);
+      console.log("Référence :", produit.reference);
+      console.log("Prix unitaire :", produit.prix_unitaire);
+      console.log("Quantité :", produit.quantity);
+    }
+
+    await getClientInfo(formFacture.value.clientId);
+  } catch (error) {
+    console.error("Erreur lors de la récupération du devis:", error);
+  }
+};
+ 
 
    
 
@@ -419,25 +444,7 @@ export default {
       }
     };
 
-    const getDevisById = async (id) => {
-  try {
-    const response = await axios.get(`http://localhost:8080/api/devis/showDevis/${id}`);
-    formDevis.value = response.data.devis;
-    formProduit.value = response.data.produitsSelectionnes;
-
-    for (const produit of formProduit.value) {
-      console.log("Nom de l'article :", produit.nom_article);
-      console.log("Référence :", produit.reference);
-      console.log("Prix unitaire :", produit.prix_unitaire);
-      console.log("Quantité :", produit.quantity);
-    }
-
-    await getClientInfo(formDevis.value.clientId);
-  } catch (error) {
-    console.error("Erreur lors de la récupération du devis:", error);
-  }
-};
- 
+    
 
     const getClientInfo = async (clientId) => {
       try {
@@ -455,10 +462,10 @@ export default {
     };
 
     onMounted(() => {
-      getDevisById(props.id);
+      getFactureById(props.id);
     });
 
-    watch(formDevis, (newValue) => {
+    watch(formFacture, (newValue) => {
       if (newValue) {
         const produitId = newValue.produitId;
         getProduitInfo(produitId);
@@ -466,7 +473,7 @@ export default {
     });
  
     return {
-      formDevis,
+      formFacture,
       formProduit,
       clientInfo,
       produitInfo,

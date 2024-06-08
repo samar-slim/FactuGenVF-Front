@@ -1,132 +1,155 @@
 <template>
-<div>
-<div>
-    <!-- Section avec l'image de fond -->
-    <section class="relative block h-[500px]">
-      <div
-        class="absolute top-0 w-full h-full bg-center bg-cover"
-        
-      >
-        <span
-          id="blackOverlay"
-          class="w-full h-full absolute opacity-50 bg-black"
-        ></span>
-      </div>
-      <div
-        class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-[70px]"
-        style="transform: translateZ(0)"
-      >
-        <svg
-          class="absolute bottom-0 overflow-hidden"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="none"
-          version="1.1"
-          viewBox="0 0 2560 100"
-          x="0"
-          y="0"
-        >
-          <polygon
-            class="text-blueGray-200 fill-current"
-            points="2560 0 2560 100 0 100"
-          ></polygon>
-        </svg>
-      </div>
-    </section>
+  <!-- component -->
+<div
+                                            class="h-full flex flex-col bg-gray-100 dark:bg-gray-700 shadow-xl overflow-y-scroll">
+                                            <div class="ml-3 h-7 flex justify-end items-center">
+                                                <button type="button"
+                                                    class="bg-gray-100 dark:bg-gray-700 m-1 p-3 justify-end rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500">
+                                                    <span class="sr-only">Close panel</span>
+                                                    <!-- Heroicon name: outline/x -->
+                                                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                                        aria-hidden="true">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="bg-green-300 shadow-lg pb-3 rounded-b-3xl">
+                                                <div
+                                                    class="flex  rounded-b-3xl bg-gray-100 dark:bg-gray-700 space-y-5 flex-col items-center py-7">
+                                                    <img class="h-28 w-28 rounded-full"
+                                                        src="https://api.lorem.space/image/face?w=120&h=120&hash=bart89fe"
+                                                        alt="User">
+                                                    <a href="#"> <span
+                                                            class="text-h1">Michele</span></a>
+                                                </div>
+                                                <div
+                                                    class="grid px-7 py-2  items-center justify-around grid-cols-3 gap-4 divide-x divide-solid ">
+                                                    <div class="col-span-1 flex flex-col items-center ">
+                                                        <span class="text-2xl font-bold dark:text-gray-500">4</span>
+                                                        <span class="text-lg font-medium 0">Ranking</span>
+                                                    </div>
+                                                    <div class="col-span-1 px-3 flex flex-col items-center ">
+                                                        <span class="text-2xl font-bold dark:text-gray-500">
+                                                           Free</span>
+                                                        <span class="text-lg font-medium">Plan</span>
+                                                    </div>
+                                                    <div class="col-span-1 px-3 flex flex-col items-center ">
+                                                        <span class="text-2xl font-bold dark:text-gray-500">
+                                                            546</span>
+                                                        <span class="text-lg font-medium">Puntos</span>
+                                                    </div>
+                                                </div>
 
-    <!-- Section avec les informations du profil -->
-    <section class="relative py-16 bg-blueGray-200">
-      <div class="container mx-auto px-4">
-        <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
-          <div class="px-6">
-            <div class="flex flex-wrap justify-center">
-              <!-- Image du profil -->
-              <div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
-                <div class="relative">
-                  <img
-                    alt="..."
-                   
-                    class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-[150px]"
-                  />
-                </div>
-              </div>
+                                            </div>
 
-              <!-- Bouton Connect -->
-              <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-                <div class="py-6 px-3 mt-32 sm:mt-0">
-                  <button
-                    class="bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                  >
-                    Connect
-                  </button>
-                </div>
-              </div>
+                                            <div
+                                                class="grid rounded-2xl divide-y divide-dashed hover:divide-solid  justify-evenly bg-gray-50 dark:bg-gray-300 m-3 mt-10 grid-cols-3">
+                                                <div class="col-span-1  p-3">
+                                                    <div class="flex flex-col items-center ">
+                                                        <a href=""> <button
+                                                                class="tr-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-14 w-14 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                                <span class="text-lg font-medium">Mon Profile</span>
+                                                            </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-1  p-3">
+                                                    <div class="flex flex-col items-center ">
+                                                        <a href=""> <button
+                                                                class="tr-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-14 w-14 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                                                </svg>
+                                                                <span class="text-lg font-medium">Mis dinero</span>
+                                                            </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-1  p-3">
+                                                    <div class="flex flex-col items-center ">
+                                                        <a href=""> <button
+                                                                class="tr-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-14 w-14 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                                                                </svg>
+                                                                <span class="text-lg font-medium">Notification</span>
+                                                            </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-1  p-3">
+                                                    <div class="flex flex-col items-center ">
+                                                        <a href="">
+                                                            <button class="tr-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-14 w-14 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                                                </svg>
+                                                                <span class="text-lg font-medium">Mon Factures</span>
+                                                            </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-1  p-3">
+                                                    <div class="flex flex-col items-center ">
+                                                        <a href=""> <button class="tr-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-14 w-14 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                                                </svg>
+                                                                <span class="text-lg font-medium">message</span>
+                                                            </button></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-span-1 bg-red-50 p-3">
+                                                    <div class="flex  flex-col items-center ">
+                                                        <a href=""> <button class="tr-300">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    class="h-14 w-14 text-gray-500" fill="none"
+                                                                    viewBox="0 0 24 24" stroke="currentColor"
+                                                                    stroke-width="2">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                                                </svg>
+                                                                <span class="text-lg font-medium">Partage</span>
+                                                            </button></a>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-              <!-- Statistiques -->
-              <div class="w-full lg:w-4/12 px-4 lg:order-1">
-                <div class="flex justify-center py-4 lg:pt-4 pt-8">
-                  <!-- Statistiques ici -->
-                </div>
-              </div>
-            </div>
-
-            <!-- Informations du profil -->
-            <div class="text-center mt-12">
-              <!-- Titre et localisation -->
-              <h3 class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                Jenna Stones
-              </h3>
-              <div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-                <i class="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                Los Angeles, California
-              </div>
-
-              <!-- Description et plus -->
-              <div class="mb-2 text-blueGray-600 mt-10">
-                <i class="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                Solution Manager - Creative Tim Officer
-              </div>
-              <div class="mb-2 text-blueGray-600">
-                <i class="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                University of Computer Science
-              </div>
-            </div>
-
-            <!-- Description détaillée -->
-            <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
-              <div class="flex flex-wrap justify-center">
-                <div class="w-full lg:w-9/12 px-4">
-                  <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                    An artist of considerable range, Jenna the name taken by
-                    Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                    performs and records all of his own music, giving it a
-                    warm, intimate feel with a solid groove structure. An
-                    artist of considerable range.
-                  </p>
-                  <a
-                    href="#pablo"
-                    class="font-normal text-lightBlue-500"
-                    @click.prevent
-                  >
-                    Show more
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </div>
-</div>
+                                            <div class="flex mx-auto mt-3 w-100 ">
+                                                <a href=""> <button
+                                                        class="p-2 shadow-lg rounded-2xl tr-300 w-100 font-medium  bg-green-500 rounded-md hover:bg-green-600 text-gray-50">Mejorar
+                                                        membresía</button></a>
+                                            </div>
+                                        </div>
 </template>
 
 <script>
 export default {
-  name: "Profile",
-};
+
+}
 </script>
 
-<style scoped>
-/* Vos styles personnalisés ici si nécessaire */
+<style>
+
 </style>

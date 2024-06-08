@@ -1,15 +1,13 @@
 <template>
   <div id="app" >
-
-  <master />
+<master />
       
-  <Header></Header>
+    
   </div>
 </template>
 
-<script >
+<script>
 import master from './components/pages/layout/master.vue';
-import Header from './components/layouts/Footer.vue'
 
 export default {
   name: 'App ',

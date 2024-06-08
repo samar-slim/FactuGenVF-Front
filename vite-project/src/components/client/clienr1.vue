@@ -141,3 +141,11 @@ export default {
   </div>
 </div>
 </template>
+handleCategorieSelection(event) {
+        
+  const selectedCategorieId = event.target.value;
+
+
+  
+  this.$emit('categorieSelected', selectedCategorieId);
+},

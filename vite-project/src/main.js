@@ -10,25 +10,19 @@ import 'primevue/resources/themes/aura-light-green/theme.css'
 import VTooltip from 'v-tooltip';
 import Vueform from '@vueform/vueform'
 import axios from "axios";
-import vuex from "vuex";
-//import login from './login.js';
-import store  from './store.js';
 
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 
 import vueformConfig from './../vueform.config'
-
-
 const app = createApp(App); // Créez une instance de votre application
 
 // Enregistrez le composant Avatar globalement pour l'utiliser dans toute l'application
 app.component('Avatar', Avatar);
 app.config.globalProperties.$http = axios; 
-app.use(vuex);
-app.use(router).use(store);
+
+app.use(router);
 app.use(VTooltip); // Enregistrez la bibliothèque des tooltips
 app.use(Vueform, vueformConfig)
-//app.use(login)
 
 // Montez votre application sur l'élément avec l'id "app" dans votre index.html
 app.mount('#app');

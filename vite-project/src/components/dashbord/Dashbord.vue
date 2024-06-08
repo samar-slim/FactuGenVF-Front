@@ -728,27 +728,24 @@ yaxis: {
 }
 
 if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
-    const chart = new ApexCharts(document.getElementById("data-labels-chart"), options);
-    chart.render();
+const chart = new ApexCharts(document.getElementById("data-labels-chart"), options);
+chart.render();
 }
 
-const salesChartCanvas = document.getElementById('salesChart');
-if (salesChartCanvas) {
-    const salesChartContext = salesChartCanvas.getContext('2d');
-    if (salesChartContext) {
-        new Chart(salesChartContext, {
-            type: 'bar',
-            data: salesData,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
-}
+
+    const salesChartCanvas = document.getElementById('salesChart').getContext('2d');
+
+    new Chart(salesChartCanvas, {
+      type: 'bar',
+      data: salesData,
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
 
   });
 

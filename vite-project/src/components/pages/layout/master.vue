@@ -1,108 +1,74 @@
-
 <template>
-  
   <div class="w-full h-full flex">
-     <adminSidebar v-if="$route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" 
+    <Sidebar :dataOpenSideBar="openSidebar" 
     :showClientInterface="openClientInterface" 
     :showListeClientInterface="openListeClientInterface" 
     :showListeFactureInterface="openListeFactureInterface"
     :showLFactureInterface="openFactureInterface"
     :showDevisInterface="openDevisInterface"
+    :showArticleInterface=" openInterfaceArticle"
 
     />
-    <Sidebar v-if="$route.path.startsWith('/user')" :dataOpenSideBar="openSidebar" 
-    :showClientInterface="openClientInterface" 
-    :showListeClientInterface="openListeClientInterface" 
-    :showListeFactureInterface="openListeFactureInterface"
-    :showLFactureInterface="openFactureInterface"
-    :showDevisInterface="openDevisInterface"
-
-    /> 
     
     <Facture v-if="showFacture"/>
-    
+    <Client v-if="showClient"/>
     <ListeClient  v-if="showListeClient" />
     <ListeFacture v-if="showListeFacture" />
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
-      <AppHeader v-if="$route.path.startsWith('/user') || $route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
-      <LandingHeader v-else />
-
+      <AppHeader :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <div class="w-full h-[calc(100vh-50px)]">
-     
         <router-view></router-view>
       </div>
     </div>
   </div>
 </template>
 
-<script >
+<script>
 
 import AppHeader from './../../global/AppHeader.vue'
-import adminHeader from './../../global/adminHeader.vue'
 import Sidebar from './../../global/Sidebar.vue'
-import adminSidebar from './../../global/adminSidebar.vue'
 import Client from '../../client/Client.vue'
 import ListeClient from '../../client/ListeClient.vue'
 import ListeFacture from '../../facture/ListeFacture.vue'
 import Facture from '../../facture/Facture.vue'
 import Devis from '../../devis/Devis.vue'
-import LandingHeader from './../../global/LandingHeader.vue'
-import store from '../../../store.js';
-import { mapGetters} from 'vuex'; 
-
-
-
-
-
-
 export default {
-  components:{AppHeader, Sidebar,adminSidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader, adminSidebar, adminHeader},
-  computed: {
-        ...mapGetters(['getCount','getIsLogedIn'])
-    },
-  
+  components: { AppHeader, Sidebar ,Client,ListeClient , ListeFacture ,Devis,Facture},
   data() {
     return {
-      openSidebar: false,
-      openAdminSidebar: false,
+      openSidebar: true,
       showClient: false,
-      showListeClient : false,
-      showListeFacture : false,
-      showFacture : false,
-      showDevis : false,
-      clinetPage: false,
-      Login :{
-        isLogedIn : false ,
-        token: null,
-        session: null,
-      }
+    showListeClient : false,
+    showListeFacture : false,
+    showFacture : false,
+    showDevis : false,
+    showArticleInterface : false,
     }
   },
   methods: {
     toggleSidebar() {
       this.openSidebar = !this.openSidebar
-    },
-    toggleAdminSidebar() {
-      this.openAdminSidebar = !this.openAdminSidebar
-    },
-  openClientInterface() {
-    this.showClient = false;
+    }
+    ,openClientInterface() {
+    this.showClient = true;
   },
   openListeClientInterface() {
-    this.showListeClient = false;
-  },
-  openListeFactureInterface() {
-      this.showListeFacture = false;
-  },
-  openFactureInterface() {
-      this.showFacture = false;
-  },
-  openDevisInterface() {
-      this.Devis = false;
-  }
-
+    this.showListeClient = true;
+},
+openListeFactureInterface() {
+    this.showListeFacture = true;
+},
+openFactureInterface() {
+    this.showFacture = true;
+},
+openDevisInterface() {
+    this.Devis = true;
+},
+openInterfaceArticle () {
+    this.showArticleInterface = true;
+},
 
  
 
