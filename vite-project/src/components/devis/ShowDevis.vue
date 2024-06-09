@@ -1,288 +1,482 @@
 <template>
-    <div class="max-w-3xl mx-auto">
-      <div class="flex justify-end mt-4">
-      <button  @click="openCustomizationPopup" type="button" class=" rounded-md bg-blue-500 py-1 px-2 text-center text-white hover:bg-blue-700 mr-20"> Personnaliser</button>
-      <customization-popup :themes="themes" :primaryColor="primaryColor" @updateColor="updateColor" @saveCustomization="saveCustomization" @close="closeCustomizationPopup" v-if="showCustomizationPopup "></customization-popup>
-    </div>
-     <div :class="['text-lg', 'py-4', fontClass, colorClass]" >
-       <div class="px-14 py-6">
-         <table class="w-full border-collapse border-spacing-0">
-           <tbody>
-             <tr>
-               <td class="w-full align-top">
-                 <div>
-                   <img src="https://raw.githubusercontent.com/templid/email-templates/main/templid-dynamic-templates/invoice-02/brand-sample.png" class="h-12" />
-                 </div>
-               </td>
- 
-               <td class="align-top">
-                 <div class="text-sm">
-                   <table class="border-collapse border-spacing-0">
-                     <tbody>
-                       <tr>
-                         <td class="border-r pr-4">
-                           <div>
-                             <p class="whitespace-nowrap text-slate-400 text-right">Date</p>
-                             <span class="whitespace-nowrap font-bold text-main text-right">{{form?.date_emission}}</span>
-                           </div>
-                         </td>
-                         <td class="pl-4">
-                           <div>
-                             <p class="whitespace-nowrap text-slate-400 text-right">Invoice #</p>
-                             <span class="whitespace-nowrap font-bold text-main text-right">{{ form?.titre}}</span>
-                           </div>
-                         </td>
-                       </tr>
-                     </tbody>
-                   </table>
-                 </div>
-               </td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
- 
-       <div class="bg-slate-100 px-14 py-6 text-sm">
-         <table class="w-full border-collapse border-spacing-0">
-           <tbody>
-             <tr>
-               <td class="w-1/2 align-top">
-                 <div class="text-sm text-neutral-600">
-                   <p class="font-bold">Supplier Company INC</p>
-                   <p>Number:<span> </span></p>
-                   <p>VAT: 23456789</p>
-                   <p>6622 Abshire Mills</p>
-                   <p>Port Orlofurt, 05820</p>
-                   <p>United States</p>
-                 </div>
-               </td>
-               <td class="w-1/2 align-top text-right">
-                 <div class="text-sm text-neutral-600">
-                   <p class="font-bold">Customer Company</p>
-                   <p v-if="clientInfo">Numéro Client: {{ clientInfo?.numero }}</p>
-    <span>Nom:{{ clientInfo?.civilite }} {{ clientInfo?.name }}</span>
-    <p v-if="clientInfo">Prénom: {{ clientInfo?.prenom }}</p>
-    <p v-if="clientInfo">mail: {{ clientInfo?.email }}</p>
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+  <div class="relative bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-3xl w-full">
+    <button @click="close" class="absolute border-2xl top-4 right-4 text-red-600 dark:text-gray-300 hover:text-black dark:hover:text-white">
+      <i class="fa-regular fa-circle-xmark"></i>
+    </button>
+    <h1 class="text-2xl font-semibold mb-8">{{ modalTitle }} N°: {{ formDevis?.numDevis }}</h1>
+    <div id="pdf">
+    <div class="bg-white rounded shadow p-6 mb-8 " >
+       <table class="w-full border-collapse border-spacing-0">
+         <tbody>
+           <tr>
+             <td class="w-full align-top">
+               <div>
+                <img class=" w-30 h-20" :src="formDevis?.imageUrl"    />
+               </div>
+             </td>
 
-
-                 </div>
-               </td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
- 
-       <div class="px-14 py-10 text-sm text-neutral-700">
-         <table class="w-full border-collapse border-spacing-0">
-           <thead>
-             <tr>
-               <td class="border-b-2 border-main pb-3 pl-3 font-bold text-main">#</td>
-               <td class="border-b-2 border-main pb-3 pl-2 font-bold text-main">Product details</td>
-               <td class="border-b-2 border-main pb-3 pl-2 text-right font-bold text-main">Price</td>
-               <td class="border-b-2 border-main pb-3 pl-2 text-center font-bold text-main">Qty.</td>
-               <td class="border-b-2 border-main pb-3 pl-2 text-center font-bold text-main">VAT</td>
-               <td class="border-b-2 border-main pb-3 pl-2 text-right font-bold text-main">Subtotal</td>
-               <td class="border-b-2 border-main pb-3 pl-2 pr-3 text-right font-bold text-main">Subtotal + VAT</td>
-             </tr>
-           </thead>
-           <tbody>
-             <tr>
-               <td class="border-b py-3 pl-3">1.</td>
-               <td class="border-b py-3 pl-2">Montly accountinc services</td>
-               <td class="border-b py-3 pl-2 text-right">$150.00</td>
-               <td class="border-b py-3 pl-2 text-center">1</td>
-               <td class="border-b py-3 pl-2 text-center">20%</td>
-               <td class="border-b py-3 pl-2 text-right">$150.00</td>
-               <td class="border-b py-3 pl-2 pr-3 text-right">$180.00</td>
-             </tr>
-             <tr>
-               <td class="border-b py-3 pl-3">2.</td>
-               <td class="border-b py-3 pl-2">Taxation consulting (hour)</td>
-               <td class="border-b py-3 pl-2 text-right">$60.00</td>
-               <td class="border-b py-3 pl-2 text-center">2</td>
-               <td class="border-b py-3 pl-2 text-center">20%</td>
-               <td class="border-b py-3 pl-2 text-right">$120.00</td>
-               <td class="border-b py-3 pl-2 pr-3 text-right">$144.00</td>
-             </tr>
-             <tr>
-               <td class="border-b py-3 pl-3">3.</td>
-               <td class="border-b py-3 pl-2">Bookkeeping services</td>
-               <td class="border-b py-3 pl-2 text-right">$50.00</td>
-               <td class="border-b py-3 pl-2 text-center">1</td>
-               <td class="border-b py-3 pl-2 text-center">20%</td>
-               <td class="border-b py-3 pl-2 text-right">$50.00</td>
-               <td class="border-b py-3 pl-2 pr-3 text-right">$60.00</td>
-             </tr>
-             <tr>
-               <td colspan="7">
-                 <table class="w-full border-collapse border-spacing-0">
+             <td class="align-top">
+               <div class="text-sm">
+                 <table class="border-collapse border-spacing-0">
                    <tbody>
                      <tr>
-                       <td class="w-full"></td>
-                       <td>
-                         <table class="w-full border-collapse border-spacing-0">
-                           <tbody>
-                             <tr>
-                               <td class="border-b p-3">
-                                 <div class="whitespace-nowrap text-slate-400">Net total:</div>
-                               </td>
-                               <td class="border-b p-3 text-right">
-                                 <div class="whitespace-nowrap font-bold text-main">$320.00</div>
-                               </td>
-                             </tr>
-                             <tr>
-                               <td class="p-3">
-                                 <div class="whitespace-nowrap text-slate-400">VAT total:</div>
-                               </td>
-                               <td class="p-3 text-right">
-                                 <div class="whitespace-nowrap font-bold text-main">$64.00</div>
-                               </td>
-                             </tr>
-                             <tr>
-                               <td class="bg-main p-3">
-                                 <div class="whitespace-nowrap font-bold text-white">Total:</div>
-                               </td>
-                               <td class="bg-main p-3 text-right">
-                                 <div class="whitespace-nowrap font-bold text-white">$384.00</div>
-                               </td>
-                             </tr>
-                           </tbody>
-                         </table>
+                       <td class="border-r pr-4">
+                         <div>
+                           <p class="whitespace-nowrap text-slate-400 text-right">Date d'émission</p>
+                           <span class="whitespace-nowrap font-bold text-main text-right">{{formDevis?.date_emission}}</span>
+                         </div>
+                         <div>
+                           <p class="whitespace-nowrap text-slate-400 text-right">Date d'expiration</p>
+                           <span class="whitespace-nowrap font-bold text-main text-right">{{formDevis?.date_expiration}}</span>
+                         </div>
+                       </td>
+                       <td class="pl-4">
+                         <div>
+                           <p class="whitespace-nowrap text-slate-400 text-right">Invoice #</p>
+                           <span class="whitespace-nowrap font-bold text-main text-right">{{ formDevis?.numDevis}}</span>
+                         </div>
+                         <div>
+                           <p class="whitespace-nowrap text-slate-400 text-right">Invoice Titre</p>
+                           <span class="whitespace-nowrap font-bold text-main text-right">{{ formDevis?.titre}}</span>
+                         </div>
+                     
+                         
                        </td>
                      </tr>
                    </tbody>
                  </table>
-               </td>
-             </tr>
-           </tbody>
-         </table>
-       </div>
- 
-       <div class="px-14 text-sm text-neutral-700">
-         <p class="text-main font-bold">PAYMENT DETAILS</p>
-         <p>Banks of Banks</p>
-         <p>Bank/Sort Code: 1234567</p>
-         <p>Account Number: 123456678</p>
-         <p>Payment Reference: BRA-00335</p>
-       </div>
- 
-       <div class="px-14 py-10 text-sm text-neutral-700">
-         <p class="text-main font-bold">Notes</p>
-         <p class="italic">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries
-           for previewing layouts and visual mockups.</p>
-         </div>
- 
-         <footer class="fixed bottom-0 left-0 bg-slate-100 w-full text-neutral-600 text-center text-xs py-3">
-           Supplier Company
-           <span class="text-slate-300 px-2">|</span>
-           info@company.com
-           <span class="text-slate-300 px-2">|</span>
-           +1-202-555-0106
-         </footer>
-       </div>
+               </div>
+             </td>
+           </tr>
+         </tbody>
+       </table>
      </div>
- </template>
 
+     <div class="bg-slate-100 px-14 py-6 text-sm">
+       <table class="w-full border-collapse border-spacing-0">
+         <tbody>
+           <tr>
+             <td class="w-1/2 align-top">
+               <div class="text-sm text-neutral-600">
+                 <p class="font-bold">Supplier Company INC</p>
+                 <p>Number:<span>{{formDevis?.num }}</span></p>
+                 <p>SIRET Numéro: <span>{{formDevis?.num_siret }}</span></p>
+                 <p>Inter:<span>{{formDevis?.inter}}</span></p>
+                 <p>deleg  :<span>{{formDevis?.deleg}}</span></p>
+                 <p>email  :<span>{{formDevis?.email}}</span></p>
+               </div>
+             </td>
+             <td class="w-1/2 align-top text-right">
+               <div class="text-sm text-neutral-600">
+                 <p class="font-bold">Customer Company</p>
+                 <p >Numéro Client: {{ clientInfo?.numero }}</p>
+  <span>Nom:{{ formDevis?.clientInfo?.civilite }} {{ clientInfo?.name }}</span>
+  <p >Prénom: {{ clientInfo?.prenom }}</p>
+  <p >mail: {{ clientInfo?.email }}</p>
+  <p >Téléphone: {{ clientInfo?.téléphone }}</p>
+
+
+
+               </div>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+
+     <div class="px-14 py-10 text-sm text-neutral-700">
+       <table class="w-full border-collapse border-spacing-0">
+         <thead>
+           <tr>
+             <td class="border-b-2 border-main pb-3 pl-3 font-bold text-main">Ref</td>
+             <td class="border-b-2 border-main pb-3 pl-2 font-bold text-main">Description</td>
+             <td class="border-b-2 border-main pb-3 pl-2 text-right font-bold text-main">Qté</td>
+             <td class="border-b-2 border-main pb-3 pl-2 text-center font-bold text-main">unité</td>
+             <td class="border-b-2 border-main pb-3 pl-2 text-center font-bold text-main">P.U HT</td>
+             <td class="border-b-2 border-main pb-3 pl-2 text-right font-bold text-main">Total(ht)</td>
+             
+           </tr>
+         </thead>
+         <tbody>
+          <tr v-for="(produit, index) in formProduit" :key="index">
+      <td class="border-b py-3 pl-3">#{{ produit?.reference }}</td>
+      <td class="border-b py-3 pl-2">{{ produit?.description }}</td>
+      <td class="border-b py-3 pl-2 text-right">{{ produit.quantity }}</td>
+      <td class="border-b py-3 pl-2 text-center">{{ produit.prix_unitaire }}</td>
+      <td class="border-b py-3 pl-2 text-center">{{ produit.prix }}</td>
+      <td class="border-b py-3 pl-2 text-right">{{ produit.total }}</td>
+    </tr>
+           <tr>
+             <td colspan="7">
+               <table class="w-full border-collapse border-spacing-0">
+                 <tbody>
+                   <tr>
+                     <td class="w-full"></td>
+                     <td>
+                       <table class="w-full border-collapse border-spacing-0">
+                         <tbody>
+                           <tr>
+                             <td class="border-b p-3">
+                               <div class="whitespace-nowrap text-slate-400">Net total:</div>
+                             </td>
+                             <td class="border-b p-3 text-right">
+                               <div class="whitespace-nowrap font-bold text-main"></div>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td class="p-3">
+                               <div class="whitespace-nowrap text-slate-400">VAT total:</div>
+                             </td>
+                             <td class="p-3 text-right">
+                               <div class="whitespace-nowrap font-bold text-main">$64.00</div>
+                             </td>
+                           </tr>
+                           <tr>
+                             <td class="bg-main p-3">
+                               <div class="whitespace-nowrap font-bold text-white">Total:</div>
+                             </td>
+                             <td class="bg-main p-3 text-right">
+                               <div class="whitespace-nowrap font-bold text-white">$384.00</div>
+                             </td>
+                           </tr>
+                         </tbody>
+                       </table>
+                     </td>
+                   </tr>
+                 </tbody>
+               </table>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+     </div>
+
+     <div class="px-14 text-sm text-neutral-700">
+       <p class="text-main font-bold">PAYMENT DETAILS</p>
+      <p>{{ formDevis?.condition}}</p>
+     </div>
+
+     <div class="px-14 py-10 text-sm text-neutral-700">
+       <p class="text-main font-bold">Notes</p>
+       <p class="italic">{{formDevis?.remarque}}</p>
+       </div>
+
+       <footer class="fixed bottom-0 left-0 bg-slate-100 w-full text-neutral-600 text-center text-xs py-3">
+         Supplier Company
+         <span class="text-slate-300 px-2">|</span>
+         info@company.com
+         <span class="text-slate-300 px-2">|</span>
+         +1-202-555-0106 
+       </footer>
+     </div>
+     <button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+ <i class="pi pi-trash"></i>
+</button>
+<button type="submit" @click="saveDataDevis" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+  enovoyer  <i class="pi pi-send"></i>
+</button>
+<button @click="generateDocument('facture')">{{ buttonText }}</button>
+<button @click="close">{{ closeButtonText }}</button>
+
+
+<button @click="exportToPDF" type="button" class="px-4 py-2 text-sm font-medium  bg-blue-800 text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+  <i class="fa-solid fa-download"></i>
+</button>
+
+
+     </div>
+     </div>
+     
+ 
+
+   <div class=" fixed relative bg-gray-50 dark:bg-slate-900  flex"   >
+    <div class="flex-grow flex justify-end">
+      <nav class="z-20 flex flex-col gap-4 border-r border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 fixed top-2/4 -translate-y-2/4 right-6 h-[400px] w-[100px] rounded-lg border">
+  <a
+      href="#Digitaliser"
+      class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 bg-indigo-50 text-indigo-600 dark:bg-sky-900 dark:text-sky-50"
+  >
+      <!-- HeroIcon - User -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+<defs>
+</defs>
+<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+<path d="M 67.245 21.439 c -1.104 0 -2 -0.896 -2 -2 V 2.136 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 17.303 C 69.245 20.543 68.35 21.439 67.245 21.439 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 2 71.518 c -1.104 0 -2 -0.896 -2 -2 V 2.136 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 67.382 C 4 70.622 3.104 71.518 2 71.518 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 77.622 89.864 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 c 3.931 0 7.237 -2.721 8.137 -6.377 H 67.245 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 H 88 c 1.104 0 2 0.896 2 2 C 90 84.312 84.447 89.864 77.622 89.864 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 67.245 79.487 c -1.104 0 -2 -0.896 -2 -2 V 53.169 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 24.318 C 69.245 78.592 68.35 79.487 67.245 79.487 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 12.377 89.864 C 5.553 89.864 0 84.312 0 77.487 v -7.97 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 7.97 c 0 4.619 3.758 8.377 8.377 8.377 c 1.104 0 2 0.896 2 2 S 13.482 89.864 12.377 89.864 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 77.622 89.864 H 12.377 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 65.245 c 1.104 0 2 0.896 2 2 S 78.727 89.864 77.622 89.864 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 12.377 89.864 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 c 4.619 0 8.377 -3.758 8.377 -8.377 c 0 -1.104 0.896 -2 2 -2 h 44.49 c 1.104 0 2 0.896 2 2 s -0.896 2 -2 2 H 24.593 C 23.635 85.364 18.521 89.864 12.377 89.864 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 41.739 52.07 H 15.876 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 25.863 c 1.104 0 2 0.896 2 2 S 42.844 52.07 41.739 52.07 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 71.038 40.392 c -1.073 0 -1.949 -0.845 -1.998 -1.906 c -1.061 -0.049 -1.906 -0.925 -1.906 -1.998 c 0 -1.104 0.896 -2 2 -2 c 2.153 0 3.904 1.751 3.904 3.904 C 73.038 39.496 72.143 40.392 71.038 40.392 z M 69.134 38.487 h 0.01 H 69.134 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 67.245 31.748 c -1.104 0 -2 -0.896 -2 -2 V 27.39 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 2.358 C 69.245 30.852 68.35 31.748 67.245 31.748 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 69.134 38.487 h -3.778 c -2.153 0 -3.904 -1.751 -3.904 -3.904 v -2.931 c 0 -2.153 1.751 -3.904 3.904 -3.904 h 3.778 c 2.153 0 3.904 1.751 3.904 3.904 c 0 1.104 -0.896 2 -2 2 c -1.072 0 -1.948 -0.844 -1.998 -1.904 h -3.589 v 2.74 h 3.683 c 1.104 0 2 0.896 2 2 S 70.238 38.487 69.134 38.487 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 67.245 47.586 c -1.104 0 -2 -0.896 -2 -2 v -2.358 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 2.358 C 69.245 46.69 68.35 47.586 67.245 47.586 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 69.134 45.228 h -3.778 c -2.153 0 -3.904 -1.751 -3.904 -3.904 c 0 -1.104 0.896 -2 2 -2 c 1.072 0 1.948 0.844 1.998 1.904 h 3.589 v -2.836 c 0 -1.104 0.896 -2 2 -2 s 2 0.896 2 2 v 2.932 C 73.038 43.476 71.287 45.228 69.134 45.228 z M 65.451 41.323 h 0.01 H 65.451 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 54.271 64.202 H 15.876 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 38.395 c 1.104 0 2 0.896 2 2 S 55.375 64.202 54.271 64.202 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 59.09 11.045 c -0.46 0 -0.92 -0.158 -1.293 -0.474 l -6.863 -5.814 l -6.862 5.814 c -0.746 0.632 -1.84 0.632 -2.586 0 l -6.863 -5.814 l -6.863 5.814 c -0.746 0.632 -1.84 0.632 -2.586 0 l -6.863 -5.814 l -6.862 5.814 c -0.746 0.632 -1.84 0.632 -2.586 0 L 0.707 3.662 C -0.136 2.948 -0.24 1.686 0.474 0.843 C 1.188 -0.001 2.45 -0.104 3.293 0.61 l 6.863 5.814 l 6.862 -5.814 c 0.746 -0.632 1.84 -0.632 2.586 0 l 6.863 5.814 L 33.33 0.61 c 0.746 -0.632 1.84 -0.632 2.586 0 l 6.863 5.814 l 6.862 -5.814 c 0.746 -0.632 1.84 -0.632 2.586 0 l 6.863 5.814 l 6.862 -5.814 c 0.843 -0.713 2.104 -0.61 2.819 0.233 c 0.714 0.843 0.609 2.105 -0.233 2.819 l -8.155 6.909 C 60.01 10.887 59.55 11.045 59.09 11.045 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 67.245 55.169 c -10.402 0 -18.865 -8.463 -18.865 -18.865 s 8.463 -18.865 18.865 -18.865 c 10.401 0 18.864 8.463 18.864 18.865 S 77.646 55.169 67.245 55.169 z M 67.245 21.439 c -8.196 0 -14.865 6.668 -14.865 14.865 s 6.669 14.865 14.865 14.865 S 82.109 44.5 82.109 36.304 C 82.109 28.107 75.441 21.439 67.245 21.439 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 34.69 39.939 H 15.876 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 H 34.69 c 1.104 0 2 0.896 2 2 S 35.794 39.939 34.69 39.939 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 41.739 27.808 H 15.876 c -1.104 0 -2 -0.896 -2 -2 s 0.896 -2 2 -2 h 25.863 c 1.104 0 2 0.896 2 2 S 42.844 27.808 41.739 27.808 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+</svg>
+
+      <small class="text-center text-xs font"> Digitaliser</small>
+  </a>
+
+  <a
+      href="#personnaliser"
+      class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800"
+  >
+      <!-- HeroIcon - Chart Bar -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+<defs>
+</defs>
+<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+<path d="M 15.77 15.77 C -3.126 34.666 -5.356 63.072 10.789 79.217 c 8.938 8.938 21.632 12.239 34.391 10.202 c 6.433 -1.027 10.16 -7.606 8.136 -13.798 c -2.193 -6.711 -1.029 -13.843 3.716 -18.589 s 11.878 -5.91 18.589 -3.716 c 6.192 2.023 12.771 -1.703 13.798 -8.136 c 2.038 -12.759 -1.264 -25.453 -10.202 -34.391 C 63.072 -5.356 34.666 -3.126 15.77 15.77 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(39,123,201); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<circle cx="21.448" cy="40.708" r="7.168" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,224,125); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+<circle cx="40.708" cy="21.448" r="7.168" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(126,178,249); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+<circle cx="65.548" cy="24.988" r="7.168" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(226,128,134); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+<circle cx="24.988" cy="65.548" r="7.168" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(149,214,164); fill-rule: nonzero; opacity: 1;" transform="  matrix(1 0 0 1 0 0) "/>
+<path d="M 39.88 41.784 c 6.069 0.029 13.488 1.33 20.603 8.035 c 4.015 3.784 4.386 9.037 1.152 12.467 c -3.233 3.431 -8.498 3.372 -12.514 -0.412 C 42.006 55.169 40.268 47.84 39.88 41.784 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(242,242,242); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 61.635 62.286 c -1.306 1.385 -2.945 2.191 -4.697 2.423 l 24.658 23.238 c 2.004 1.888 5.159 1.795 7.047 -0.209 s 1.795 -5.159 -0.209 -7.047 L 63.776 57.453 C 63.648 59.216 62.94 60.9 61.635 62.286 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(204,153,106); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+</svg>
+
+      <small class="text-center text-xs font-medium"> Personnalisé </small>
+  </a>
+
+  <a
+      href="#settings"
+      class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800"
+  >
+  <!-- HeroIcon - Cog-6-tooth -->
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="256" height="256" viewBox="0 0 256 256" xml:space="preserve">
+
+<defs>
+</defs>
+<g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)" >
+<path d="M 48.465 74.879 h -6.931 c -3.05 0 -5.531 -2.481 -5.531 -5.531 c 0 -1.327 -0.735 -2.528 -1.918 -3.136 c -0.679 -0.349 -1.354 -0.738 -2.005 -1.157 c -1.116 -0.718 -2.52 -0.753 -3.667 -0.09 c -2.643 1.525 -6.033 0.617 -7.557 -2.025 l -3.465 -6.002 c -0.738 -1.28 -0.935 -2.769 -0.553 -4.197 c 0.382 -1.427 1.297 -2.62 2.577 -3.359 c 1.148 -0.663 1.821 -1.898 1.757 -3.221 c -0.037 -0.772 -0.037 -1.551 0 -2.315 c 0.065 -1.329 -0.608 -2.566 -1.755 -3.228 c -0.007 -0.004 -0.015 -0.009 -0.022 -0.014 c -1.269 -0.739 -2.176 -1.926 -2.557 -3.346 c -0.383 -1.427 -0.186 -2.917 0.552 -4.197 l 3.465 -6.002 c 0.739 -1.279 1.932 -2.194 3.359 -2.577 c 1.428 -0.383 2.917 -0.187 4.197 0.553 c 1.147 0.661 2.579 0.611 3.737 -0.129 c 0.303 -0.194 0.611 -0.382 0.925 -0.563 c 0.313 -0.181 0.63 -0.354 0.949 -0.519 c 1.222 -0.632 1.981 -1.848 1.981 -3.172 c 0 -3.049 2.481 -5.531 5.531 -5.531 h 6.931 c 3.05 0 5.531 2.481 5.531 5.531 c 0 1.328 0.735 2.529 1.918 3.137 c 0.688 0.354 1.363 0.743 2.005 1.158 c 1.113 0.717 2.52 0.752 3.667 0.089 c 0.011 -0.006 0.021 -0.012 0.031 -0.018 c 1.272 -0.725 2.752 -0.915 4.167 -0.536 c 1.427 0.383 2.62 1.298 3.359 2.577 l 3.465 6.002 c 0.739 1.28 0.935 2.77 0.553 4.197 c -0.383 1.427 -1.297 2.62 -2.577 3.359 c -1.149 0.663 -1.822 1.897 -1.757 3.222 c 0.037 0.759 0.037 1.537 0 2.313 c -0.065 1.33 0.607 2.567 1.755 3.23 c 2.643 1.527 3.551 4.916 2.027 7.557 l -3.465 6.003 c -1.524 2.64 -4.913 3.547 -7.556 2.025 c -1.145 -0.662 -2.578 -0.613 -3.738 0.129 c -0.301 0.193 -0.609 0.381 -0.922 0.562 c -0.316 0.182 -0.633 0.354 -0.95 0.519 c -1.224 0.632 -1.983 1.847 -1.983 3.172 C 53.996 72.397 51.515 74.879 48.465 74.879 z M 30.174 62.49 c 1.039 0 2.076 0.296 2.989 0.883 c 0.595 0.384 1.213 0.74 1.836 1.059 c 1.853 0.953 3.004 2.835 3.004 4.913 c 0 1.948 1.584 3.534 3.532 3.534 h 6.931 c 1.947 0 3.532 -1.584 3.532 -3.532 c 0 -2.075 1.173 -3.971 3.062 -4.947 c 0.29 -0.15 0.581 -0.309 0.87 -0.475 c 0.283 -0.164 0.566 -0.336 0.842 -0.513 c 1.792 -1.147 4.02 -1.213 5.816 -0.178 c 1.684 0.972 3.851 0.394 4.824 -1.292 l 3.465 -6.003 c 0.471 -0.817 0.597 -1.769 0.353 -2.68 c -0.245 -0.912 -0.829 -1.673 -1.646 -2.145 c -1.802 -1.041 -2.856 -2.979 -2.755 -5.06 c 0.034 -0.711 0.034 -1.424 0 -2.119 c -0.101 -2.076 0.955 -4.011 2.753 -5.049 c 0.819 -0.473 1.404 -1.234 1.648 -2.146 c 0.244 -0.911 0.118 -1.863 -0.353 -2.68 l -3.465 -6.002 c -0.471 -0.817 -1.233 -1.401 -2.145 -1.645 c -0.913 -0.245 -1.864 -0.119 -2.68 0.353 c -0.011 0.006 -0.021 0.012 -0.031 0.017 c -1.795 1.021 -3.983 0.962 -5.719 -0.157 c -0.589 -0.379 -1.206 -0.736 -1.836 -1.06 c -1.853 -0.952 -3.004 -2.834 -3.004 -4.913 c 0 -1.95 -1.584 -3.534 -3.532 -3.534 h -6.931 c -1.947 0 -3.532 1.585 -3.532 3.532 c 0 2.075 -1.173 3.971 -3.062 4.948 c -0.291 0.151 -0.58 0.308 -0.867 0.474 c -0.288 0.166 -0.57 0.338 -0.846 0.514 c -1.79 1.147 -4.019 1.215 -5.816 0.178 l 0 0 c -0.817 -0.471 -1.768 -0.597 -2.68 -0.353 c -0.911 0.244 -1.673 0.828 -2.145 1.645 l -3.465 6.002 c -0.471 0.817 -0.597 1.769 -0.353 2.68 c 0.244 0.911 0.829 1.673 1.646 2.144 c 0.007 0.004 0.015 0.009 0.022 0.014 c 1.787 1.042 2.833 2.972 2.732 5.045 c -0.035 0.7 -0.035 1.414 0 2.121 c 0.101 2.075 -0.955 4.01 -2.753 5.049 c -1.687 0.974 -2.268 3.138 -1.293 4.825 l 3.465 6.002 c 0.973 1.687 3.137 2.266 4.825 1.293 C 28.272 62.737 29.224 62.49 30.174 62.49 z M 45.022 58.838 c -1.202 0 -2.411 -0.158 -3.603 -0.477 c -3.569 -0.956 -6.552 -3.245 -8.4 -6.445 l 0 0 c -1.847 -3.2 -2.338 -6.927 -1.382 -10.496 c 0.956 -3.569 3.245 -6.552 6.445 -8.4 c 3.199 -1.848 6.928 -2.338 10.497 -1.382 c 3.569 0.956 6.551 3.245 8.399 6.445 c 1.847 3.2 2.338 6.927 1.381 10.497 c -0.956 3.569 -3.245 6.551 -6.445 8.399 C 49.785 58.21 47.419 58.838 45.022 58.838 z M 44.981 33.161 c -2.051 0 -4.074 0.537 -5.898 1.591 c -2.738 1.58 -4.695 4.132 -5.514 7.185 c -0.818 3.053 -0.398 6.242 1.183 8.979 l 0 0 c 1.58 2.737 4.132 4.695 7.185 5.513 c 3.053 0.818 6.242 0.399 8.979 -1.182 c 2.737 -1.58 4.695 -4.132 5.513 -7.185 c 0.818 -3.053 0.398 -6.243 -1.182 -8.98 c -1.58 -2.738 -4.132 -4.695 -7.185 -5.514 C 47.043 33.297 46.008 33.161 44.981 33.161 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(11,50,94); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 8.054 69.864 c -0.328 0 -0.65 -0.161 -0.841 -0.458 c -9.189 -14.251 -9.634 -32.22 -1.162 -46.894 C 12.057 12.109 21.756 4.667 33.36 1.558 c 11.604 -3.109 23.725 -1.513 34.128 4.493 c 0.478 0.276 0.642 0.887 0.366 1.366 c -0.276 0.478 -0.889 0.641 -1.366 0.366 c -9.94 -5.739 -21.521 -7.264 -32.611 -4.294 C 22.789 6.46 13.522 13.571 7.782 23.512 c -8.096 14.022 -7.67 31.193 1.11 44.81 c 0.299 0.464 0.165 1.083 -0.298 1.382 C 8.427 69.812 8.239 69.864 8.054 69.864 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(11,50,94); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 44.927 89.994 c -7.794 0 -15.484 -2.043 -22.414 -6.044 c -0.478 -0.276 -0.642 -0.887 -0.366 -1.366 s 0.885 -0.643 1.366 -0.366 c 9.941 5.741 21.523 7.264 32.61 4.294 c 11.088 -2.971 20.355 -10.083 26.095 -20.024 c 7.321 -12.68 7.706 -28.043 1.03 -41.095 c -0.251 -0.492 -0.057 -1.094 0.435 -1.345 c 0.49 -0.252 1.093 -0.058 1.345 0.434 c 6.986 13.659 6.582 29.736 -1.079 43.005 C 77.943 77.891 68.244 85.334 56.64 88.443 C 52.766 89.48 48.833 89.994 44.927 89.994 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(11,50,94); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 71.545 15.829 c -1.087 0 -2.16 -0.285 -3.127 -0.843 c -1.452 -0.838 -2.489 -2.191 -2.924 -3.809 c -0.433 -1.619 -0.211 -3.31 0.627 -4.761 c 1.73 -2.996 5.575 -4.024 8.571 -2.296 c 1.452 0.838 2.489 2.191 2.923 3.81 c 0.433 1.618 0.211 3.309 -0.627 4.76 c -0.839 1.451 -2.191 2.489 -3.809 2.923 C 72.638 15.758 72.09 15.829 71.545 15.829 z M 71.563 5.28 c -1.479 0 -2.919 0.767 -3.709 2.136 c -0.571 0.989 -0.722 2.141 -0.427 3.243 c 0.295 1.103 1.003 2.025 1.991 2.595 c 2.042 1.178 4.659 0.476 5.839 -1.564 c 0.571 -0.989 0.722 -2.141 0.428 -3.243 c -0.296 -1.103 -1.003 -2.025 -1.991 -2.595 C 73.021 5.464 72.287 5.28 71.563 5.28 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(11,50,94); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 71.545 15.829 c -1.087 0 -2.16 -0.285 -3.127 -0.843 c -1.452 -0.838 -2.489 -2.191 -2.924 -3.809 c -0.433 -1.619 -0.211 -3.31 0.627 -4.761 c 1.73 -2.996 5.575 -4.024 8.571 -2.296 c 1.452 0.838 2.489 2.191 2.923 3.81 c 0.433 1.618 0.211 3.309 -0.627 4.76 c -0.839 1.451 -2.191 2.489 -3.809 2.923 C 72.638 15.758 72.09 15.829 71.545 15.829 z M 71.563 5.28 c -1.479 0 -2.919 0.767 -3.709 2.136 c -0.571 0.989 -0.722 2.141 -0.427 3.243 c 0.295 1.103 1.003 2.025 1.991 2.595 c 2.042 1.178 4.659 0.476 5.839 -1.564 c 0.571 -0.989 0.722 -2.141 0.428 -3.243 c -0.296 -1.103 -1.003 -2.025 -1.991 -2.595 C 73.021 5.464 72.287 5.28 71.563 5.28 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(11,50,94); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+<path d="M 18.434 86.723 c -1.087 0 -2.16 -0.285 -3.126 -0.842 c -1.451 -0.839 -2.489 -2.192 -2.923 -3.81 c -0.433 -1.618 -0.211 -3.309 0.627 -4.761 c 0.838 -1.452 2.191 -2.489 3.81 -2.923 c 1.619 -0.431 3.309 -0.211 4.76 0.627 c 2.996 1.73 4.026 5.574 2.297 8.57 c -0.838 1.452 -2.191 2.489 -3.81 2.924 C 19.528 86.651 18.98 86.723 18.434 86.723 z M 18.452 76.173 c -1.478 0 -2.918 0.766 -3.708 2.136 c -1.179 2.041 -0.477 4.661 1.564 5.839 c 0.989 0.572 2.141 0.725 3.243 0.427 c 1.103 -0.295 2.025 -1.003 2.596 -1.991 c 1.178 -2.041 0.476 -4.66 -1.565 -5.839 C 19.911 76.358 19.176 76.173 18.452 76.173 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(11,50,94); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round" />
+</g>
+</svg>
+
+      <small class="text-center text-xs font-medium"> option </small>
+  </a>
+
+  <hr class="dark:border-gray-700/60" />
+
+  <a
+      href="/"
+      class="flex h-16 w-16 flex-col items-center justify-center gap-1 text-fuchsia-900 dark:text-gray-400"
+  >
+  <!-- HeroIcon - Home Modern -->
+      <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="w-6 h-6"
+      >
+      <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m1.5.5l-1.5-.5M6.75 7.364V3h-3v18m3-13.636l10.5-3.819"
+      />
+      </svg>
+
+      <small className="text-xs font-medium">Home</small>
+  </a>
+  </nav>
+</div>
+</div>
+
+</template>
 <script>
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
-import customizationPopup from '../customizationPopup.vue';
-import { mapGetters } from 'vuex';
+import { ref, onMounted, watch } from 'vue';
+import html2pdf from 'html2pdf.js/dist/html2pdf';
+import { useRouter } from 'vue-router';
 
 export default {
-  
-  computed:{
-    ...mapGetters(['getToken'])
-  },components: {
-    customizationPopup,
-  },
-  setup(props) {
-    const showCustomizationPopup = ref(false);
-    const form = ref(null);
-    const clientInfo = ref(null);
+props: ['id', 'modalTitle', 'buttonText', 'closeButtonText'],
+setup(props, { emit }) {
+  const formDevis = ref(null);
+  const formProduit = ref(null);
+  const clientInfo = ref(null);
+  const produitInfo = ref(null);
+  const modalTitle = ref(props.modalTitle);
+  const router = useRouter();
+  const isOpen = ref(true);
 
-    const openCustomizationPopup = () => {
-      showCustomizationPopup.value = true;
-    };
-
-    const closeCustomizationPopup = () => {
-      showCustomizationPopup.value = false;
-      console.log('Close event received');
-    };
-    
-    
-    /* const updateColor = ({ type, color }) => {
-      // Update the selected color in the invoice component
-      if (type === 'primary') {
-        // Update the primary color
-        console.log('Selected primary color:', color);
-      }
-    };
-
-    const saveCustomization = ({ selectedTheme, selectedFont, primaryColor, textColor, tableStyle }) => {
-      // Apply the selected customization options to the invoice component
-      this.selectedTheme = selectedTheme;
-      this.selectedFont = selectedFont;
-      this.primaryColor = primaryColor;
-      this.textColor = textColor;
-      this.tableStyle = tableStyle;
-    };
- */ 
- const storedState = localStorage.getItem('store');
-      let authToken = '';
-
-      if (storedState) {
-        try {
-          const state = JSON.parse(storedState);
-          authToken = state.token;
-        } catch (e) {
-          console.error("Failed to parse stored state:", e);
-        }
-      }
-
-    const getDevisById = async (id) => {
-      try {
-        
-        const response = await axios.get('http://localhost:6666/api/devis/showDevis/${id}', this.form, {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-        form.value = response.data;
-        await getClientInfo(form.value.clientId);
-      } catch (error) {
-        console.error("Erreur lors de la récupération du devis:", error);
-      }
-    };
-
-    const getClientInfo = async (clientId) => {
-      try {
-        const response = await axios.get('http://localhost:6666/api/client/${clientId}', this.form, {
-        headers: {
-          'Authorization': `Bearer ${authToken}`
-        }
-      });
-        clientInfo.value = response.data;
-        console.log('Num Tel :: ', clientInfo.value.téléphone);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des informations du client:", error);
-      }
-    };
-
-    onMounted(() => {
-      const id = props.id;
-      getDevisById(id);
+  const exportToPDF = () => {
+    html2pdf(document.getElementById("pdf"), {
+      margin: 1,
+      filename: "devis.pdf",
     });
+  };
+  const generateDocument = async (type) => {
+    if (type === 'devis') {
+      modalTitle.value = 'Devis';
+      sessionStorage.setItem('keepModalOpen', 'true');
+      sessionStorage.setItem('currentDevisId', props.id);
+      console.log('Redirection vers Listedevis avec modal ouvert');
+      await redirectToListeDevis();
+    } else if (type === 'facture') {
+      modalTitle.value = 'Facture';
+      sessionStorage.setItem('keepModalOpen', 'true');
+      sessionStorage.setItem('currentDevisId', props.id);
+      console.log('Redirection vers ListeFacture avec modal ouvert');
+      await createAndRedirectToFacture();
+    }
+  };
+  const createAndRedirectToFacture = async () => {
+    try {
+      const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
+      const factdata = {
+        nom_entreprise: devisInfo.data.devis.nom_entreprise,
+        num: devisInfo.data.devis.num,
+        code_postal: devisInfo.data.devis.code_postal,
+        ville: devisInfo.data.devis.ville,
+        email: devisInfo.data.devis.email,
+        num_tel: devisInfo.data.devis.num_tel,
+        num_siret: devisInfo.data.devis.num_siret,
+        num_tva: devisInfo.data.devis.num_tva,
+        inter: devisInfo.data.devis.inter,
+        deleg: devisInfo.data.devis.deleg,
+        titre: devisInfo.data.devis.titre,
+        numfacture: devisInfo.data.devis.numDevis,
+        remarque: devisInfo.data.devis.remarque,
+        remise: devisInfo.data.devis.remise,
+        condition: devisInfo.data.devis.condition,
+        paiement: devisInfo.data.devis.paiement,
+        clientId: devisInfo.data.devis.clientId,
+        produitId: devisInfo.data.devis.produitId,
+        totalHT: devisInfo.data.devis.totalHT,
+        totalTTC: devisInfo.data.devis.totalTTC,
+        imageUrl: devisInfo.data.devis.imageUrl,
+        date_expiration: devisInfo.data.devis.date_expiration,
+        date_emission: devisInfo.data.devis.date_emission,
+      };
 
-    return {
-      showCustomizationPopup,
-      openCustomizationPopup,
-      closeCustomizationPopup,
-      form,
-      clientInfo,
-      fontClass: 'font-sans',
-      colorClass: 'text-black'
-    };
+      const response = await axios.post('http://localhost:8080/api/facture/add', {
+        facture: factdata,
+        produitsSelectionnes: devisInfo.data.produitsSelectionnes,
+      });
+
+      console.log("Facture créée avec succès:", response.data);
+      
+      // Stocker l'ID de la nouvelle facture dans session storage pour ouvrir le modal
+      await redirectToListeFacture();
+    } catch (error) {
+      console.error("Erreur lors de la création de la facture à partir du devis:", error);
+    }
+  };
+
+
+  const saveDataDevis = async () => {
+    try {
+      await axios.put(`http://localhost:8080/api/devis/${props.id}`, formDevis.value);
+      emit('close');
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du devis:", error);
+    }
+  };
+
+  const getProduitInfo = async (produitId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/produits/${produitId}`);
+      produitInfo.value = response.data;
+      console.log('Informations du produit:', response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des informations du produit:", error);
+    }
+  };
+
+ 
+
+  const redirectToListeDevis = async () => {
+    try {
+      await router.push('/Listedevis');
+    } catch (error) {
+      console.error("Erreur lors de la redirection vers ListeFacture :", error);
+    }
+  };
+  const redirectToListeFacture = async () => {
+    try {
+      await router.push('/ListeFacture');
+    } catch (error) {
+      console.error("Erreur lors de la redirection vers ListeFacture :", error);
+    }
+  };
+
+  const getDevisById = async (id) => {
+try {
+  const response = await axios.get(`http://localhost:8080/api/devis/showDevis/${id}`);
+  formDevis.value = response.data.devis;
+  formProduit.value = response.data.produitsSelectionnes;
+
+  for (const produit of formProduit.value) {
+    console.log("Nom de l'article :", produit.nom_article);
+    console.log("Référence :", produit.reference);
+    console.log("Prix unitaire :", produit.prix_unitaire);
+    console.log("Quantité :", produit.quantity);
   }
+
+  await getClientInfo(formDevis.value.clientId);
+} catch (error) {
+  console.error("Erreur lors de la récupération du devis:", error);
+}
+};
+
+
+  const getClientInfo = async (clientId) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
+      clientInfo.value = response.data;
+      console.log('Informations du client:', response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des informations du client:", error);
+    }
+  };
+
+  const close = () => {
+    emit('close');
+    isOpen.value = false;
+  };
+
+  onMounted(() => {
+    getDevisById(props.id);
+  });
+
+  watch(formDevis, (newValue) => {
+    if (newValue) {
+      const produitId = newValue.produitId;
+      getProduitInfo(produitId);
+    }
+  });
+
+  return {
+    formDevis,
+    formProduit,
+    clientInfo,
+    produitInfo,
+    modalTitle,
+    exportToPDF,
+    close,
+    saveDataDevis,
+    generateDocument,
+    isOpen,
+  };
+},
 };
 </script>

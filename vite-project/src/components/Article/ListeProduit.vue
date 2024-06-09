@@ -146,7 +146,7 @@
 
 <script>
 import axios from 'axios';
-import Produit from '../../../../Vuejs/vite-project/src/components/produit/Produit.vue';
+import Produit from '../produit/Produit.vue';
 
 export default {
   components: { Produit },
