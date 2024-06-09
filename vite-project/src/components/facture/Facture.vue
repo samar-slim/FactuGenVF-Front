@@ -1,66 +1,33 @@
 <template>
-  <div>
-    <button @click="toggleSidebar" class=" bg-teal-400  border border-white rounded-full h-auto  w-auto">Change Facutre </button>
-
-    <Sidebar 
-      :isOpen="isSidebarOpen" 
-      :selectedTemplate="selectedTemplate" 
-      :backgroundColor="backgroundColor" 
-      :headerColor="headerColor" 
-      :textColor="textColor"
-      @update:selectedTemplate="selectedTemplate = $event"
-      @update:backgroundColor="backgroundColor = $event"
-      @update:headerColor="headerColor = $event"
-      @update:textColor="textColor = $event"
-      @toggle-sidebar="toggleSidebar"
-    />
-
-    <div class="invoice-container">
-      <component 
-        :is="selectedTemplate" 
-        :background-color="backgroundColor" 
-        :header-color="headerColor" 
-        :text-color="textColor" 
-      />
+  <!-- component -->
+  <div class=" min-h-screen bg-cover bg-center" >
+    <div class="backdrop-blur-sm min-h-screen flex items-center justify-center">
+     <!--  <img src="c:/Users/hp/Downloads/49 Best Side Hustle Ideas that Can Make $100k+ Per Month.jpeg" alt="Image" class="h-[900px] w-[2000px] blur(5px)" /> -->
+    </div>
+    <div class="flex justify-between items-center absolute bottom-0 left-1/2 transform -translate-x-1/4 w-[10000px] max-w-2xl p-1 space-x-4">
+      <button @click="navigateToListeDevis" class="bg-blue-400 font-bold bg-opacity-60 hover:bg-opacity-80 text-black  py-60 px-20 w-full max-w-xs rounded backdrop-blur-sm">
+        Générer facture par un devis
+      </button>
+      <button @click="navigateToNewFacture" class="bg-blue-400 font-bold bg-opacity-60 hover:bg-opacity-80 text-black py-60 px-20 w-full max-w-xs rounded backdrop-blur-sm">
+        Générer manuellement
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import Sidebar from './FactureSidebar.vue';
-import Template1 from './Template1.vue';
-import Template2 from './Template2.vue';
-import Template3 from './Template3.vue';
-
 export default {
-  components: {
-    Sidebar,
-    template1: Template1,
-    template2: Template2,
-    template3: Template3
-  },
-  data() {
-    return {
-      isSidebarOpen: false,
-      selectedTemplate: 'template1',
-      backgroundColor: '#f8f8f8',
-      headerColor: '#374151',
-      textColor: '#374151'
-    }
-  },
   methods: {
-    toggleSidebar() {
-      this.isSidebarOpen = !this.isSidebarOpen;
-    }
+    navigateToListeDevis() {
+      this.$router.push('/ListeDevis');
+    },
+    navigateToNewFacture() {
+      this.$router.push('/newFacture');
+    },
   }
 }
 </script>
 
 <style scoped>
-/* Add any styles specific to the main component here */
-.invoice-container {
-  margin-left: 20px;
-  padding: 20px;
-}
-</style>
 
+</style>

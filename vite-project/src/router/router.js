@@ -7,32 +7,41 @@ import ForgetPassword from '../views/ForgetPassword.vue';
 import resetPassword from '../views/ResetPassword.vue';
 import Client from '../components/client/Client.vue';
 import ListeClient from '../components/client/ListeClient.vue';
+import master from '../components/pages/layout/master.vue'
 import ListeFacture from '../components/facture/ListeFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
 import Reclamation from '../components/reclamation/Reclamation.vue';
-import Setting from '../components/global/profilesettings.vue'
+//import Setting from '../components/global/profilesettings.vue'
+import Setting from '../components/profil/Setting.vue'
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
 import NewDevis from '../components/devis/NewDevis.vue'
+//import ListeDevis from '../components/devis/ListeDevis.vue'
+import ProduitArt  from '../components/Article/Produit.vue'
+import ShowDevis from '../components/devis/ShowDevis.vue'
+import UserCard from '../components/profil/UserCard.vue'
+import NewFacture from '../components/facture/NewFacture.vue'
 import Produit  from '../components/produit/Produit.vue'
 import digitalisation from '../components/digitalisation.vue'
-import showDevis from '../components/devis/ShowDevis.vue'
-import listeUsers from '../admin/listeUsers.vue'
+import GestionArticle from '../components/Article/Article.vue'
+import ListeProduit from '../components/Article/ListeProduit.vue'
+import Suivie from '../components/Suivie/Suivie.vue';
+import MainDouvre from '../components/Article/MainDouvre.vue';
+import ListeTraveau   from '../components/Article/Traveaux.vue';
+import Avoir from '../components/Avoir/Avoir.vue';
+import ShowFacture from '../components/facture/ShowFacture.vue'
+import adminDashboard from '../admin/dashboard.vue'
+import listeUsers from '../admin/listeUsers.vue';
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
-import adminDashboard from '../admin/dashboard.vue';
-import { mapGetters } from 'vuex/dist/vuex.cjs.js';
-import profilesettings from '../components/global/profilesettings.vue';
+import showDevis from '../components/devis/ShowDevis.vue';
+import profilesettings from '../components/profil/Setting.vue';
 import AIPage from '../components/global/AIPage.vue';
-
 const router = createRouter({
   history: createWebHistory(),
-  ...mapGetters(['getIsLogedIn']),
   routes: [
-    
-    
     {path: '/admin',
 
       children:[
@@ -83,7 +92,64 @@ const router = createRouter({
 
     },
 
-    { path: '/newDevis', component: NewDevis },
+    {
+      path: '/',
+      name: 'master',
+      component: master
+    },
+    {
+      path: '/ListeProduit',
+      name: 'ListeProduit',
+      component: ListeProduit
+    },
+    {
+      path: '/profil1',
+      name: 'UseCard',
+      component: UserCard
+    },
+    {
+      path: '/suivie',
+      name: 'suivie',
+      component: Suivie
+    },
+    {
+      path: '/gestionArticle',
+      name: 'GestionArticle',
+      component: GestionArticle
+    },
+    {
+      path: '/Digitalisation',
+      name: 'digitalisation',
+      component: digitalisation
+    },
+    {
+      path: '/ListeDevis',
+      name: 'ListeDevis',
+      component: ListeDevis
+    },
+    {
+      path: '/show/:id',
+      name: 'ShowDevis',
+      component: ShowDevis,
+      props: true
+    },
+    {
+      path: '/showfacture/:id',
+      name: 'ShowFactuure',
+      component: ShowFacture,
+      props: true
+    },
+    
+    {
+      path: '/newDevis',
+      name: 'NewDevis',
+      component: NewDevis
+    },
+    {
+      path: '/newFacture',
+      name: 'NewFacture',
+      component: NewFacture
+    },
     {
       path: '/produit',
       name: 'Produit',
@@ -101,7 +167,7 @@ const router = createRouter({
     },
    
     {
-      path: '/client',
+        path: '/client',
       name: 'Client',
       component: Client
     },
@@ -114,11 +180,6 @@ const router = createRouter({
       path: '/devis',
       name: 'Devis',
       component: Devis
-    },
-    {
-      path: '/Reclamation',
-      name: 'Reclamation',
-      component: Reclamation
     },
     {
       path: '/ListeClient',
@@ -135,6 +196,28 @@ const router = createRouter({
       name: 'ListeFacture',
       component: ListeFacture
     },
+    {
+      path: '/produitArt',
+      name: 'Produit',
+      component:ProduitArt
+    },
+    {
+      path: '/ListeMainDouvre',
+      name: ' MainDouvre',
+      component: MainDouvre
+    },
+    {
+      path: '/ListeTraveau',
+      name: ' ListeTraveau',
+      component: ListeTraveau
+    },
+    {
+      path: '/Avoir',
+      name: ' Avoir',
+      component: Avoir
+    },
+   
+   
     {
       path: '/Digitalisation',
       name: 'digitalisation',
@@ -185,8 +268,9 @@ const router = createRouter({
       name: 'ai',
       component: AIPage,
     }
-    
    
   ]
 });
+
 export default router;
+
