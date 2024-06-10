@@ -81,19 +81,22 @@ const store = new Vuex.Store ({
 
         async logoutUser({ commit, getters }) {
             try {
-              const token = getters.getToken;
-              if (!token) {
+              const authToken = getters.getToken;
+              console.log(authToken);
+              if ( !authToken) {
                 throw new Error('No token available for logout');
               }
       
               // Set the request headers with Authorization token
               const headers = {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Include the JWT token
+                'Authorization': `Bearer ${authToken}` // Include the JWT token
               };
-      
+              let data = {
+                token: authToken
+              }
               // Make the POST request to the logout endpoint
-              await axios.post('/api/auth/logout', {}, { headers });
+              await axios.post('/api/auth/logout', data, { headers });
       
               // Commit the logout mutation
               commit('logout');

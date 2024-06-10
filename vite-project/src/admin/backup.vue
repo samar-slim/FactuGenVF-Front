@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <h1>Backup</h1>
+    <h1></h1>
     <BackupStatus :backupData="backupData" />
     <StorageMethod :storageData="storageData" />
-    <RecentOperations :operations="recentOperations" />
+    <RecentOperations :operations="recentOperations" class="mt-1" />
     <BackupScheduling @scheduleBackup="scheduleBackup" />
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
   name: 'App',
   components: {
     BackupStatus,
-    StorageMethod,
     RecentOperations,
     BackupScheduling
   },

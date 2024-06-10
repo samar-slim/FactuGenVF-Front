@@ -16,13 +16,13 @@
   <!-- Action buttons -->
   <span class="sr-only">Action buttons</span>
   <div class="flex space-x-2 justify-start">
-    <button class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+    <button @click="disableUser" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
       Désactiver
     </button>
    <!--  <button class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
       Promote
     </button> -->
-    <button class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+    <button @click="activateSelectedUsers" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
       Activer
     </button>
     <button @click="deleteSelectedUsers" class="inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
@@ -62,11 +62,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="user in users" :key="user.email" class="hover:bg-gray-50 dark:hover:bg-gray-600">
+        <tr v-for="user in filteredUsers" :key="user.email" class="hover:bg-gray-50 dark:hover:bg-gray-600">
           <td class="w-4 p-4">
             <div class="flex items-center">
-              <input :id="'checkbox-' + user.id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="selectedUsers" :value="user.id">
-              <label :for="'checkbox-' + user.id" class="sr-only">checkbox</label>
+              <input  :id="'checkbox-' + user.id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" v-model="selectedUsers" :value="user.id">
+              <label :for="'checkbox-' + user.id" v-if="selectedUsers.includes(user.id)" class="sr-only">checkbox</label>
             </div>
           </td>
           <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white cursor-pointer" @click="showUserDetails(user)">{{ user.prenom }}</td>
@@ -127,15 +127,27 @@ export default {
     isModalVisible: false,
       selectedUser: {},
       selectedUsers: [],
+      selectedUsersMap: new Map(),
       currentPage: 1,
       usersPerPage: 10,
+      searchQuery: '',
     };
   },
   async created(){
     this.users = await this.getAllUsers();
   },
   computed: {
-
+    filteredUsers() {
+      if (!this.searchQuery) {
+        return this.users;
+      }
+      const query = this.searchQuery.toLowerCase();
+      return this.users.filter(user =>
+        user.nom.toLowerCase().includes(query) ||
+        user.prenom.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query)
+      );
+    },
     totalUsers() {
       return this.users.length;
     },
@@ -152,10 +164,17 @@ export default {
     },
     endItem() {
       return Math.min(this.currentPage * this.usersPerPage, this.totalUsers);
-    }
+    },
+
+
+  },
+  mounted() {
+    this.fetchUsers();
   },
   methods: {
-
+    async fetchUsers() {
+      this.users = await this.getAllUsers();
+    },
     
     async getAllUsers(){
       
@@ -175,7 +194,7 @@ export default {
       }
      });
      let users = response.data;
-  
+
      return users
     },
     showUserDetails(user) {
@@ -195,10 +214,72 @@ export default {
         this.selectedUsers = [];
       }
     },
-    deleteSelectedUsers() {
-      this.users = this.users.filter((user) => !this.selectedUsers.includes(user.id));
-      this.selectedUsers = [];
+    getAuthToken() {
+      let storedState = localStorage.getItem('store');
+      if (storedState) {
+        try {
+          let state = JSON.parse(storedState);
+          return state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state", e);
+        }
+      } else {
+        return null;
+      }
     },
+    async deleteSelectedUsers() {
+      this.users = this.users.filter((user) => !this.selectedUsers.includes(user.id));
+      console.log("Selected users:", this.selectedUsers);
+      await axios.delete(`http://localhost:8080/api/account`,
+       {
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`
+        },
+        data: {
+          users: this.selectedUsers
+        }
+      })
+      .then((response) => {
+        console.log("Users deleted successfully");
+        this.selectedUsers = [];
+      })
+      .catch((error) => {
+        console.error("Failed to delete users:", error);
+      })
+      
+      
+    },
+
+    async disableUser() {
+      this.users = this.users.filter((user) => !this.selectedUsers.includes(user.id));
+      console.log("Selected users:", this.selectedUsers);
+      axios.post(`http://localhost:8080/api/account/disable`,
+      { users : this.selectedUsers}, {
+        headers: {
+          'Authorization': `Bearer ${this.getAuthToken()}`
+        }
+      }).then((response) => {
+        console.log("Users disabled successfully");
+      }).catch((error) => {
+        console.error("Failed to disable users:", error);
+      })
+    },
+    async activateSelectedUsers() {
+      this.users = this.users.filter((user) => !this.selectedUsers.includes(user.id));
+      console.log("Selected users:", this.selectedUsers);
+      await axios.post('http://localhost:8080/api/account/activate',
+      { users : this.selectedUsers},
+      {
+      headers: {
+        'Authorization': `Bearer ${this.getAuthToken()}`
+      }
+     }).then((response) => {
+        console.log("Users activated successfully");
+      }).catch((error) => {
+        console.error("Failed to activate users:", error);
+      })
+    },
+    
     changePage(page) {
       if (page > 0 && page <= this.totalPages) {
         this.currentPage = page;
