@@ -126,17 +126,30 @@ export default {
         }
       };
 
-      axios.post('http://localhost:8080/api/auth/signup', userData)
-        .then(response => { 
-          console.log('Sign up successful:', response.data);
-          this.$router.push('/login')
-          // Optionally, redirect to a success page or show a success message
-        })
-        .catch(error => {
-          console.error('Sign up error:', error.response.data);
-          // Optionally, display an error message to the user
-          console.log(userData);
-        });
+     axios.post('http://localhost:8080/api/auth/signup', userData)
+  .then(response => { 
+    console.log('Sign up successful:', response.data);
+    store.commit('setJustSignedUp', true);
+    // Assuming the response contains the token
+    const token = response.data.token;
+
+    // Store the token in localStorage (or Vuex store)
+    localStorage.setItem('authToken', token);
+
+    // Set the token in the axios headers for future requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    // Optionally, store user data in Vuex store or component state
+    this.$store.commit('setUser', response.data.user); // Assuming you have a Vuex mutation to set user
+
+    // Redirect to a protected route or home page
+    this.$router.push('/user/dashbord');
+  })
+  .catch(error => {
+    console.error('Sign up error:', error.response.data);
+    // Optionally, display an error message to the user
+  });
+
     }
   }
 };

@@ -1,5 +1,8 @@
 <template>
   <div class="mt-12">
+    
+    <popup v-if="showPopup" @close="closePopup" />
+    
     <!-- Statistiques des cartes -->
     <!-- cards -->
     <div class="w-full px-6 py-6 mx-auto">
@@ -888,6 +891,21 @@
 import { onMounted } from 'vue';
 import ApexCharts from 'apexcharts';
 import 'flowbite/dist/flowbite.min.js';
+import Popup from '../../views/EntrepriseInfo.vue';
+const store = useStore();
+const showPopup = ref(false);
+
+const closePopup = () => {
+  showPopup.value = false;
+};
+
+const checkSignupStatus = () => {
+  if (store.state.justSignedUp) {
+    showPopup.value = true;
+    store.commit('setJustSignedUp', false); // Reset the state
+  }
+};
+
 onMounted(() => {
 const getChartOptions = () => {
   return {
