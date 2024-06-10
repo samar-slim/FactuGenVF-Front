@@ -63,6 +63,7 @@ const router = createRouter({
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
         { path: 'setting',   component: Setting },
+        { path: 'Avoir', component: Avoir},
       ]
 
     },
@@ -79,15 +80,21 @@ const router = createRouter({
         { path: 'ListeFacture' ,  component: ListeFacture},
         { path: 'Digitalisation',  component: digitalisation},
         { path: 'showDevis',   component: showDevis},       
-        { path: 'setting',    component: Setting},
         { path: 'facture',component: Facture},
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
-        { path: 'setting',   component: Setting },
         { path: 'reclamation',  component: Reclamation},
         { path: 'Profilesettigns',  component: profilesettings},
-        { path: '/newDevis', component: NewDevis },
+        { path: 'newDevis', component: NewDevis },
+        { path: 'Avoir', component: Avoir},
         { path: 'ListeDevis', component: ListeDevis },
+        { path: 'newFacture', component: NewFacture },
+        { path: 'ListeMainDouvre', component: MainDouvre },
+        { path: 'ListeTraveau', component: ListeTraveau },
+        { path: 'ListeProduit', component: ListeProduit },
+        { path: 'ListeArticle', component: GestionArticle },
+        { path: 'showFacture/:id', component: ShowFacture },
+        { path: 'suivie', component: Suivie },
       ]
 
     },
@@ -216,8 +223,6 @@ const router = createRouter({
       name: ' Avoir',
       component: Avoir
     },
-   
-   
     {
       path: '/Digitalisation',
       name: 'digitalisation',
