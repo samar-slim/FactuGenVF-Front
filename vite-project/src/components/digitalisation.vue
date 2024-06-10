@@ -9,7 +9,7 @@
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
             <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
         </div>
-        <input id="dropzone-file" type="file" class="hidden" />
+        <input id="dropzone-file" type="file" @change="uploadImage" class="hidden" />
     </label>
 </div>
 
@@ -19,7 +19,44 @@
 </template>
 
 <script>
+import axios from 'axios';
+import Facture from './facture/Facture.vue';
 export default {
+
+    data() {
+        return {
+            digitalisation: null
+        }
+    },
+   
+    methods: {
+        async uploadImage(event) {
+            console.log("event", event);
+            const file = event.target.files;
+
+            if (!file.length) {
+                return;
+                
+            }
+
+            const formData = new FormData();
+            formData.append('image', file[0]);
+            await axios.post("http://localhost:8080/api/ai/upload", formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+                .then(({ data }) => {
+                    this.digitalisation = data.Facture;
+                    console.log(this.digitalisation);
+                    this.$router.push({ path: '/user/personnaliseFacture', params:  this.digitalisation });
+                }).catch((error) => {
+                    console.log(error);
+                    // show popup error
+
+                });
+        }
+    }
 
 }
 </script>

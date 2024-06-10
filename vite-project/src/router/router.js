@@ -39,6 +39,7 @@ import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
 import profilesettings from '../components/profil/Setting.vue';
 import AIPage from '../components/global/AIPage.vue';
+import PerFacture from '../components/facture/perFacture.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -95,6 +96,7 @@ const router = createRouter({
         { path: 'ListeArticle', component: GestionArticle },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
+        { path: 'personnaliseFacture', component: PerFacture, props: {Facture: true }},
       ]
 
     },
