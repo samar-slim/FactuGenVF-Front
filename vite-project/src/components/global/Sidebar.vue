@@ -10,7 +10,7 @@
          @click="toggleSubMenu('dashbord')"
          :class="{'bg-gray-100  border-solid border-1 shadow-md': openSubMenu === 'dashbord'}"
          class="  py-3 rounded-md cursor-pointer text-black-300 hover:text-white">
-           <router-link to="/dashbord" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
+           <router-link to="/user/dashbord" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 256 256" xml:space="preserve">
  
  <defs>
@@ -27,7 +27,7 @@
            @click="toggleSubMenu('new')"
            :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'new'}"
             class="   py-3 rounded-md cursor-pointer  text-black-300 hover:text-white">
-           <router-link to="/devis" class="flex items-center space-x-2 p-2 text-gray-900  font-bold rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+           <router-link to="/user/devis" class="flex items-center space-x-2 p-2 text-gray-900  font-bold rounded-lg dark:text-white dark:hover:bg-gray-700 group">
              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="20" height="25" viewBox="0 0 256 256" xml:space="preserve">
  
  <defs>
@@ -53,7 +53,7 @@
                         <a 
                              @click="openDevisInterface()" >
                            
-       <router-link to="/devis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+       <router-link to="/user/devis" class="flex  items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                             
                                 
                             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="35" height="26" viewBox="-100 -50 300 350" xml:space="preserve">
@@ -233,7 +233,7 @@
                                <a  
                                 
                                 >
-                               <router-link to="/Avoir" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
+                               <router-link to="/user/Avoir" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group">
                                
                               <span class="ml-3">  <i class=" text-green-400 fa-solid fa-scroll"></i> </span><span class="font-medium text-black">Avoir</span>
                                  
@@ -274,7 +274,7 @@
          @click="toggleSubMenu('Suivie') "
          :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'Suivie'}"
          class=" font-bold py-3 rounded-md cursor-pointer text-black-300 hover:text-white">
-           <router-link to="/suivie" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group"><span class="pi pi-chart-line text-red-500 " v-tooltip.right="Suivie "></span> <span v-show="dataOpenSideBar">Suivie</span></router-link>
+           <router-link to="/user/suivie" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white  dark:hover:bg-gray-700 group"><span class="pi pi-chart-line text-red-500 " v-tooltip.right="Suivie "></span> <span v-show="dataOpenSideBar">Suivie</span></router-link>
          </div>
          <div
          @click="toggleSubMenu('calendrier') "
@@ -289,7 +289,7 @@
            @click="toggleSubMenu('gestionArticle') "
            :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'gestionArticle'}"
            class="py-3 rounded-md cursor-pointer  text-black-300 hover:text-white">
-                               <router-link to="/ListeArticle" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                               <router-link to="/user/ListeArticle" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                                  <i class="fa-solid fa-wallet" style="color: #2668d9;"></i><span v-show="dataOpenSideBar"> <span class="font-bold">Gestion Articles        <i class=" item-center fa-solid fa-angle-down"></i> </span></span> 
                              </router-link>
                  </div>
@@ -300,7 +300,7 @@
                  >
            <div   class=" duration-700  flex items-center ">
              <a @click="openInterfaceArticle">
-              <router-link to="/ListeTraveau" class="flex items-center space-x-4  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+              <router-link to="/user/ListeTraveau" class="flex items-center space-x-4  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                 <span class="font-medium text-black "> 
                  <i class="fa-solid fa-building"></i> Traveaux</span>
          
@@ -311,7 +311,7 @@
            </div>   
            <div   class=" duration-700  flex items-center ">  
              <a >
-              <router-link to="/ListeProduit" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
+              <router-link to="/user/ListeProduit" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
                <i class="fa-brands fa-product-hunt"></i>  Produit</span>
          
              </router-link>
@@ -321,7 +321,7 @@
              </div>
              <div   class=" duration-700  flex items-center ">  
              <a >
-              <router-link to="/ListeMainDouvre" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
+              <router-link to="/user/ListeMainDouvre" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
               <span class="font-medium text-gray-900"> <i class="fa-solid fa-person-digging" style="color: #3f0684;"></i></span>  Main D'ouvre</span>
          
              </router-link>
