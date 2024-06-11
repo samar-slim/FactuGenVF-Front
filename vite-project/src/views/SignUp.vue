@@ -129,7 +129,8 @@ export default {
      axios.post('http://localhost:8080/api/auth/signup', userData)
   .then(response => { 
     console.log('Sign up successful:', response.data);
-    store.commit('setJustSignedUp', true);
+    //store.commit('setJustSignedUp', true);
+    localStorage.setItem('justSignedUp', 'true');
     // Assuming the response contains the token
     const token = response.data.token;
 
@@ -143,7 +144,7 @@ export default {
     this.$store.commit('setUser', response.data.user); // Assuming you have a Vuex mutation to set user
 
     // Redirect to a protected route or home page
-    this.$router.push('/user/dashbord');
+    this.$router.push('/user/dashboard');
   })
   .catch(error => {
     console.error('Sign up error:', error.response.data);
