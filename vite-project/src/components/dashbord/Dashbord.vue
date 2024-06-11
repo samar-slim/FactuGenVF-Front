@@ -907,7 +907,7 @@ const closePopup = () => {
 const checkSignupStatus = () => {
   if (localStorage.getItem('justSignedUp') === 'true') {
     showPopup.value = true;
-    //localStorage.setItem('justSignedUp', 'false');
+    localStorage.setItem('justSignedUp', 'false');
   }
 };
 
