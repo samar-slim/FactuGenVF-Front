@@ -1,6 +1,10 @@
 <template>
   <div class="mt-12">
     
+      <Popup @close="closePopup" :isVisible="showPopup" :user="selectedUser"    />
+
+
+    <modal v-if="showModal" @close="closeModal"></modal>
     
     <!-- Statistiques des cartes -->
     <!-- cards -->
@@ -890,9 +894,11 @@
 import { onMounted, ref } from 'vue';
 import ApexCharts from 'apexcharts';
 import 'flowbite/dist/flowbite.min.js';
+//import { Modal } from 'usemodel-vue3';
 import Popup from '../../views/EntrepriseInfo.vue';
 //const store = useStore();
 const showPopup = ref(false);
+
 
 const closePopup = () => {
   showPopup.value = false;
@@ -901,7 +907,7 @@ const closePopup = () => {
 const checkSignupStatus = () => {
   if (localStorage.getItem('justSignedUp') === 'true') {
     showPopup.value = true;
-    localStorage.setItem('justSignedUp', 'false');
+    //localStorage.setItem('justSignedUp', 'false');
   }
 };
 
@@ -1099,9 +1105,6 @@ chart.render();
   });
 
 });
-
-
-
 
 
 
