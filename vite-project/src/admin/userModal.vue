@@ -115,7 +115,7 @@
     methods: {
       async updateUserBackend() {
       try {
-        const response = await axios.put(`http://localhost:8080/api/Users/${this.user.id}`, this.editedUser);
+        const response = await axios.put(`http://localhost:8080/api/users/${this.user.id}`, this.editedUser);
         console.log("User updated successfully", response.data);
         // Optionally, emit an event to notify the parent component about the update
         this.$emit('user-updated', response.data);

@@ -1,177 +1,156 @@
 <template>
-  <div v-if="isVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-    <div class="bg-white p-8 rounded shadow-lg w-full max-w-3xl">
-      <h1 class="text-3xl font-semibold text-center mb-8 text-blue-500">Votre Entreprise</h1>
-      <form @submit.prevent="signUp" class="space-y-4">
-        <div class="grid grid-cols-2 gap-4">
+    <div v-if="isVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div class="bg-white p-8 rounded shadow-lg w-full max-w-3xl">
+        <h1 class="text-3xl font-semibold text-center mb-8 text-blue-500">Votre Entreprise</h1>
+        <form @submit.prevent="addEntreprise" class="space-y-4">
+          <div class="grid grid-cols-2 gap-4">
             <div>
-                <label for="imageUpload" class="block text-gray-700">Votre logo</label>
-    <input
-      id="imageUpload"
-      type="file"
-      accept="image/*" 
-      @change="handleImageUpload"
-      class="w-full"
-    >
-    <!-- Display the uploaded image -->
-    <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Image" class="mt-4 w-full max-w-sm">
+              <label for="imageUpload" class="block text-gray-700">Votre logo</label>
+              <input
+                id="imageUpload"
+                type="file"
+                accept="image/*" 
+                @change="handleImageUpload"
+                class="w-full"
+              >
+              <!-- Display the uploaded image -->
+              <img v-if="imageUrl" :src="imageUrl" alt="Uploaded Image" class="mt-4 w-full max-w-sm">
             </div>
-          <div>
-            <label for="name" class="block text-gray-700 font-semibold mb-2">Nom</label>
-            <input type="text" id="name" v-model="name" placeholder="Enter your name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-          </div>
-         
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label for="email" class="block text-gray-700 font-semibold mb-2">Email entreprise</label>
-          <input type="email" id="email" v-model="email" placeholder="Enter your email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-        </div>
-        <div>
-            <label for="telephone" class="block text-gray-700 font-semibold mb-2">Telephone</label>
-            <input type="tel" id="telephone" v-model="telephone" placeholder="Enter your telephone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-          </div>
-        
-        </div>
-        <div class="grid grid-cols-2 gap-4">
             <div>
-          <label for="email" class="block text-gray-700 font-semibold mb-2">Adresse entreprise</label>
-          <input type="text" id="adresse" v-model="email" placeholder="Enter your adress" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
-        </div>
-          <div>
-            <label for="pays" class="block text-gray-700 font-semibold mb-2">Pays</label>
-            <input type="text" id="pays" v-model="pays" placeholder="Enter your country" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+              <label for="name" class="block text-gray-700 font-semibold mb-2">Nom</label>
+              <input type="text" id="name" v-model="name" placeholder="Enter your name" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
           </div>
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label for="ville" class="block text-gray-700 font-semibold mb-2">SIRET</label>
-            <input type="text" id="siret" v-model="siret" placeholder="Enter SIRET" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="email" class="block text-gray-700 font-semibold mb-2">Email entreprise</label>
+              <input type="email" id="email" v-model="email" placeholder="Enter your email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+            <div>
+              <label for="telephone" class="block text-gray-700 font-semibold mb-2">Telephone</label>
+              <input type="tel" id="telephone" v-model="telephone" placeholder="Enter your telephone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
           </div>
-          <div>
-            <label for="adresse" class="block text-gray-700 font-semibold mb-2">TVA</label>
-            <input type="text" id="TVA" v-model="adresse" placeholder="Enter your TVA" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="adresse" class="block text-gray-700 font-semibold mb-2">Adresse entreprise</label>
+              <input type="text" id="adresse" v-model="adresse" placeholder="Enter your address" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+            <div>
+              <label for="pays" class="block text-gray-700 font-semibold mb-2">Pays</label>
+              <input type="text" id="pays" v-model="pays" placeholder="Enter your country" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
           </div>
-        </div>
-    
-        <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:bg-grey-600" :disabled="!isFormValid">Continuer</button>
-      </form>
-
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="siret" class="block text-gray-700 font-semibold mb-2">SIRET</label>
+              <input type="text" id="siret" v-model="siret" placeholder="Enter SIRET" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+            <div>
+              <label for="tvaEntreprise" class="block text-gray-700 font-semibold mb-2">TVA</label>
+              <input type="text" id="tvaEntreprise" v-model="tvaEntreprise" placeholder="Enter your TVA" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            </div>
+          </div>
+          <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:bg-grey-600" :disabled="!isFormValid">Continuer</button>
+        </form>
+      </div>
     </div>
-  </div>
-</template>
-
-<script>
+  </template>
+  
+  
+  <script>
 import axios from 'axios';
-  import { mapGetters } from 'vuex';
-  
-  export default {
-    props: {
-      isVisible: {
-        type: Boolean,
-        required: true,
+import { mapGetters } from 'vuex';
 
-      }
-    },
-    computed: {
-      ...mapGetters(['getToken'])
-    },
-    data() {
-      return {
-        name: '',
-        surname: '',
-        email: '',
-        telephone: '',
-        pays: '',
-        ville: '',
-        adresse: '',
-        contact: '',
-        password: '',
-        confirmPassword: '',
-      };
-    },
-    computed: {
-      isPasswordValid() {
-        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-        return passwordPattern.test(this.password);
-      },
-      isFormValid() {
-        return this.name && this.surname && this.email && this.telephone && this.password && this.confirmPassword === this.password && this.isPasswordValid;
-      }
-    },
-    methods: {
-      signUp() {
-        if (this.password !== this.confirmPassword) {
-          alert('Passwords do not match!');
-          return;
-        }
-        const userData = {
-          user: {
-            nom: this.name,
-            prenom: this.surname,
-            email: this.email,
-            telephone: this.telephone,
-            pays: this.pays,
-            ville: this.ville,
-            adresse: this.adresse,
-            contact: this.contact,
-            type: 'user'
-          },  
-          account: {
-            accountIdentifier: this.email,
-            accountType: 'free',
-            password: this.password
-          }
-        };
-  
-        axios.post('http://localhost:8080/api/auth/signup', userData)
-    .then(response => { 
-      console.log('Sign up successful:', response.data);
-      
-      // Assuming the response contains the token
-      const token = response.data.token;
-  
-      // Store the token in localStorage (or Vuex store)
-      localStorage.setItem('authToken', token);
-  
-      // Set the token in the axios headers for future requests
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  
-      // Optionally, store user data in Vuex store or component state
-      this.$store.commit('setUser', response.data.user); // Assuming you have a Vuex mutation to set user
-  
-      // Redirect to a protected route or home page
-      this.$router.push('/user/Dashboard');
-    })
-    .catch(error => {
-      console.error('Sign up error:', error.response.data);
-      // Optionally, display an error message to the user
-    });
-  
-      }
+export default {
+  props: {
+    isVisible: {
+      type: Boolean,
+      required: true,
     }
-  };
+  },
+  data() {
+    return {
+      name: '',
+      email: '',
+      telephone: '',
+      pays: '',
+      adresse: '',
+      siret: '',
+      tvaEntreprise: '',
+      imageUrl: null, // for image preview
+    };
+  },
+  computed: {
+    ...mapGetters(['getToken']),
+    isFormValid() {
+      return this.name && this.email && this.telephone && this.adresse && this.pays && this.siret && this.tvaEntreprise;
+    }
+  },
+  methods: {
+    handleImageUpload(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.imageUrl = URL.createObjectURL(file);
+      }
+    },
+    addEntreprise() {
+      let storedState = localStorage.getItem('store');
+      let userId = '';
+      if (storedState) {
+        try {
+          let state = JSON.parse(storedState);
+          userId = state.user;
+        } catch (e) {
+          console.error("Failed to parse stored state", e);
+        }
+      }
+
+      const entrepriseData = {
+        nomEntreprise: this.name,
+        emailEntreprise: this.email,
+        telEntreprise: this.telephone,
+        adrEntreprise: this.adresse,
+        paysEntreprise: this.pays,
+        siretEntreprise: this.siret,
+        tvaEntreprise: this.tvaEntreprise,
+      };
+
+      axios.put(`http://localhost:8080/api/users/${userId}`, entrepriseData)
+        .then(response => {
+          console.log('Update successful:', response.data);
+          this.$emit('close'); // Close the modal after successful update
+        })
+        .catch(error => {
+          console.error('Update error:', error.response.data);
+          // Optionally, display an error message to the user
+        });
+    }
+  }
+};
 </script>
 
-<style scoped>
-.editable-input {
-  border: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s ease;
-}
-
-.editable-input:focus {
-  border-bottom: 1px solid #000;
-  outline: none;
-}
-
-.grid {
-  display: grid;
-}
-
-@media (min-width: 768px) {
-  .grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  
+  <style scoped>
+  .editable-input {
+    border: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
   }
-}
-</style>
+  
+  .editable-input:focus {
+    border-bottom: 1px solid #000;
+    outline: none;
+  }
+  
+  .grid {
+    display: grid;
+  }
+  
+  @media (min-width: 768px) {
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  </style>
+  
