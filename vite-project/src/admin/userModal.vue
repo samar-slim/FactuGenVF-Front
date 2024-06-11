@@ -9,10 +9,11 @@
               <input
                 id="lastName"
                 type="text"
-                v-model="editedUser.lastName"
+                v-model="user.nom"
                 class="editable-input w-full"
                 @focus="editFields.lastName = true"
                 @blur="editFields.lastName = false"
+                ref="newName"
               >
             </div>
             <div>
@@ -20,10 +21,11 @@
               <input
                 id="firstName"
                 type="text"
-                v-model="editedUser.firstName"
+                v-model="user.prenom"
                 class="editable-input w-full"
                 @focus="editFields.firstName = true"
                 @blur="editFields.firstName = false"
+                ref="newLastName"
               >
             </div>
             <div>
@@ -42,10 +44,11 @@
               <input
                 id="type"
                 type="text"
-                v-model="editedUser.type"
+                v-model="user.type"
                 class="editable-input w-full"
                 @focus="editFields.type = true"
                 @blur="editFields.type = false"
+                ref="newType"
               >
             </div>
             <div>
@@ -53,10 +56,11 @@
               <input
                 id="email"
                 type="email"
-                v-model="editedUser.email"
+                v-model="user.email"
                 class="editable-input w-full"
                 @focus="editFields.email = true"
                 @blur="editFields.email = false"
+                ref="newEmail"
               >
             </div>
             <div>
@@ -64,10 +68,11 @@
               <input
                 id="phoneNumber"
                 type="text"
-                v-model="editedUser.phoneNumber"
+                v-model="user.telephone"
                 class="editable-input w-full"
                 @focus="editFields.phoneNumber = true"
                 @blur="editFields.phoneNumber = false"
+                ref="newNumber"
               >
             </div>
           </div>
@@ -94,7 +99,7 @@
     },
     data() {
       return {
-        editedUser: { ...this.user },
+        editedUser: {},
         editFields: {
           lastName: false,
           firstName: false,
@@ -107,12 +112,26 @@
     },
     methods: {
       submitForm() {
-        this.$emit('update-user', this.editedUser);
-        this.closeModal();
-      },
+      // Access input fields using their refs and update editedUser object
+      this.editedUser.nom = this.$refs.newName.value;
+      this.editedUser.prenom = this.$refs.newLastName.value;
+      this.editedUser.type = this.$refs.newType.value;
+      this.editedUser.email = this.$refs.newEmail.value;
+      this.editedUser.telephone = this.$refs.newNumber.value;
+      console.log(this.editedUser)
+      // Emit the updated user data to the parent component
+      this.$emit('update-user', this.editedUser);
+      
+      // Close the modal
+      this.closeModal();
+    },
       closeModal() {
         this.$emit('close');
       },
+    },
+    mounted(){
+      const inputElement = this.$refs.newName;
+    console.log(inputElement);
     },
     watch: {
       user(newUser) {
@@ -125,6 +144,7 @@
           email: false,
           phoneNumber: false,
         };
+        
       },
     },
   };

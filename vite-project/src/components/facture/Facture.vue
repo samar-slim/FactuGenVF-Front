@@ -19,7 +19,7 @@
 export default {
   methods: {
     navigateToListeDevis() {
-      this.$router.push('/ListeDevis');
+      this.$router.push('/user/ListeDevis');
     },
     navigateToNewFacture() {
       this.$router.push('/newFacture');
