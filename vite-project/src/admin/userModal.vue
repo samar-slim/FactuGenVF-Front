@@ -86,6 +86,8 @@
   </template>
   
   <script>
+  import axios from 'axios';
+
   export default {
     props: {
       isVisible: {
@@ -111,6 +113,17 @@
       };
     },
     methods: {
+      async updateUserBackend() {
+      try {
+        const response = await axios.put(`http://localhost:8080/api/Users/${this.user.id}`, this.editedUser);
+        console.log("User updated successfully", response.data);
+        // Optionally, emit an event to notify the parent component about the update
+        this.$emit('user-updated', response.data);
+      } catch (error) {
+        console.error("Failed to update user", error);
+        // Handle error appropriately, e.g., show an error message to the user
+      }
+    },
       submitForm() {
       // Access input fields using their refs and update editedUser object
       this.editedUser.nom = this.$refs.newName.value;
@@ -121,7 +134,7 @@
       console.log(this.editedUser)
       // Emit the updated user data to the parent component
       this.$emit('update-user', this.editedUser);
-      
+      this.updateUserBackend();
       // Close the modal
       this.closeModal();
     },

@@ -1113,5 +1113,9 @@ chart.render();
 
 
 <style>
-/* Vos styles ici */
+@media (max-width: 768px) {
+  .popup {
+    width: 50%; /* Adjust this value as needed */
+  }
+}
 </style>
