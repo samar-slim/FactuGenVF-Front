@@ -140,12 +140,7 @@ const router = createRouter({
       component: ShowDevis,
       props: true
     },
-    {
-      path: '/showfacture/:id',
-      name: 'ShowFactuure',
-      component: ShowFacture,
-      props: true
-    },
+    
     
     {
       path: '/newDevis',
