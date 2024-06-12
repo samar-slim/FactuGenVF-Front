@@ -72,11 +72,12 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['getToken'])
+    ...mapGetters(['getToken']),
+    ...mapActions(['loginUser']),
   },
   data() {
     return {
@@ -133,6 +134,7 @@ export default {
     localStorage.setItem('justSignedUp', 'true');
     // Assuming the response contains the token
     const token = response.data.token;
+    console.log('Token:', response.data);
 
     // Store the token in localStorage (or Vuex store)
     localStorage.setItem('authToken', token);
@@ -141,17 +143,13 @@ export default {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     // Optionally, store user data in Vuex store or component state
-    this.$store.commit('setUser', response.data.user); // Assuming you have a Vuex mutation to set user
-
+    
+    localStorage.setItem('user', JSON.stringify(response.data.userData));
     // Redirect to a protected route or home page
-    this.$router.push('/user/dashboard');
-  })
-  .catch(error => {
-    console.error('Sign up error:', error.response.data);
-    // Optionally, display an error message to the user
-  });
+    this.$router.push('/user/dashboard');})
+  
 
-    }
+  }
   }
 };
 </script>

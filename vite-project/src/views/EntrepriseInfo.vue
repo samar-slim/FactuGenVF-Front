@@ -95,12 +95,12 @@ export default {
       }
     },
     addEntreprise() {
-      let storedState = localStorage.getItem('store');
+      let storedState = localStorage.getItem('user');
       let userId = '';
       if (storedState) {
         try {
           let state = JSON.parse(storedState);
-          userId = state.user;
+          userId = state._id;
         } catch (e) {
           console.error("Failed to parse stored state", e);
         }
