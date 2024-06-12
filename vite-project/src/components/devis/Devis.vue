@@ -530,18 +530,18 @@
          
           <div class="mb-4">
             <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
-            <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
           
           </div>
           <div class="grid gap-6 mb-6 md:grid-cols-2">
           <div class="mb-4">
             <label  for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-            <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
           <div class="mb-4">
             <label for="prix" class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
-            <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
         </div>
           <div class="mb-4">
@@ -550,7 +550,7 @@
           </div>
           <div class="mb-4">
             <label  for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
-            <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
           <div class="mb-4">
             <label  for="type_unite"  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
@@ -937,9 +937,7 @@ export default {
       resultDevis : {},
       showDevisModal: false,
       modalOpen2: false,
-      devis : {
-       
-      },
+      devis : {},
       produits : [],
       produit :[],
       client: [],
