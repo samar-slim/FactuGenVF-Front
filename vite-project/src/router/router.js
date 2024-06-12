@@ -39,6 +39,7 @@ import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
 import profilesettings from '../components/profil/Setting.vue';
 import AIPage from '../components/global/AIPage.vue';
+import EntrepiseInfo from '../views/EntrepriseInfo.vue'
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -64,6 +65,7 @@ const router = createRouter({
         { path: 'Devis',  component: Devis}, 
         { path: 'setting',   component: Setting },
         { path: 'Avoir', component: Avoir},
+        
       ]
 
     },
@@ -95,14 +97,15 @@ const router = createRouter({
         { path: 'ListeArticle', component: GestionArticle },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
+        { path: 'Entreprise', component: EntrepiseInfo},
       ]
 
     },
 
     {
       path: '/',
-      name: 'master',
-      component: master
+      name: 'Home',
+      component: Home
     },
     {
       path: '/ListeProduit',

@@ -80,15 +80,15 @@
           // Assuming the user ID and auth token are stored in localStorage
           const storedState = localStorage.getItem('store');
           let authToken = '';
-          let userId = '';
+          let accountId = '';
   
           if (storedState) {
             const state = JSON.parse(storedState);
             authToken = state.token;
-            userId = state.profile.accountId;
+            accountId = state.profile.accountId;
           }
   
-          const response = await axios.put(`http://localhost:8080/auth/changePassword/${userId}`, payload, {
+          const response = await axios.put(`http://localhost:8080/auth/changePassword/${accountId}`, payload, {
             headers: {
               'Authorization': `Bearer ${authToken}`
             }

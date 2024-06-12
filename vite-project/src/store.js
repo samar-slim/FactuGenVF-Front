@@ -14,6 +14,7 @@ const store = new Vuex.Store ({
               accountId : null,
               accountIdentifier : null,
               role: null,
+              justSignedUp: false,
             }
         }},
     getters: {
@@ -52,6 +53,9 @@ const store = new Vuex.Store ({
         },
         setProfile(state, profile){
           state.profile = profile;
+        },
+        setJustSignedUp(state, status) {
+          state.justSignedUp = status;
         }
     },
     actions: {
