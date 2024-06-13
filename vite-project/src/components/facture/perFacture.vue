@@ -35,52 +35,12 @@ import Template2 from './Template2.vue';
 import Template3 from './Template3.vue';
 
 export default {
-  props: { initFacture: {type: Object, default:  {
-        logoUrl: 'https://raw.githubusercontent.com/templid/email-templates/main/templid-dynamic-templates/invoice-02/brand-sample.png',
-        date: 'April 26, 202222',
-        invoiceNumber: 'BRA-00222222',
-        supplier: {
-          companyName: 'Supplier Company INC',
-          number: '23456789',
-          vat: '23456789',
-          address: '6622 Abshire Mills',
-          city: 'Port Orlofurt',
-          postalCode: '05820',
-          country: 'United States'
-        },
-        customer: {
-          companyName: 'Customer Company',
-          number: '123456789',
-          vat: '23456789',
-          address: '9552 Vandervort Spurs',
-          city: 'Paradise',
-          postalCode: '43325',
-          country: 'United States'
-        },
-        items: [
-          { description: "Monthly accounting services", price: 150.00, quantity: 1, vat: 20, subtotal: 150.00, total: 180.00 },
-          { description: "Taxation consulting (hour)", price: 60.00, quantity: 2, vat: 20, subtotal: 120.00, total: 144.00 },
-          { description: "Bookkeeping services", price: 50.00, quantity: 1, vat: 20, subtotal: 50.00, total: 60.00 }
-        ],
-        netTotal: 320.00,
-        vatTotal: 64.00,
-        total: 384.00,
-        paymentDetails: {
-          bankName: "Banks of Banks",
-          sortCode: "1234567",
-          accountNumber: "123456678",
-          reference: "BRA-00335"
-        },
-        notes: "Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups."
-      }}
-
-   },
   components: {
     Sidebar,
     template1: Template1,
     template2: Template2,
-    template3: Template3
-    ,},
+    template3: Template3,
+  },
   data() {
     return {
       isSidebarOpen: false,
@@ -88,15 +48,96 @@ export default {
       backgroundColor: '#f8f8f8',
       headerColor: '#374151',
       textColor: '#374151',
-      Facture: this.initFacture,
-
-  }
+      Facture: 
+      {
+    "logoUrl": "",
+    "date": "",
+    "invoiceNumber": "1024",
+    "supplier": {
+        "companyName": "",
+        "number": "",
+        "vat": "",
+        "address": "",
+        "city": "",
+        "postalCode": "",
+        "country": ""
+    },
+    "customer": {
+        "companyName": "Really Great Company",
+        "number": "",
+        "vat": "",
+        "address": "123 Anywhere St.",
+        "city": "Any City",
+        "postalCode": "",
+        "country": ""
+    },
+    "items": [
+        {
+            "description": "Content Plan",
+            "price": 50,
+            "quantity": 4,
+            "vat": 0,
+            "subtotal": 200,
+            "total": 200
+        },
+        {
+            "description": "Copy Writing",
+            "price": 50,
+            "quantity": 2,
+            "vat": 0,
+            "subtotal": 100,
+            "total": 100
+        },
+        {
+            "description": "Website Design",
+            "price": 50,
+            "quantity": 5,
+            "vat": 0,
+            "subtotal": 250,
+            "total": 250
+        },
+        {
+            "description": "Website Development",
+            "price": 100,
+            "quantity": 5,
+            "vat": 0,
+            "subtotal": 500,
+            "total": 500
+        },
+        {
+            "description": "SEO",
+            "price": 50,
+            "quantity": 1,
+            "vat": 0,
+            "subtotal": 50,
+            "total": 50
+        }
+    ],
+    "netTotal": 1250,
+    "vatTotal": 0,
+    "total": 875,
+    "paymentDetails": {
+        "bankName": "Really Great Bank",
+        "sortCode": "000 000",
+        "accountNumber": "0000 0000",
+        "reference": ""
+    },
+    "notes": "Payment is required within 14 business days of invoice date. Please send remittance to hello@reallygreatsite.com. \nThank you for your business."
+},
+  };
   },
-  methods: {
+  methods:{
     toggleSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen;
-    }
+    },
+    initFacture() {
+      this.facture = localStorage.getItem('facture');
+    },
   },
+  beforeMount() {
+    this.initFacture();
+    console.log("this.facture : :", this.facture);
+  }
   
 }
 </script>

@@ -46,7 +46,7 @@
           <tr>
             <td class="w-1/2 align-top">
               <div class="text-sm text-neutral-600">
-                <p class="font-bold" :style="{ color: headerColor }" @click="editField('supplier.companyName')">{{ facture.supplier.companyName }}</p>
+                <p class="font-bold" :style="{ color: headerColor }" @click="editField('supplier.companyName')">{{ facture.supplier.companyName }} testtt</p>
                 <input v-if="isEditingField('supplier.companyName')" v-model="editableData.supplier.companyName" @blur="saveField('supplier.companyName')" @keyup.enter="saveField('supplier.companyName')"/>
                 <p @click="editField('supplier.number')">Number: {{ facture.supplier.number }}</p>
                 <input v-if="isEditingField('supplier.number')" v-model="editableData.supplier.number" @blur="saveField('supplier.number')" @keyup.enter="saveField('supplier.number')" />
@@ -176,6 +176,18 @@ export default {
     initialFacture: {
       type: Object,
       required: true
+    },
+    backgroundColor: {
+      type: String,
+      required: true
+    },
+    headerColor: {
+      type: String,
+      required: true
+    },
+    textColor: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -183,17 +195,12 @@ export default {
       facture: { ...this.initialFacture},
       editableData: {},
       editingField: null,
-      backgroundColor: "#FFFFFF",
-      textColor: "#000000",
-      headerColor: "#333333"
-    };
+      };
   },
   watch: {
     initialFacture: {
       handler(newVal) {
         console.log('newVal', {...newVal})
-        console.log('this.facture', this.facture)
-        console.log('this.initialFacture', this.initialFacture)
         this.facture = { ...newVal };
         console.log('this.facture', this.facture)
       },
@@ -219,8 +226,9 @@ export default {
           data = data[key];
           editableData = editableData[key];
         }
+        localStorage.setItem('facture', JSON.stringify(this.facture));
       });
-
+Number
       //this.editingField = null;
     },
     isEditingField(field) {

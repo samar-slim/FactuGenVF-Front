@@ -46,6 +46,9 @@
 </template>
 
 <script>
+import axios from 'axios';
+
+
 export default {
   props: {
     isOpen: {
@@ -54,7 +57,7 @@ export default {
     },
     selectedTemplate: {
       type: String,
-      required: true
+      required: true,
     },
     backgroundColor: {
       type: String,
@@ -95,11 +98,90 @@ export default {
       const file = event.target.files[0];
       this.$emit('upload-logo', file);
     },
-    saveChanges() {
+    
+    async saveChanges() {
+      // Step 1: Retrieve data from localStorage and parse it
+      const data = localStorage.getItem('facture');
+      if (!data) {
+        console.error('No data found in localStorage for "facture".');
+        return;
+      }
+
+      let parsedData;
+      try {
+        parsedData = JSON.parse(data);
+      } catch (error) {
+        console.error('Failed to parse JSON data from localStorage:', error);
+        return;
+      }
+
+      console.log(' ---- invoice', parsedData);
+
+      // Step 2: Pass the parsed data to the transformation function
+      const Facture = this.transformInvoiceToSchemaFormat(parsedData);
+
+      // Uncomment the axios call if needed
+      await axios.post('http://localhost:8080/api/facture', Facture , {
+         headers: {
+           'Authorization': `Bearer ${localStorage.getItem('token')}`
+         }
+       });
+
       this.$emit('save-changes');
+  },
+  
+  transformInvoiceToSchemaFormat(invoice) {
+    // Step 3: Validate the invoice object
+    if (!invoice || !invoice.supplier || !invoice.items) {
+      console.error('Invalid invoice data:', invoice);
+      return null;
     }
+
+    console.log(invoice.supplier.companyName);
+
+    // Step 4: Transform the invoice object to the desired format
+    return {
+      facture: {
+        nom_entreprise: invoice.supplier.companyName || "",
+        num: invoice.supplier.number || "",
+        code_postal: invoice.supplier.postalCode || "",
+        ville: invoice.supplier.city || "",
+        email: "", // Assuming email is not available in the provided object
+        num_tel: "", // Assuming phone number is not available in the provided object
+        num_siret: "", // Assuming SIRET number is not available in the provided object
+        num_tva: invoice.supplier.vat || "",
+        inter: "", // Assuming inter is not available in the provided object
+        deleg: "", // Assuming deleg is not available in the provided object
+        titre: "", // Assuming titre is not available in the provided object
+        numfacture: invoice.invoiceNumber || "",
+        remarque: invoice.notes || "",
+        remise: "", // Assuming remise is not available in the provided object
+        condition: "", // Assuming condition is not available in the provided object
+        paiement: invoice.paymentDetails.reference || "",
+        clientId: null, // Assuming clientId is not available in the provided object
+        produitId: null, // Assuming produitId is not available in the provided object
+        totalHT: invoice.netTotal.toString() || "",
+        totalTTC: invoice.total.toString() || "",
+        imageUrl: invoice.logoUrl || "",
+        date_expiration: "", // Assuming date_expiration is not available in the provided object
+        date_emission: invoice.date || "",
+        status: "cours",
+        produitsSelectionnes: invoice.items.map(item => ({
+          total: item.total.toString() || "",
+          nom_article: item.description || "",
+          description: item.description || "",
+          prix: item.price.toString() || "",
+          prix_unitaire: item.price.toString() || "",
+          reference: "", // Assuming reference is not available in the provided object
+          tva: item.vat.toString() || "",
+          quantity: item.quantity.toString() || "",
+        }))
+      }
+    };
   }
-}
+ 
+
+}}
 </script>
 
 <style scoped>

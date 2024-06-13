@@ -31,7 +31,7 @@ export default {
    
     methods: {
         async uploadImage(event) {
-            console.log("event", event);
+            //console.log("event", event);
             const file = event.target.files;
 
             if (!file.length) {
@@ -48,10 +48,11 @@ export default {
             })
                 .then(({ data }) => {
                     this.digitalisation = data.Facture;
-                    console.log(this.digitalisation);
+                    localStorage.setItem("facture", JSON.stringify(data.Facture));
+                    //console.log(this.digitalisation);
                     this.$router.push({ path: '/user/personnaliseFacture', params:  this.digitalisation });
                 }).catch((error) => {
-                    console.log(error);
+                    //console.log(error);
                     // show popup error
 
                 });
