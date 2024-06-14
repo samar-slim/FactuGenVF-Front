@@ -46,12 +46,16 @@ import ClientShowDevis from '../clientInterfaces/showDevis.vue';
 import ClientShowFacture from '../clientInterfaces/ShowFactureClient.vue';
 import HomeClient from '../clientInterfaces/HomeClient.vue';
 import EntrepiseInfo from '../views/EntrepriseInfo.vue'
+import { authGuardAdmin, authGuardUser, authGuard, checkAuth } from './auth.js';
+import NotFound from '../components/notFound.vue'
 
 const router = createRouter({
   history: createWebHistory(),
+  
   routes: [
     {  
-      path: '/Client', 
+      path: '/client', 
+      beforeEnter: [authGuard],
       children:[
         { path: 'home', component: HomeClient },
         { path: 'ClientDevis', component: ClientDevis },
@@ -61,6 +65,8 @@ const router = createRouter({
       ]
      },
     {path: '/admin',
+
+      beforeEnter: [authGuardAdmin],
 
       children:[
         { path: 'dashboard', component: adminDashboard },
@@ -89,6 +95,8 @@ const router = createRouter({
     ,
     {path: '/user',
 
+      beforeEnter: [authGuardUser],
+
       children:[
         { path: 'dashboard', component: Dashbord },
         { path: 'NewDevis', component: NewDevis },
@@ -98,7 +106,7 @@ const router = createRouter({
         { path: 'setting', component: Setting},
         { path: 'ListeFacture' ,  component: ListeFacture},
         { path: 'Digitalisation',  component: digitalisation},
-        { path: 'showDevis',   component: showDevis},       
+        { path: 'showDevis/:id',   component: showDevis},       
         { path: 'facture',component: Facture},
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
@@ -125,125 +133,14 @@ const router = createRouter({
       name: 'Home',
       component: Home
     },
-    {
-      path: '/ListeProduit',
-      name: 'ListeProduit',
-      component: ListeProduit
-    },
+
     
-    {
-      path: '/profil1',
-      name: 'UseCard',
-      component: UserCard
-    },
-    {
-      path: '/suivie',
-      name: 'suivie',
-      component: Suivie
-    },
-    {
-      path: '/gestionArticle',
-      name: 'GestionArticle',
-      component: GestionArticle
-    },
-    {
-      path: '/Digitalisation',
-      name: 'digitalisation',
-      component: digitalisation
-    },
-    {
-      path: '/ListeDevis',
-      name: 'ListeDevis',
-      component: ListeDevis
-    },
-    {
-      path: '/show/:id',
-      name: 'ShowDevis',
-      component: ShowDevis,
-      props: true
-    },
-    
-    
-    {
-      path: '/newDevis',
-      name: 'NewDevis',
-      component: NewDevis
-    },
-    {
-      path: '/newFacture',
-      name: 'NewFacture',
-      component: NewFacture
-    },
-    {
-      path: '/produit',
-      name: 'Produit',
-      component: Produit
-    },
-    {
-      path: '/dashbord',
-      name: 'Dashbord',
-      component: Dashbord
-    },
-    {
-      path: '/calendrier',
-      name: 'Calendrier',
-      component: Calendrier
-    },
-    {
-      path: '/facture',
-      name: 'Facture',
-      component: Facture
-    },
-    {
-      path: '/devis',
-      name: 'Devis',
-      component: Devis
-    },
-    {
-      path: '/ListeClient',
-      name: 'ListeClient',
-      component: ListeClient
-    },
-    {
-      path: '/setting',
-      name: 'Setting',
-      component: Setting
-    },
-    {
-      path: '/ListeFacture',
-      name: 'ListeFacture',
-      component: ListeFacture
-    },
     {
       path: '/produitArt',
       name: 'Produit',
       component:ProduitArt
     },
-    {
-      path: '/ListeMainDouvre',
-      name: ' MainDouvre',
-      component: MainDouvre
-    },
-    {
-      path: '/ListeTraveau',
-      name: ' ListeTraveau',
-      component: ListeTraveau
-    },
-    {
-      path: '/Avoir',
-      name: ' Avoir',
-      component: Avoir
-    },
-    {
-      path: '/Digitalisation',
-      name: 'digitalisation',
-      component: digitalisation
-    },
-    {
-      path: '/showDevis',
-      name: 'showDevis',
-      component: showDevis
-    },
+   
     {
       path: '/',
       name: 'home',
@@ -252,6 +149,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      beforeEnter: [checkAuth],
       component: Login,
     },
     {
@@ -264,11 +162,7 @@ const router = createRouter({
       name: 'forget',
       component: ForgetPassword,
     },
-    {
-      path: '/listeUsers',
-      name: 'Users',
-      component: listeUsers,
-    },
+ 
     {
       path: '/adminDashboard',
       name: 'adminDashboard',
@@ -280,9 +174,9 @@ const router = createRouter({
       component: resetPassword,
     },
     {
-      path: '/aiPage',
-      name: 'ai',
-      component: AIPage,
+      path: "/:catchAll(.*)",
+      name : 'Not-Found',
+      component : NotFound
     }
    
   ]

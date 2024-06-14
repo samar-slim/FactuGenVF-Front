@@ -24,9 +24,7 @@ const store = new Vuex.Store ({
         getIsLogedIn: state => {
             return state.isLogedIn;
         },
-        getToken: state => {
-          return state.token
-        },
+        getToken: state => state.token,
         getUser: state => {
           return state.profile.accountId
         }
@@ -74,6 +72,8 @@ const store = new Vuex.Store ({
                   commit('setToken', token);
                   commit('setProfile', profile) // Commit mutation to store token
                   commit('login'); // Commit mutation to indicate successful login
+                  localStorage.setItem('store', JSON.stringify(store.state));
+                  localStorage.setItem('token', token);
                   resolve(); // Resolve the promise to indicate successful login
                 })
                 .catch(error => {
@@ -86,6 +86,7 @@ const store = new Vuex.Store ({
         async logoutUser({ commit, getters }) {
             try {
               const authToken = getters.getToken;
+              console.log('authToken :',authToken)
               console.log(authToken);
               if ( !authToken) {
                 throw new Error('No token available for logout');
@@ -104,7 +105,9 @@ const store = new Vuex.Store ({
       
               // Commit the logout mutation
               commit('logout');
-      
+              
+              localStorage.removeItem('store');
+              localStorage.removeItem('token');
               // Optionally clear any other data from the store
               // commit('clearUserData');
       

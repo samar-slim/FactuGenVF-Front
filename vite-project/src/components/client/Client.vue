@@ -5,128 +5,104 @@
       <button @click="openModal" class="bg-blue-800 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Ajouter Client</button>
     </div>
       <!-- Modal -->
-      <div class="">
-      <div v-if="modalOpen"  class=" container mx-auto p-4  p-10 rounded fixed inset-2 backdrop-blur-lg z-10">
-        <!-- Contenu de la modal -->
-        <div class="relative bg-white rounded-lg shadow ...">
-          <!-- En-tête de la modal -->
-          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
-            <h3 class="text-xl font-semibold text-gray-900 ...">Nouveau Client</h3>
-            <button @click="closeModal" type="button" ><i class="fa-solid fa-xmark"></i></button>
+      <div v-if="modalOpen" class="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-lg bg-black bg-opacity-50">
+        <div class="bg-white rounded-lg shadow-md w-full max-w-3xl max-h-full overflow-auto">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between p-4 border-b">
+            <h3 class="text-xl font-semibold text-gray-900">Nouveau Client</h3>
+            <button @click="closeModal" type="button">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
           </div>
-          <!-- Corps de la modal -->
-          <div class="flex justify-end">
-            <div class="container mx-auto p-4 shadow-lg p-10 rounded">
-              <div class="flex justify-center items-center h-screen">
-                <form @submit.prevent="saveData">
-                  <div class="mb-8">
-                    <ul class="flex border-b">
-                      <li
-                        @click="setActiveTabClient('particulier')"
-                        :class="getTabClassClient('particulier')"
-          class="mr-1 relative"
-                      >
-                        <a
-                          class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 font-semibold"
-                          href="#"
-                          >Particulier</a
-                        >
-                        <div
-                          v-if="activeTabClient === 'particulier'"
-                          class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"
-                        ></div>
-                      </li>
-                      <li
-                        @click="setActiveTabClient('professionnel')"
-                        :class="getTabClassClient('professionnel')"
-          class="mr-1 relative"
-                      >
-                        <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#"
-                          >Professionnel</a
-                        >
-                        <div
-                          v-if="activeTabClient === 'professionnel'"
-                          class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"
-                        ></div>
-                      </li>
-                    </ul>
-                    <div class="py-4">
-                      <div v-if="activeTabClient === 'particulier'" class="block">
-            <!-- Contenu pour le formulaire particulier -->
-            <div class="grid gap-6 mb-6 md:grid-cols-3">
-            <div class="mb-4">
-              <label for="civilité" class="block text-gray-700 text-sm font-bold mb-2">Civilité</label>
-              <input type="text" id="civilité" v-model="clients.civilite" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-           
-            <div class="mb-4">
-              <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom</label>
-              <input type="text" id="name" v-model="clients.name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="prenom" class="block text-gray-700 text-sm font-bold mb-2">Prenom</label>
-              <input type="text" id="prenom" v-model="clients.prenom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            </div>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
-            <div class="mb-4">
-              <label for="adresse" class="block text-gray-700 text-sm font-bold mb-2">Adresse</label>
-              <input type="text" id="adresse" v-model="clients.adresse" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="suite_adresse" class="block text-gray-700 text-sm font-bold mb-2">Suite Adresse</label>
-              <input type="text" id="suite_adresse" v-model="clients.suite_adresse" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-          </div>
-            <div class="mb-4">
-              <label for="email" class="block text-gray-700 text-sm font-bold mb-2">email</label>
-              <input type="text" id="email" v-model="clients.email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="téléphone" class="block text-gray-700 text-sm font-bold mb-2">Téléphone</label>
-              <input type="text" id="téléphone" v-model="clients.téléphone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="pays" class="block text-gray-700 text-sm font-bold mb-2">Pays</label>
-              <input type="text" id="pays" v-model="clients.pays" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <!-- Ajoutez d'autres champs pour le formulaire particulier ici -->
-          </div>
-          <div v-if="activeTabClient === 'professionnel'" class="">
-            <!-- Contenu pour le formulaire professionnel -->
-            <div class="mb-4">
-              <label for="nom_societe" class="block text-gray-700 text-sm font-bold mb-2">Nom de la société</label>
-              <input type="text" id="nom_societe" v-model="clients.nom_societe" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="siret" class="block text-gray-700 text-sm font-bold mb-2">SIRET</label>
-              <input type="text" id="siret" v-model="clients.siret" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="contact" class="block text-gray-700 text-sm font-bold mb-2">Contact</label>
-              <input type="text" id="conatct" v-model="clients.contact" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-            <div class="mb-4">
-              <label for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
-              <input type="text" id="tva" v-model="clients.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-            </div>
-           
-           
+          <!-- Modal Body -->
+          <div class="p-4">
+            <form @submit.prevent="saveData">
+              <!-- Tabs -->
+              <div class="mb-8">
+                <ul class="flex border-b">
+                  <li
+                    @click="setActiveTabClient('particulier')"
+                    :class="getTabClassClient('particulier')"
+                    class="mr-1 relative"
+                  >
+                    <a class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-500 font-semibold" href="#">Particulier</a>
+                    <div v-if="activeTabClient === 'particulier'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                  </li>
+                  <li
+                    @click="setActiveTabClient('professionnel')"
+                    :class="getTabClassClient('professionnel')"
+                    class="mr-1 relative"
+                  >
+                    <a class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold" href="#">Professionnel</a>
+                    <div v-if="activeTabClient === 'professionnel'" class="absolute bottom-0 left-0 w-full h-1 bg-blue-500"></div>
+                  </li>
+                </ul>
+                <div class="py-4">
+                  <!-- Particulier Form -->
+                  <div v-if="activeTabClient === 'particulier'" class="block">
+                    <div class="grid gap-6 mb-6 md:grid-cols-3">
+                      <div class="mb-4">
+                        <label for="civilité" class="block text-gray-700 text-sm font-bold mb-2">Civilité</label>
+                        <input type="text" id="civilité" v-model="clients.civilite" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                      </div>
+                      <div class="mb-4">
+                        <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Nom</label>
+                        <input type="text" id="name" v-model="clients.name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                      </div>
+                      <div class="mb-4">
+                        <label for="prenom" class="block text-gray-700 text-sm font-bold mb-2">Prenom</label>
+                        <input type="text" id="prenom" v-model="clients.prenom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                      </div>
+                    </div>
+                    <div class="grid gap-6 mb-6 md:grid-cols-2">
+                      <div class="mb-4">
+                        <label for="adresse" class="block text-gray-700 text-sm font-bold mb-2">Adresse</label>
+                        <input type="text" id="adresse" v-model="clients.adresse" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                      </div>
+                      <div class="mb-4">
+                        <label for="suite_adresse" class="block text-gray-700 text-sm font-bold mb-2">Suite Adresse</label>
+                        <input type="text" id="suite_adresse" v-model="clients.suite_adresse" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                      </div>
+                    </div>
+                    <div class="mb-4">
+                      <label for="email" class="block text-gray-700 text-sm font-bold mb-2">email</label>
+                      <input type="text" id="email" v-model="clients.email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                      <label for="téléphone" class="block text-gray-700 text-sm font-bold mb-2">Téléphone</label>
+                      <input type="text" id="téléphone" v-model="clients.téléphone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                      <label for="pays" class="block text-gray-700 text-sm font-bold mb-2">Pays</label>
+                      <input type="text" id="pays" v-model="clients.pays" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                  </div>
+                  <!-- Professionnel Form -->
+                  <div v-if="activeTabClient === 'professionnel'">
+                    <div class="mb-4">
+                      <label for="nom_societe" class="block text-gray-700 text-sm font-bold mb-2">Nom de la société</label>
+                      <input type="text" id="nom_societe" v-model="clients.nom_societe" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                      <label for="siret" class="block text-gray-700 text-sm font-bold mb-2">SIRET</label>
+                      <input type="text" id="siret" v-model="clients.siret" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                      <label for="contact" class="block text-gray-700 text-sm font-bold mb-2">Contact</label>
+                      <input type="text" id="contact" v-model="clients.contact" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                    <div class="mb-4">
+                      <label for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
+                      <input type="text" id="tva" v-model="clients.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enregistrer</button>
+            </form>
           </div>
         </div>
-        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enregistrer</button>
-
-      </div>
-   
-    
-      
-    </form>
-  </div>
-    </div>
-    </div>
-    </div>
-    </div>
-  </div>
+      </div> 
   <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <br/>
         <div class="flex justify-end mb-4">
@@ -442,6 +418,23 @@ export default {
 </script>
 
 <style scoped>
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dialog {
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+}
+
+.modal-content {
+  overflow-y: auto;
+  max-height: 100%;
+}
+
 .pagination-container {
   display: flex;
   justify-content: center;

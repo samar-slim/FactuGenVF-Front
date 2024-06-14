@@ -1092,7 +1092,11 @@ export default {
 
       
       onShow() {
-    this.$router.push(`/show/${id}`);
+        const store = localStorage.getItem('store');
+        if (store) {
+          const state = JSON.parse(store);
+        }
+    this.$router.push(`/${state.profile.type}show/${id}`);
   },
       removeItem(index) {
   this.tableOfSelectedOptions.splice(index, 1);
