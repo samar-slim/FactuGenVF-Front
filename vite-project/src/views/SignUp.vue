@@ -138,10 +138,11 @@ export default {
     localStorage.setItem('justSignedUp', 'true');
     // Assuming the response contains the token
     const token = response.data.token;
-    console.log('Token:', response.data);
+    console.log('Token:', response.data.token);
 
     // Store the token in localStorage (or Vuex store)
     localStorage.setItem('authToken', token);
+    localStorage.setItem('token', token);
 
     // Set the token in the axios headers for future requests
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
