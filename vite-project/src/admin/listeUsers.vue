@@ -131,6 +131,7 @@ export default {
       currentPage: 1,
       usersPerPage: 10,
       searchQuery: '',
+      selectedUserId: null,
     };
   },
   async created(){
@@ -200,7 +201,7 @@ export default {
     showUserDetails(user) {
       this.selectedUser = user;
       this.isModalVisible = true;
-    },
+      console.log(user);    },
     updateUser(updatedUser) {
       const index = this.users.findIndex((user) => user.email === updatedUser.email);
       if (index !== -1) {
@@ -288,10 +289,20 @@ export default {
     changeUsersPerPage() {
       this.currentPage = 1; // Reset to first page when changing users per page
     },
+    updateUser(updatedUser) {
+      const index = this.users.findIndex(user => user.id === updatedUser.id);
+      if (index !== -1) {
+        this.$set(this.users, index, updatedUser);
+      }
+    },
+     editUser(userId) {
+      this.selectedUserId = userId; // Set the selected user ID
+      this.showModal = true; // Show the modal
+    },
   },
   components: {
     UserModal,
   },
-  name: 'ListeClient',
+  name: 'ListeUsers',
 };
 </script>
