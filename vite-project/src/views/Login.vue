@@ -75,21 +75,29 @@ export default {
             // Redirect or do something after successful login
 
             const storedState = localStorage.getItem('store');
-            let isAdmin = false;
-
+            const user = localStorage.getItem('user');
+            let role = '';
             if (storedState) {
               try {
                 const state = JSON.parse(storedState);
-                isAdmin = state.profile.role === 'admin';
+                role = state.profile.type;
+
               } catch (e) {
                 console.error("Failed to parse stored state:", e);
               }
             }
-            console.log("is admin :" , isAdmin); // Use isAdmin directly here
-            if (isAdmin){
+            if ( role === 'admin') {
+              console.log(' role is admin');
               this.$router.push('/admin/Dashboard');
+            } else if (role === 'user') {
+              console.log(' role is user');
+              this.$router.push('/user/Dashboard');
+            } else if( role === 'client') {
+              console.log(' role is client');
+              this.$router.push('/client/Dashbord');
             } else {
-              this.$router.push('/user/Dashbord');
+              console.log(' role is unknown');
+              this.$router.push('/login');
             }
           }
         )
