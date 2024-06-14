@@ -329,6 +329,16 @@
              
              </a>  
            </div>  
+           <div   class=" duration-700  flex items-center ">  
+             <a >
+              <router-link to="/user/CategorieListe" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
+               <i class="fa-brands fa-product-hunt"></i>  Categorie</span>
+         
+             </router-link>
+             
+             
+             </a>  
+             </div>
  
  
  

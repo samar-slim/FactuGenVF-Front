@@ -13,6 +13,8 @@ import axios from "axios";
 import vuex from "vuex";
 //import login from './login.js';
 import store  from './store.js';
+import Toast from 'vue-toastification';
+import 'vue-toastification/dist/index.css';
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -27,7 +29,8 @@ app.config.globalProperties.$http = axios;
 app.use(vuex);
 app.use(router).use(store);
 app.use(VTooltip); // Enregistrez la bibliothèque des tooltips
-app.use(Vueform, vueformConfig)
+app.use(Vueform, vueformConfig);
+app.use(Toast);
 //app.use(login)
 
 // Montez votre application sur l'élément avec l'id "app" dans votre index.html
