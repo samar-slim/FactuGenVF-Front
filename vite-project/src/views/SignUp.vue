@@ -47,8 +47,12 @@
             </div>
           </div>
           <div>
-            <label for="contact" class="block text-gray-700 font-semibold mb-2">Contact</label>
-            <input type="text" id="contact" v-model="contact" placeholder="Enter your contact" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <label for="type" class="block text-gray-700 font-semibold mb-2">Type</label>
+            <select id="type" v-model="selectedType">
+             <option>Admin entreprise</option>
+             <option>Client</option>
+             </select>
+   
           </div>
           <div>
             <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
@@ -72,11 +76,12 @@
 
 <script>
 import axios from 'axios';
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
   computed: {
-    ...mapGetters(['getToken'])
+    ...mapGetters(['getToken']),
+    ...mapActions(['loginUser']),
   },
   data() {
     return {
@@ -87,7 +92,7 @@ export default {
       pays: '',
       ville: '',
       adresse: '',
-      contact: '',
+      selectedType: '',
       password: '',
       confirmPassword: '',
     };
@@ -117,7 +122,7 @@ export default {
           ville: this.ville,
           adresse: this.adresse,
           contact: this.contact,
-          type: 'user'
+          type: this.selectedType,
         },  
         account: {
           accountIdentifier: this.email,
@@ -126,18 +131,29 @@ export default {
         }
       };
 
-      axios.post('http://localhost:8080/api/auth/signup', userData)
-        .then(response => { 
-          console.log('Sign up successful:', response.data);
-          this.$router.push('/login')
-          // Optionally, redirect to a success page or show a success message
-        })
-        .catch(error => {
-          console.error('Sign up error:', error.response.data);
-          // Optionally, display an error message to the user
-          console.log(userData);
-        });
-    }
+     axios.post('http://localhost:8080/api/auth/signup', userData)
+  .then(response => { 
+    console.log('Sign up successful:', response.data);
+    //store.commit('setJustSignedUp', true);
+    localStorage.setItem('justSignedUp', 'true');
+    // Assuming the response contains the token
+    const token = response.data.token;
+    console.log('Token:', response.data);
+
+    // Store the token in localStorage (or Vuex store)
+    localStorage.setItem('authToken', token);
+
+    // Set the token in the axios headers for future requests
+    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+    // Optionally, store user data in Vuex store or component state
+    
+    localStorage.setItem('user', JSON.stringify(response.data.userData));
+    // Redirect to a protected route or home page
+    this.$router.push('/user/dashboard');})
+  
+
+  }
   }
 };
 </script>

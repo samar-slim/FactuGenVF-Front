@@ -40,9 +40,26 @@ import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
 import profilesettings from '../components/profil/Setting.vue';
 import AIPage from '../components/global/AIPage.vue';
+import ClientDevis from '../clientInterfaces/clientDevis.vue';
+import ClientFacture from '../clientInterfaces/clientFacture.vue';
+import ClientShowDevis from '../clientInterfaces/showDevis.vue';
+import ClientShowFacture from '../clientInterfaces/ShowFactureClient.vue';
+import HomeClient from '../clientInterfaces/HomeClient.vue';
+import EntrepiseInfo from '../views/EntrepriseInfo.vue'
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
+    {  
+      path: '/Client', 
+      children:[
+        { path: 'home', component: HomeClient },
+        { path: 'ClientDevis', component: ClientDevis },
+        { path: 'ClientFacture', component: ClientFacture },
+        { path: 'ClientShowDevis', component: ClientShowDevis },
+        { path: 'ClientShowFacture', component: ClientShowFacture },
+      ]
+     },
     {path: '/admin',
 
       children:[
@@ -65,6 +82,7 @@ const router = createRouter({
         { path: 'Devis',  component: Devis}, 
         { path: 'setting',   component: Setting },
         { path: 'Avoir', component: Avoir},
+        
       ]
 
     },
@@ -97,14 +115,15 @@ const router = createRouter({
         { path: 'CategorieListe', component: CategorieListe },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
+        { path: 'Entreprise', component: EntrepiseInfo},
       ]
 
     },
 
     {
       path: '/',
-      name: 'master',
-      component: master
+      name: 'Home',
+      component: Home
     },
     {
       path: '/ListeProduit',
@@ -169,12 +188,6 @@ const router = createRouter({
       path: '/calendrier',
       name: 'Calendrier',
       component: Calendrier
-    },
-   
-    {
-        path: '/client',
-      name: 'Client',
-      component: Client
     },
     {
       path: '/facture',

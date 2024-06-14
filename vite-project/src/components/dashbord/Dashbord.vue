@@ -1,5 +1,11 @@
 <template>
   <div class="mt-12">
+    
+      <Popup @close="closePopup" :isVisible="showPopup" :user="selectedUser"    />
+
+
+    <modal v-if="showModal" @close="closeModal"></modal>
+    
     <!-- Statistiques des cartes -->
     <!-- cards -->
     <div class="w-full px-6 py-6 mx-auto">
@@ -885,10 +891,28 @@
   </div>
 </template>
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import ApexCharts from 'apexcharts';
 import 'flowbite/dist/flowbite.min.js';
+//import { Modal } from 'usemodel-vue3';
+import Popup from '../../views/EntrepriseInfo.vue';
+//const store = useStore();
+const showPopup = ref(false);
+
+
+const closePopup = () => {
+  showPopup.value = false;
+};
+
+const checkSignupStatus = () => {
+  if (localStorage.getItem('justSignedUp') === 'true') {
+    showPopup.value = true;
+    localStorage.setItem('justSignedUp', 'false');
+  }
+};
+
 onMounted(() => {
+  checkSignupStatus();
 const getChartOptions = () => {
   return {
     series: [52.8, 26.8, 20.4],
@@ -1085,12 +1109,13 @@ chart.render();
 
 
 
-
-
-
 </script>
 
 
 <style>
-/* Vos styles ici */
+@media (max-width: 768px) {
+  .popup {
+    width: 50%; /* Adjust this value as needed */
+  }
+}
 </style>
