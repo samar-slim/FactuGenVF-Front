@@ -48,10 +48,9 @@ async function isTokenValid() {
   export async function authGuardUser(to, from, next) {
     const isValid = await isTokenValid();
     const store = JSON.parse(localStorage.getItem('store')); // or your user fetching logic
-
-    console.log('isValid',isValid)
-    console.log('role',store.profile.type)
-    if (isValid && store && store.profile.type === 'user') {
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    if (isValid && store && store.profile.type === 'user' || isValid && user && user.type === 'user') {
       console.log('next page called for user')
       next();
     } else {
@@ -63,10 +62,10 @@ async function isTokenValid() {
   export async function authGuardAdmin(to, from, next) {
     const isValid = await isTokenValid();
     const store = JSON.parse(localStorage.getItem('store')); // or your user fetching logic
-    
+    const user = JSON.parse(localStorage.getItem('user'));
     console.log('isValid',isValid)
     
-    if (isValid && store && store.profile.type === 'admin') {
+    if (isValid && store && store.profile.type === 'admin' || isValid && user && user.type === 'admin') {
       next();
     } else {
       next('/login');
@@ -76,7 +75,16 @@ async function isTokenValid() {
   export async function checkAuth(to, from, next) {
     const isValid = await isTokenValid();
     const store = JSON.parse(localStorage.getItem('store'));
-    if (isValid && store) {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (isValid && store || isValid && user) {
+        let role = '';
+        if (store) {
+          role = store.profile.role;
+        } else if (user) {
+          role = user.type;
+        }
+        console.log('role', role)
         next(`/${store.profile.type}/Dashboard`);
     } else {
         if (to.path !== '/login') {

@@ -92,7 +92,7 @@ export default {
             } else if (role === 'user') {
               console.log(' role is user');
               this.$router.push('/user/Dashboard');
-            } else if( role === 'client') {
+            } else if( role === 'client' || role === 'Client') {
               console.log(' role is client');
               this.$router.push('/client/Dashbord');
             } else {

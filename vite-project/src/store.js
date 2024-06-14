@@ -84,39 +84,47 @@ const store = new Vuex.Store ({
         },
 
         async logoutUser({ commit, getters }) {
-            try {
-              const authToken = getters.getToken;
-              console.log('authToken :',authToken)
-              console.log(authToken);
-              if ( !authToken) {
+          try {
+            let authToken = getters.getToken; // Change from const to let
+            const storagetoken = localStorage.getItem('token');
+    
+            console.log('storagetoken :', storagetoken);
+            console.log('authToken :', authToken);
+    
+            // Use the storagetoken if authToken is not available
+            if (!authToken) {
+                authToken = storagetoken;
+            }
+    
+            // Check if there's no token at all
+            if (!authToken) {
                 throw new Error('No token available for logout');
-              }
-      
-              // Set the request headers with Authorization token
-              const headers = {
+            }
+    
+            console.log('Final authToken :', authToken);
+    
+            // Set the request headers with Authorization token
+            const headers = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}` // Include the JWT token
-              };
-              let data = {
-                token: authToken
-              }
-              // Make the POST request to the logout endpoint
-              await axios.post('/api/auth/logout', data, { headers });
-      
-              // Commit the logout mutation
-              commit('logout');
-              
-              localStorage.removeItem('store');
-              localStorage.removeItem('token');
-              // Optionally clear any other data from the store
-              // commit('clearUserData');
-      
-              // Return a success message or indication
-              return 'Logout successful';
-            } catch (error) {
-              console.error('Logout error:', error);
-              throw error; // Propagate the error to the caller
-            }
+            };
+    
+            // Make the POST request to the logout endpoint
+            await axios.post('/api/auth/logout', {}, { headers });
+    
+            // Commit the logout mutation
+            commit('logout');
+    
+            // Clear local storage
+            localStorage.removeItem('store');
+            localStorage.removeItem('token');
+    
+            // Return a success message or indication
+            return 'Logout successful';
+        } catch (error) {
+            console.error('Logout error:', error);
+            throw error; // Propagate the error to the caller
+        }
           },
     }
 })

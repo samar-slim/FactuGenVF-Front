@@ -151,7 +151,14 @@ export default {
     
     localStorage.setItem('user', JSON.stringify(response.data.userData));
     // Redirect to a protected route or home page
-    this.$router.push('/user/dashboard');})
+    let route = '';
+    if (response.data.userData.type === 'admin_entreprise') {
+      route = '/user/dashboard';
+      
+    } else if (response.data.userData.type === 'Client') {
+      route = '/client/home';
+    }
+    this.$router.push(route);})
   
 
   }
