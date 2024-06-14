@@ -24,6 +24,7 @@
     "jspdf": "^2.5.1",
     "primeicons": "^6.0.1",
     "primevue": "^3.50.0",
+    "signature_pad": "^5.0.2",
     "sweetalert2": "^11.11.0",
     "tesseract.js": "^5.1.0",
     "v-tooltip": "^2.1.3",

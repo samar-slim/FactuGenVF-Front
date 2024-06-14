@@ -18,7 +18,15 @@
     :showDevisInterface="openDevisInterface"
 
     /> 
-    
+
+    <clientSidebar v-if="$route.path.startsWith('/client')" :dataOpenSideBar="openSidebar"
+    :showClientInterface="openClientInterface"
+    :showListeClientInterface="openListeClientInterface"
+    :showListeFactureInterface="openListeFactureInterface"
+    :showLFactureInterface="openFactureInterface"
+    :showDevisInterface="openDevisInterface"
+    />
+
     <Facture v-if="showFacture"/>
     
     <ListeClient  v-if="showListeClient" />
@@ -26,7 +34,9 @@
     <Devis v-if="showDevis"/>
     
     <div class="w-full h-full">
+      
       <AppHeader v-if="$route.path.startsWith('/user') || $route.path.startsWith('/admin')" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
+      <ClientHeader v-else-if="$route.path.startsWith('/client')" :dataOpenSideBar="openSidebar" :clickHambuger="toggleSidebar" />
       <LandingHeader v-else />
 
       <div class="w-full h-[calc(100vh-50px)]">
@@ -49,8 +59,11 @@ import ListeFacture from '../../facture/ListeFacture.vue'
 import Facture from '../../facture/Facture.vue'
 import Devis from '../../devis/Devis.vue'
 import LandingHeader from './../../global/LandingHeader.vue'
+import clientSidebar from './../../global/clientSidebar.vue'
+
 import store from '../../../store.js';
 import { mapGetters} from 'vuex'; 
+import ClientHeader from '../../global/clientHeader.vue'
 
 
 
@@ -58,7 +71,7 @@ import { mapGetters} from 'vuex';
 
 
 export default {
-  components:{AppHeader, Sidebar,adminSidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader, adminSidebar, adminHeader},
+  components:{AppHeader, Sidebar,adminSidebar, Client, ListeClient, ListeFacture, Facture, Devis, LandingHeader, adminSidebar, adminHeader, clientSidebar, ClientHeader},
   computed: {
         ...mapGetters(['getCount','getIsLogedIn'])
     },
