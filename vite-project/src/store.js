@@ -14,6 +14,7 @@ const store = new Vuex.Store ({
               accountId : null,
               accountIdentifier : null,
               role: null,
+              justSignedUp: false,
             }
         }},
     getters: {
@@ -23,9 +24,7 @@ const store = new Vuex.Store ({
         getIsLogedIn: state => {
             return state.isLogedIn;
         },
-        getToken: state => {
-          return state.token
-        },
+        getToken: state => state.token,
         getUser: state => {
           return state.profile.accountId
         }
@@ -52,6 +51,9 @@ const store = new Vuex.Store ({
         },
         setProfile(state, profile){
           state.profile = profile;
+        },
+        setJustSignedUp(state, status) {
+          state.justSignedUp = status;
         }
     },
     actions: {
@@ -70,6 +72,8 @@ const store = new Vuex.Store ({
                   commit('setToken', token);
                   commit('setProfile', profile) // Commit mutation to store token
                   commit('login'); // Commit mutation to indicate successful login
+                  localStorage.setItem('store', JSON.stringify(store.state));
+                  localStorage.setItem('token', token);
                   resolve(); // Resolve the promise to indicate successful login
                 })
                 .catch(error => {
@@ -80,36 +84,47 @@ const store = new Vuex.Store ({
         },
 
         async logoutUser({ commit, getters }) {
-            try {
-              const authToken = getters.getToken;
-              console.log(authToken);
-              if ( !authToken) {
+          try {
+            let authToken = getters.getToken; // Change from const to let
+            const storagetoken = localStorage.getItem('token');
+    
+            console.log('storagetoken :', storagetoken);
+            console.log('authToken :', authToken);
+    
+            // Use the storagetoken if authToken is not available
+            if (!authToken) {
+                authToken = storagetoken;
+            }
+    
+            // Check if there's no token at all
+            if (!authToken) {
                 throw new Error('No token available for logout');
-              }
-      
-              // Set the request headers with Authorization token
-              const headers = {
+            }
+    
+            console.log('Final authToken :', authToken);
+    
+            // Set the request headers with Authorization token
+            const headers = {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}` // Include the JWT token
-              };
-              let data = {
-                token: authToken
-              }
-              // Make the POST request to the logout endpoint
-              await axios.post('/api/auth/logout', data, { headers });
-      
-              // Commit the logout mutation
-              commit('logout');
-      
-              // Optionally clear any other data from the store
-              // commit('clearUserData');
-      
-              // Return a success message or indication
-              return 'Logout successful';
-            } catch (error) {
-              console.error('Logout error:', error);
-              throw error; // Propagate the error to the caller
-            }
+            };
+    
+            // Make the POST request to the logout endpoint
+            await axios.post('/api/auth/logout', {}, { headers });
+    
+            // Commit the logout mutation
+            commit('logout');
+    
+            // Clear local storage
+            localStorage.removeItem('store');
+            localStorage.removeItem('token');
+    
+            // Return a success message or indication
+            return 'Logout successful';
+        } catch (error) {
+            console.error('Logout error:', error);
+            throw error; // Propagate the error to the caller
+        }
           },
     }
 })

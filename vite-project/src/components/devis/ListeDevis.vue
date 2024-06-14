@@ -184,6 +184,7 @@ export default {
   },
   data() {
     return {
+      editProductTableOnly: false,
       currentPage: 1,
       itemsPerPage: 10,
       selectedDevis: [],
@@ -252,11 +253,14 @@ export default {
       this.showFactureList = true;
     },
     editDevis(id) {
-      console.log("Éditer le devis avec l'ID :", id);
-      this.currentDevisId = id;
-      console.log('currr', this.currentDevisId);
-      this.showModal = true;
-    },
+    console.log("Éditer le devis avec l'ID :", id);
+    this.currentDevisId = id;
+    console.log('currr', this.currentDevisId);
+
+    // Afficher uniquement l'interface pour éditer le tableau des produits
+    this.showModal = true;
+    this.editProductTableOnly = true;  // Indique que seul le tableau des produits doit être édité
+  },
     deleteDevis(id) {
       if (confirm("Êtes-vous sûr de vouloir supprimer ce devis ?")) {
         axios.delete(`http://localhost:8080/api/devis/${id}`)
@@ -369,6 +373,7 @@ export default {
     },
     closeModal() {
       this.modalOpen = false;
+      this.editProductTableOnly = false; 
     },
     closeModal1() {
       this.modalOpen1 = false;

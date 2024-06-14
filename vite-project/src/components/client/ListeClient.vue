@@ -155,13 +155,13 @@
         <label for="checkbox-table-1" class="sr-only">checkbox</label>
       </div>
                   </td>
-              <td class="px-6 py-4">{{ client.nom }}</td>
-              <td class="px-6 py-4">{{ client.prenom }}</td>
-              <td class="px-6 py-4">{{ client.email }}</td>
-              <td class="px-6 py-4">{{ client?.telephone }}</td>
-              <td class="px-6 py-4">{{ client?.adresse }}</td>
-              <td class="px-6 py-4">{{ client?.ville }}</td>
-              <td class="px-6 py-4">{{ client?.codePostal }}</td>
+              <td class="px-6 py-4">{{ clients.nom }}</td>
+              <td class="px-6 py-4">{{ clients.prenom }}</td>
+              <td class="px-6 py-4">{{ clients.email }}</td>
+              <td class="px-6 py-4">{{ clients?.telephone }}</td>
+              <td class="px-6 py-4">{{ clients?.adresse }}</td>
+              <td class="px-6 py-4">{{ clients?.ville }}</td>
+              <td class="px-6 py-4">{{ clients?.codePostal }}</td>
               <td class="px-6 py-4 flex items-center justify-end space-x-4">
       <a href="#" @click.prevent="editClient(client._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-pen"></i></a>
           <a href="#" @click.prevent="deleteClient(client._id)" class="font-medium text-red-600 dark:text-red-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-trash"></i></a>
