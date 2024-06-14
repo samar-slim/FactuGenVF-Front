@@ -47,8 +47,12 @@
             </div>
           </div>
           <div>
-            <label for="contact" class="block text-gray-700 font-semibold mb-2">Contact</label>
-            <input type="text" id="contact" v-model="contact" placeholder="Enter your contact" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <label for="type" class="block text-gray-700 font-semibold mb-2">Type</label>
+            <select id="type" v-model="selectedType">
+             <option>Admin entreprise</option>
+             <option>Client</option>
+             </select>
+   
           </div>
           <div>
             <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
@@ -88,7 +92,7 @@ export default {
       pays: '',
       ville: '',
       adresse: '',
-      contact: '',
+      selectedType: '',
       password: '',
       confirmPassword: '',
     };
@@ -118,7 +122,7 @@ export default {
           ville: this.ville,
           adresse: this.adresse,
           contact: this.contact,
-          type: 'user'
+          type: this.selectedType,
         },  
         account: {
           accountIdentifier: this.email,
