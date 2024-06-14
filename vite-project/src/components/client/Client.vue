@@ -257,7 +257,7 @@
 
 <script>
 import axios from 'axios'; 
-
+import { useToast } from 'vue-toastification';
 import Pagination from "../global/Pagination.vue";
 export default {
     components: {
@@ -288,13 +288,13 @@ export default {
       siret: '',
       tva: '',
       },
-      clients: [],
+      client: [],
     };
   },
   computed: { 
     paginatedClients() {
       const start = (this.currentPage - 1) * this.itemsPerPage;
-      return this.clients.slice(start, start + this.itemsPerPage);
+      return this.client.slice(start, start + this.itemsPerPage);
     },
    
 },
@@ -321,29 +321,32 @@ export default {
     getTabClassClient(tab) {
       return this.activeTabClient === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700';
     },
-    async deleteClient(clientID) {
-  try {
-    const [facturesResponse, devisResponse] = await Promise.all([
-      axios.get(`/api/facture?clientId=${clientID}`),
-      axios.get(`/api/devis?clientId=${clientID}`),
-    ]);
+     async deleteClient(clientID) {
+      const toast = useToast();
 
-    const hasFactures = facturesResponse.data.length > 0;
-    const hasDevis = devisResponse.data.length > 0;
+      try {
+        const [facturesResponse, devisResponse] = await Promise.all([
+          axios.get(`/api/facture?clientId=${clientID}`),
+          axios.get(`/api/devis?clientId=${clientID}`),
+        ]);
 
-    if (hasFactures || hasDevis) {
-      // Le client a des factures ou des devis, on ne peut pas le supprimer
-      alert("Ce client ne peut pas être supprimé car il a des factures ou des devis associés.");
-    } else {
-      // Le client n'a ni factures ni devis, on peut procéder à la suppression
-      await axios.delete(`/api/clients/${clientID}`);
-      this.clientLoad();
-    }
-  } catch (error) {
-    console.error("Erreur lors de la vérification ou la suppression du client :", error);
-    alert("Une erreur est survenue lors de la vérification ou la suppression du client. Veuillez réessayer.");
-  }
-},
+        const hasFactures = facturesResponse.data.length > 0;
+        const hasDevis = devisResponse.data.length > 0;
+
+        if (hasFactures || hasDevis) {
+          toast.error("Ce client ne peut pas être supprimé car il a des factures ou des devis associés.");
+          return;
+        }
+
+        const response = await axios.delete(`/api/clients/${clientID}`);
+        toast.success(response.data.message);
+        this.clientLoad();  // Recharger les clients après la suppression
+      } catch (error) {
+        console.error("Erreur lors de la vérification ou la suppression du client :", error);
+        toast.error("Une erreur est survenue lors de la vérification ou la suppression du client. Veuillez réessayer.");
+      }
+    },
+  
   toggleSelectAll(event) {
       if (event.target.checked) {
         this.selectedClient = this.client.map(devis => devis._id);
@@ -364,7 +367,7 @@ export default {
       clientLoad() {
          axios.get("http://localhost:8080/api/client/")
            .then(({data}) => {
-            this.clients = data;
+            this.client = data;
         this.totalItems = data.length;
            
        });
@@ -395,52 +398,42 @@ export default {
       this.currentPage = page;
     },
 
-       edit(clients)
+       edit(client)
            {
-            this.clients = clients;
+            this.client = client;
            
            },
+           async editClient(clientID, updatedData) {
+      const toast = useToast();
+
+      try {
+        const response = await axios.put(`/api/clients/${clientID}`, updatedData);
+        toast.success(response.data.message);
+        this.clientLoad();  // Recharger les clients après la mise à jour
+      } catch (error) {
+        console.error("Erreur lors de la mise à jour du client :", error);
+        toast.error("Une erreur est survenue lors de la mise à jour du client. Veuillez réessayer.");
+      }
+    },
        
-          saveData() {
-            if (this.editingClientId) {
-      axios
-        .put(`http://localhost:8080/api/client/${this.editingClientId}`, this.clients)
-        .then(async (response) => {
-            const { data } = response;
-           
-           
-            this.clientLoad();
-            this.clients = {};
-            this.modalOpen = false;
-        })
-        .catch((error) => {
-          console.error("Erreur:", error);
-          alert("Une erreur est survenue lors de la mise à jour du client. Veuillez réessayer.");
-        });
+    async saveData() {
+      const toast = useToast();
+
+      try {
+        const response = await axios.post("http://localhost:8080/api/client/add", this.clients);
+        const { data } = response;
+        
+        this.clientLoad();  // Recharger les clients après l'ajout
+        this.clients = {};  // Réinitialiser le formulaire
+        this.modalOpen = false; // Fermer le modal, assurez-vous que c'est une méthode
+        
+        toast.success("Le client a été ajouté avec succès.");
+      } catch (error) {
+        console.error("Erreur :", error);
+        toast.error("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");
+      }}}
     
-    } else {
-
-  axios.post("http://localhost:8080/api/client/add", this.clients)
-  .then(async (response) => {
-            const { data } = response;
-           
-           
-            this.clientLoad();
-            this.clients = {};
-           this.closeModal;
-
-          
-
-           
-          })       
-  .catch(error => {
-      console.error("Error:", error);
-      alert("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");
-    });
-    
-  }
-}
-  }
+  
   
   
   

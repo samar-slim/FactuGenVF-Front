@@ -32,7 +32,8 @@ import MainDouvre from '../components/Article/MainDouvre.vue';
 import ListeTraveau   from '../components/Article/Traveaux.vue';
 import Avoir from '../components/Avoir/Avoir.vue';
 import ShowFacture from '../components/facture/ShowFacture.vue'
-import adminDashboard from '../admin/dashboard.vue'
+import adminDashboard from '../admin/dashboard.vue';
+import CategorieListe  from '../components/Article/CategorieListe.vue';
 import listeUsers from '../admin/listeUsers.vue';
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
@@ -111,6 +112,7 @@ const router = createRouter({
         { path: 'ListeTraveau', component: ListeTraveau },
         { path: 'ListeProduit', component: ListeProduit },
         { path: 'ListeArticle', component: GestionArticle },
+        { path: 'CategorieListe', component: CategorieListe },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
         { path: 'Entreprise', component: EntrepiseInfo},
@@ -128,6 +130,7 @@ const router = createRouter({
       name: 'ListeProduit',
       component: ListeProduit
     },
+    
     {
       path: '/profil1',
       name: 'UseCard',
