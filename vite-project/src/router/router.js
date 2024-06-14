@@ -40,6 +40,7 @@ import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
 import profilesettings from '../components/profil/Setting.vue';
 import AIPage from '../components/global/AIPage.vue';
+import PerFacture from '../components/facture/perFacture.vue';
 import ClientDevis from '../clientInterfaces/clientDevis.vue';
 import ClientFacture from '../clientInterfaces/clientFacture.vue';
 import ClientShowDevis from '../clientInterfaces/showDevis.vue';
@@ -48,6 +49,7 @@ import HomeClient from '../clientInterfaces/HomeClient.vue';
 import EntrepiseInfo from '../views/EntrepriseInfo.vue'
 import { authGuardAdmin, authGuardUser, authGuard, checkAuth } from './auth.js';
 import NotFound from '../components/notFound.vue'
+
 
 const router = createRouter({
   history: createWebHistory(),
@@ -123,7 +125,9 @@ const router = createRouter({
         { path: 'CategorieListe', component: CategorieListe },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
+        { path: 'personnaliseFacture', component: PerFacture, props: {Facture: true }},
         { path: 'Entreprise', component: EntrepiseInfo},
+
       ]
 
     },

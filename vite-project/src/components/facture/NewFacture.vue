@@ -702,7 +702,7 @@
     </a>
 
     <a
-        href="#personnaliser"
+        href="/user/personnaliseFacture"
         class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-slate-800"
     >
         <!-- HeroIcon - Chart Bar -->
@@ -788,48 +788,46 @@
       return {
         lienPartage: '',
         dropdownOpen: false,
-      selectedOption: '$',
-      remiseValue: 0,
+        selectedOption: '$',
+        remiseValue: 0,
         result:{},
         activeTab1: '1',
         activeTab: '1',
-         singleSelectedObject : {} , 
+        singleSelectedObject : {} , 
         tableOfSelectedOptions :[],
         resultProduit : {},
         resultfacture : {},
         showfactureModal: false,
         modalOpen2: false,
-        facture : {
-         
-        },
+        facture : {...this.initFature},
         produits : { 
           nom_article :'',
-        reference :'',
-        categorie :'',
-        description :'',
-        prix :'',
-        prix_unitaire:'',
-        tva :'' ,
-        type_unité :'',
+          reference :'',
+          categorie :'',
+          description :'',
+          prix :'',
+          prix_unitaire:'',
+          tva :'' ,
+          type_unité :'',
 
         },
         produit :[],
         client: [],
         clients : {
-    civilite: '',
-      name: '',
-      prenom: '',
-      adresse: '',
-      suite_adresse: '',
-      email: '',
-      téléphone: '',
-      contact: '',
-      pays: '',
-      nom_societe: '',
-      siret: '',
-      tva: '',
-      },
-      produitSelectionne: null,
+          civilite: '',
+          name: '',
+          prenom: '',
+          adresse: '',
+          suite_adresse: '',
+          email: '',
+          téléphone: '',
+          contact: '',
+          pays: '',
+          nom_societe: '',
+          siret: '',
+          tva: '',
+        },
+        produitSelectionne: null,
         selectedArticleId: null,
         selectedClientId: null,
         isOpen:false,
