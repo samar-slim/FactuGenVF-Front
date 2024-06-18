@@ -13,8 +13,9 @@ import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
 import Reclamation from '../components/reclamation/Reclamation.vue';
-//import Setting from '../components/global/profilesettings.vue'
-import Setting from '../components/profil/Setting.vue'
+import Setting from '../components/global/profilesettings.vue'
+import Support from '../components/global/support.vue'
+/* import Setting from '../components/profil/Setting.vue' */
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
 import NewDevis from '../components/devis/NewDevis.vue'
@@ -62,6 +63,9 @@ const router = createRouter({
         { path: 'ClientFacture', component: ClientFacture },
         { path: 'ClientShowDevis', component: ClientShowDevis },
         { path: 'ClientShowFacture', component: ClientShowFacture },
+        { path: 'setting',   component: Setting },
+        { path: 'support',   component: Support},
+        { path: 'reclamation',   component: Reclamation},
       ]
      },
     {path: '/admin',

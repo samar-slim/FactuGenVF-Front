@@ -26,8 +26,8 @@
 
                 <!-- Desktop Menu -->
                 <ul class="space-x-10 font-theme-heading font-medium items-center hidden md:flex  flex-col space-y-7 md:space-y-0 md:flex-row">
-                    <li class="uppercase hover:text-tx-blue transition duration-200"><a href="#home" v-smooth-scroll>Home</a></li>
-                    <li class="uppercase hover:text-tx-blue transition duration-200" ><a href="#1" v-smooth-scroll>Services</a></li>
+                    <li class="uppercase hover:text-tx-blue transition duration-200"><a href="/" v-smooth-scroll>Home</a></li>
+                    <li class="uppercase hover:text-tx-blue transition duration-200" ><a href="#features" v-smooth-scroll>Services</a></li>
                     <li class="uppercase hover:text-tx-blue transition duration-200"><a href="#Prices" v-smooth-scroll>Tarifs</a></li>
                     <li class="uppercase hover:text-tx-blue transition duration-200"><a href="/contact_us" v-smooth-scroll>Contactez Nous!</a></li>
 
