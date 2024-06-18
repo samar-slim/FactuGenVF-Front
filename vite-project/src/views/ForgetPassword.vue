@@ -26,6 +26,7 @@
   
   <script>
   import { mapActions, useStore} from 'vuex';
+  import axios from 'axios';
 
   export default {
     data() {
@@ -36,15 +37,17 @@
     },
     methods: {
       ...mapActions(['ForgetPasswrod']),
-    login() {
+    async login() {
       // Here you can perform any necessary validation before calling the login action
       console.log("email %s password %s", this.email, this.password)
       if (this.email ) {
-        this.ForgetPasswrod({ accountIdentifier: this.email }) // Pass user credentials to loginUser action
+        await axios.post("http://localhost:8080/api/auth/sendresetpasswordemail",{
+            email: this.email }) // Pass user credentials to loginUser action
           .then(() => {
             // Redirect or do something after successful login
             console.log("email was sent ")
             // todo add show a message 
+            this.$router.push({ path: '/login'});
           })
           .catch(error => {
             console.error('Login failed:', error);
