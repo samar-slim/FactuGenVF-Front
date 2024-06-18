@@ -77,21 +77,21 @@
           <table class="w-full border-collapse border-spacing-0">
             <tbody>
               <tr>
-                <td class="w-1/2 align-top">
-                  <div class="text-sm text-neutral-600">
-                    <p class="font-bold">Supplier Company INC</p>
-                    <p>Number: <span>{{ formDevis?.num }}</span></p>
-                    <p>SIRET Numéro: <span>{{ formDevis?.num_siret }}</span></p>
-                    <p>Inter: <span>{{ formDevis?.inter }}</span></p>
-                    <p>deleg: <span>{{ formDevis?.deleg }}</span></p>
-                    <p>email: <span>{{ formDevis?.email }}</span></p>
-                  </div>
-                </td>
+                  <td class="w-1/2 align-top">
+                    <div class="text-sm text-neutral-600">
+                      <p class="font-bold">Supplier Company INC</p>
+                      <p>Number: <span>{{ formUser?.telEntreprise }}</span></p>
+                      <p>SIRET Numéro: <span>{{ formUser?.siretEntreprise }}</span></p>
+                      <p>Inter: <span>{{ formDevis?.inter }}</span></p>
+                      <p>deleg: <span>{{ formDevis?.deleg }}</span></p>
+                      <p>email: <span>{{formUser?.emailEntreprise }}</span></p>
+                    </div>
+                  </td>
                 <td class="w-1/2 align-top text-right">
                   <div class="text-sm text-neutral-600">
                     <p class="font-bold">Customer Company</p>
                     <p>Numéro Client: {{ clientInfo?.numero }}</p>
-                    <span>Nom: {{ formDevis?.clientInfo?.civilite }} {{ clientInfo?.name }}</span>
+                    <span>Nom: {{ clientInfo?.civilite }} {{ clientInfo?.name }}</span>
                     <p>Prénom: {{ clientInfo?.prenom }}</p>
                     <p>mail: {{ clientInfo?.email }}</p>
                     <p>Téléphone: {{ clientInfo?.téléphone }}</p>
@@ -119,21 +119,15 @@
                 <td class="border-b py-3 pl-3">#{{ produit?.reference }}</td>
                 <td class="border-b py-3 pl-2">{{ produit?.description }}</td>
                 <td class="border-b py-3 pl-2 text-right">
-                  <div >
-                    <input type="number" v-model="produit.quantity" />
-                  </div>
-                  <div >{{ produit.quantity }}</div>
+                  
+                  {{ produit?.quantity }}
                 </td>
                 <td class="border-b py-3 pl-2 text-center">
-                  <div >
-                    <input type="text" v-model="produit.prix_unitaire" />
-                  </div>
-                  <div >{{ produit.prix_unitaire }}</div>
+                  
+                  {{ produit?.prix_unitaire }}
                 </td>
                 <td class="border-b py-3 pl-2 text-center">
-                  <div>
-                    <input type="text" v-model="produit.prix" />
-                  </div>
+                  
                   <div >{{ produit.prix }}</div>
                 </td>
                 <td class="border-b py-3 pl-2 text-right">{{ produit.total }}</td>
@@ -223,12 +217,14 @@
 import axios from 'axios';
 import { ref, onMounted, watch } from 'vue';
 import html2pdf from 'html2pdf.js/dist/html2pdf';
+import { useToast } from 'vue-toastification';
 import { useRouter } from 'vue-router';
 
 export default {
   props: ['id', 'modalTitle', 'buttonText', 'closeButtonText'],
   setup(props, { emit }) {
     const formDevis = ref(null);
+    const formUser = ref(null);
     const formProduit = ref(null);
     const clientInfo = ref(null);
     const produitInfo = ref(null);
@@ -280,6 +276,7 @@ export default {
           paiement: devisInfo.data.devis.paiement,
           clientId: devisInfo.data.devis.clientId,
           produitId: devisInfo.data.devis.produitId,
+          userId: devisInfo.data.devis.userId,
           totalHT: devisInfo.data.devis.totalHT,
           totalTTC: devisInfo.data.devis.totalTTC,
           imageUrl: devisInfo.data.devis.imageUrl,
@@ -353,29 +350,54 @@ export default {
     }
 
     await getClientInfo(formDevis.value.clientId);
+    await getUserById(formDevis.value.userId);
   } catch (error) {
     console.error("Erreur lors de la récupération du devis:", error);
   }
 };
+const getUserById = async (userId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+    formUser.value = response.data;
+    console.log('formuser', formUser.value.siretEntreprise)
+  } catch (error) {
+    console.error("Erreur lors de la récupération du user:", error);
+  }
+};
+
 const toggleEditMode = async () => {
     if (isEditing.value) {
       await saveChanges(); // Sauvegarde des données lorsque l'édition est désactivée
     }
     isEditing.value = !isEditing.value; // Inversion de la valeur
   };
- 
   const saveChanges = async () => {
+    const toast = useToast();
   try {
-    await axios.put(`http://localhost:8080/api/devis/${props.id}`, formDevis.value);
-    // Mettre à jour les données du produit
-    for (const produit of formProduit.value) {
-      await axios.put(`http://localhost:8080/api/produits/${produit.id}`, produit);
-    }
+    // Préparer les données du devis à envoyer au backend
+    const updatedDevisData = {
+      devis: {
+        date_emission: formDevis.value.date_emission,
+        date_expiration: formDevis.value.date_expiration,
+        numDevis: formDevis.value.numDevis,
+        titre: formDevis.value.titre,
+        // Ajouter d'autres champs du devis si nécessaire
+      }
+    };
+
+    // Envoyer les données mises à jour du devis au backend
+    await axios.put(`http://localhost:8080/api/devis/${props.id}`, updatedDevisData);
+    toast.success('Devis mis à jour avec succès');
+    // Émettre un événement pour indiquer que l'édition est terminée
     emit('close');
   } catch (error) {
-    console.error("Erreur lors de la mise à jour du devis et des produits:", error);
+    toast.error("Erreur lors de la mise à jour du devis:", error);
+    // Gérer les erreurs ici, par exemple afficher un message d'erreur à l'utilisateur
   }
 };
+
+
+
 
     const getClientInfo = async (clientId) => {
       try {
@@ -405,6 +427,7 @@ const toggleEditMode = async () => {
  
     return {
       formDevis,
+      formUser,
       formProduit,
       clientInfo,
       produitInfo,

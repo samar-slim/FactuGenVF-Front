@@ -374,11 +374,7 @@ export default {
       this.currentPage = page;
     },
 
-       edit(client)
-           {
-            this.client = client;
-           
-           },
+       
            async editClient(clientID, updatedData) {
       const toast = useToast();
 
