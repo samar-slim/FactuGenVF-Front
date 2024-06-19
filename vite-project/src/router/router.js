@@ -39,9 +39,8 @@ import listeUsers from '../admin/listeUsers.vue';
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
-import profilesettings from '../components/profil/Setting.vue';
+
 import AIPage from '../components/global/AIPage.vue';
-import PerFacture from '../components/facture/perFacture.vue';
 import ClientDevis from '../clientInterfaces/clientDevis.vue';
 import ClientFacture from '../clientInterfaces/clientFacture.vue';
 import ClientShowDevis from '../clientInterfaces/showDevis.vue';
@@ -50,8 +49,6 @@ import HomeClient from '../clientInterfaces/HomeClient.vue';
 import EntrepiseInfo from '../views/EntrepriseInfo.vue'
 import { authGuardAdmin, authGuardUser, authGuard, checkAuth } from './auth.js';
 import NotFound from '../components/notFound.vue'
-
-
 const router = createRouter({
   history: createWebHistory(),
   
@@ -71,9 +68,7 @@ const router = createRouter({
       ]
      },
     {path: '/admin',
-
       beforeEnter: [authGuardAdmin],
-
       children:[
         { path: 'dashboard', component: adminDashboard },
         { path: 'listeUsers', component: listeUsers},
@@ -96,13 +91,10 @@ const router = createRouter({
         { path: 'Avoir', component: Avoir},
         
       ]
-
     },
     ,
     {path: '/user',
-
       beforeEnter: [authGuardUser],
-
       children:[
         { path: 'dashboard', component: Dashbord },
         { path: 'NewDevis', component: NewDevis },
@@ -117,7 +109,7 @@ const router = createRouter({
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
         { path: 'reclamation',  component: Reclamation},
-        { path: 'Profilesettigns',  component: profilesettings},
+        /* { path: 'Profilesettigns',  component: profilesettings}, */
         { path: 'newDevis', component: NewDevis },
         { path: 'Avoir', component: Avoir},
         { path: 'ListeDevis', component: ListeDevis },
@@ -129,19 +121,15 @@ const router = createRouter({
         { path: 'CategorieListe', component: CategorieListe },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
-        { path: 'personnaliseFacture', component: PerFacture, props: {Facture: true }},
         { path: 'Entreprise', component: EntrepiseInfo},
-
+        { path: 'support',   component: Support},
       ]
-
     },
-
     {
       path: '/',
       name: 'Home',
       component: Home
     },
-
     
     {
       path: '/produitArt',
@@ -189,6 +177,4 @@ const router = createRouter({
    
   ]
 });
-
 export default router;
-
