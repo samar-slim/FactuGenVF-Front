@@ -7,7 +7,7 @@
         <div class="bg-white p-2 rounded shadow">
           <div class="flex justify-between items-center mb-4">
             <div class=" text-2xl px-2 font-bold">
-              <h3>Liste des Factures</h3>
+              <h3>Liste Devis</h3>
             </div>
            
           </div>
@@ -96,7 +96,7 @@
                 <label for="checkbox-all" class="sr-only">checkbox</label>
               </div>
             </th>
-            <th scope="col" class="px-6 py-3">facture N°</th>
+            <th scope="col" class="px-6 py-3">devis N°</th>
             <th scope="col" class="px-6 py-3">Client</th>
             <th scope="col" class="px-6 py-3">Entreprise</th>
             <th scope="col" class="px-6 py-3">Date</th>
@@ -109,22 +109,22 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="facture in facture" :key="facture._id" class="odd:bg-white cursor-pointer odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 relative group hover:bg-gray-200 dark:hover:bg-gray-700">
+          <tr v-for="devis in devis" :key="devis._id" class="odd:bg-white cursor-pointer odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 relative group hover:bg-gray-200 dark:hover:bg-gray-700">
   
     <td class="w-4 p-6">
     
     </td>
     <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      #{{ facture.numfacture }}
+      #{{ devis.numdevis }}
     </td>
-    <td  class="px-6 py-4">{{ facture.facture?.nom_entreprise }}</td>
-    <td  class="px-6 py-4">{{ facture.facture?.ville }}</td>
-    <td  class="px-6 py-4">{{ facture.facture?.date_emission }}</td>
-    <td @click="onShow(facture._id)" class="px-6 py-4">{{ facture.facture?.email }}</td>
-    <td   class="px-6 py-4">{{ facture.produitsSelectionnes?.total }}</td>
+    <td  class="px-6 py-4">{{ devis.devis?.nom_entreprise }}</td>
+    <td  class="px-6 py-4">{{ devis.devis?.ville }}</td>
+    <td  class="px-6 py-4">{{ devis.devis?.date_emission }}</td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.email }}</td>
+    <td   class="px-6 py-4">{{ devis.produitsSelectionnes?.total }}</td>
     
-    <td @click="cancelFacture(facture._id)" :class="{'text-red-400': facture.facture.status === 'signé', 'text-blue-500': facture.facture.status === 'non signé'}" class="font-bold px-6 py-4">
-      <button class="border border-gray-400 rounded px-2 bg-gray-100">{{ facture.facture.status }}</button>
+    <td @click="canceldevis(devis._id)" :class="{'text-red-400': devis.devis.status === 'signé', 'text-blue-500': devis.devis.status === 'non signé'}" class="font-bold px-6 py-4">
+      <button class="border border-gray-400 rounded px-2 bg-gray-100">{{ devis.devis.status }}</button>
   </td>
   
     <td class="px-6 py-4 flex items-center justify-end space-x-4">
@@ -136,7 +136,7 @@
   <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline delete-icon absolute top-0 right-full opacity-0 group-hover:opacity-100 transform translate-y-1/2 -translate-x-4">Delete</a>
         </tbody>
       </table>
-      <ShowFactureClient  v-if="showModal" :id="currentFactureId" :closeButtonText="'Fermer'"
+      <ShowDevisClient  v-if="showModal" :id="currentDevisId" :closeButtonText="'Fermer'"
         @close="showModal = false"
       />
       
@@ -174,46 +174,46 @@
   <script>
   import axios from 'axios';
   import { onMounted } from 'vue';
-import ShowFactureClient from './ShowFactureClient.vue';
+import ShowDevis from './ShowDevis.vue';
   
   export default {
-  components: { ShowFactureClient },
+  components: { ShowDevis },
     data() {
       return {
-        facture: [],
+        devis: [],
         showModal: false,
-        currentFactureId: null,
+        currentDevisId: null,
       };
     },
     methods: {
-      async loadFactures() {
+      async loadDeviss() {
         try {
-          const response = await axios.get('http://localhost:8080/api/facture');
-          this.facture = response.data;
+          const response = await axios.get('http://localhost:8080/api/devis');
+          this.devis = response.data;
         } catch (error) {
-          console.error('Erreur lors du chargement des factures:', error);
+          console.error('Erreur lors du chargement des deviss:', error);
         }
       },
       onShow(id) {
-        this.currentFactureId = id;
-          console.log('currr', this.currentFactureId);
+        this.currentDevisId = id;
+          console.log('currr', this.currentDevisId);
           this.showModal = true;
       },
-      cancelFacture(id) {
-        // Logic for cancelling facture
+      cancelDevis(id) {
+        // Logic for cancelling devis
       },
-      editFacture(id) {
-        // Logic for editing facture
+      editDevis(id) {
+        // Logic for editing devis
       },
-      deleteFacture(id) {
-        // Logic for deleting facture
+      deleteDevis(id) {
+        // Logic for deleting devis
       },
       toggleSelectAll(event) {
         // Logic for toggling select all
       },
     },
     mounted() {
-      this.loadFactures();
+      this.loadDeviss();
     },
   };
   </script>

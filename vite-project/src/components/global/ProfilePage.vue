@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h3 class="text-lg font-bold mb-2">Public profile</h3>
+      <h3 class="text-3xl font-semibold  mb-8 text-blue-500">Public profile</h3>
       <div class="flex items-center mb-4">
         <img
           :src="profilePicture"

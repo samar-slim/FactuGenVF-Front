@@ -4,7 +4,7 @@
         <h2 class="text-lg font-bold mb-4">Settings</h2>
         <ul class="space-y-2">
           <li>
-            <a
+            <a v-show="!isAdmin"
               href="#"
               class="block px-2 py-1 rounded hover:bg-gray-200 hover:font-semibold"
               @click.prevent="currentPage = 'profile'"
@@ -22,7 +22,7 @@
             >
           </li>
           <li>
-            <a
+            <a v-show="!isAdmin"
               href="#"
               class="block px-2 py-1 rounded hover:bg-gray-200 hover:font-semibold"
               @click.prevent="currentPage = 'api'"
@@ -31,7 +31,7 @@
             >
           </li>
           <li>
-            <a
+            <a v-show="!isAdmin"
               href="#"
               class="block px-2 py-1 rounded hover:bg-gray-200 hover:font-semibold"
               @click.prevent="currentPage = 'webhooks'"
@@ -42,7 +42,7 @@
         </ul>
       </div>
       <div class="flex-1 p-4">
-        <ProfilePage
+        <ProfilePage 
           v-if="currentPage === 'profile'"
           :profilePicture="profilePicture"
           :firstName="firstName"
@@ -52,8 +52,8 @@
           @updateLastName="lastName = $event"
         />
         <AccountPage v-else-if="currentPage === 'account'" />
-        <ApiPage v-else-if="currentPage === 'api'" />
-        <WebhooksPage v-else-if="currentPage === 'webhooks'" />
+        <ApiPage v-show="!isAdmin" v-else-if="currentPage === 'api'" />
+        <WebhooksPage v-show="!isAdmin" v-else-if="currentPage === 'webhooks'" />
       </div>
     </div>
   </template>
@@ -63,6 +63,7 @@
   import AccountPage from './AccountPage.vue'
   import ApiPage from './ApiPage.vue'
   import WebhooksPage from './WebhooksPage.vue'
+  import {mapActions , mapGetters} from 'vuex';
   
   export default {
     components: {
@@ -79,6 +80,23 @@
         lastName: 'Doe'
       }
     },
+    computed: {
+  ...mapGetters(['isLoggedIn']), 
+  isAdmin() {
+    const storedState = localStorage.getItem('store');
+    let isAdmin = false;
+    if (storedState) {
+      try {
+        const state = JSON.parse(storedState);
+        isAdmin = state.profile.type === 'admin';
+      } catch (e) {
+        console.error("Failed to parse stored state:", e);
+      }
+    }
+    console.log("is admin :", isAdmin);
+    return isAdmin;
+  }
+},
     methods: {
       changeProfilePicture() {
         // Open a file dialog or handle profile picture change logic here
