@@ -43,7 +43,7 @@ import showDevis from '../components/devis/ShowDevis.vue';
 import AIPage from '../components/global/AIPage.vue';
 import ClientDevis from '../clientInterfaces/clientDevis.vue';
 import ClientFacture from '../clientInterfaces/clientFacture.vue';
-import ClientShowDevis from '../clientInterfaces/showDevis.vue';
+import ClientShowDevis from '../clientInterfaces/showDevisClient.vue';
 import ClientShowFacture from '../clientInterfaces/ShowFactureClient.vue';
 import HomeClient from '../clientInterfaces/HomeClient.vue';
 import EntrepiseInfo from '../views/EntrepriseInfo.vue'

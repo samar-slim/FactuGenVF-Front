@@ -319,7 +319,7 @@
     <div  class="container mx-auto p-4 shadow-lg p-10 rounded bg-white">
         <!-- En-tête de la modal -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
-          <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Produit</h3>
+          <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Article</h3>
           <button @click="closeChoisir" type="button" ><i class="fa-solid fa-xmark"></i></button>
         
         </div>
@@ -791,8 +791,10 @@
   <div class=" fixed relative bg-gray-50 dark:bg-slate-900  flex"  v-if="!isOpen && !modalOpenC && !modalOpenFinaliser" >
     <div class="flex-grow flex justify-end">
       <nav class="z-20 flex flex-col gap-4 border-r border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 fixed top-2/4 -translate-y-2/4 right-6 h-[400px] w-[100px] rounded-lg border">
-  <a
-      href="#Digitaliser"
+  
+  <router-link to="/user/Digitalisation">
+        <a
+    
       class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 bg-indigo-50 text-indigo-600 dark:bg-sky-900 dark:text-sky-50"
   >
       <!-- HeroIcon - User -->
@@ -824,6 +826,7 @@
 
       <small class="text-center text-xs font"> Digitaliser</small>
   </a>
+</router-link>
 
   <a
       href="#personnaliser"
