@@ -94,7 +94,7 @@ export default {
               this.$router.push('/user/Dashboard');
             } else if( role === 'client' || role === 'Client') {
               console.log(' role is client');
-              this.$router.push('/client/Dashbord');
+              this.$router.push('/client/home');
             } else {
               console.log(' role is unknown');
               this.$router.push('/login');

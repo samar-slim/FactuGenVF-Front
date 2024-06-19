@@ -15,6 +15,17 @@ const store = new Vuex.Store ({
               accountIdentifier : null,
               role: null,
               justSignedUp: false,
+            },
+            user: {
+              nom: null,
+              prenom: null,
+              email: null,
+              telephone: null,
+              pays: null,
+              ville: null,
+              adresse: null,
+              type: null,
+              _id: null,
             }
         }},
     getters: {
@@ -27,7 +38,8 @@ const store = new Vuex.Store ({
         getToken: state => state.token,
         getUser: state => {
           return state.profile.accountId
-        }
+        },
+  
       
     },
     mutations: {
