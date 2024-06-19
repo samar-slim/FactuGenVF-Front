@@ -1,19 +1,19 @@
 <template>
   <div>
         <br/>
-     <div class="flex justify-end">
+        <div class="flex justify-end">
       <button @click="openModal" class="bg-blue-800 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Ajouter Client</button>
     </div>
-      <!-- Modal -->
-      <div v-if="modalOpen" class="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-lg bg-black bg-opacity-50">
-        <div class="bg-white rounded-lg shadow-md w-full max-w-3xl max-h-full overflow-auto">
-          <!-- Modal Header -->
-          <div class="flex items-center justify-between p-4 border-b">
-            <h3 class="text-xl font-semibold text-gray-900">Nouveau Client</h3>
-            <button @click="closeModal" type="button">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
+    <!-- Modal -->
+    <div v-if="modalOpen" class="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-lg bg-black bg-opacity-50">
+      <div class="bg-white rounded-lg shadow-md w-full max-w-3xl max-h-full overflow-auto">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between p-4 border-b">
+          <h3 class="text-xl font-semibold text-gray-900">{{ editingClientId ? 'Modifier Client' : 'Nouveau Client' }}</h3>
+          <button @click="closeModal" type="button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
           <!-- Modal Body -->
           <div class="p-4">
             <form @submit.prevent="saveData">
@@ -196,7 +196,7 @@
             <th scope="col" class="px-6 py-3">Téléphone</th>
             <th scope="col" class="px-6 py-3">Adresse</th>
             <th scope="col" class="px-6 py-3">Ville</th>
-            <th scope="col" class="px-6 py-3">Code Postal</th>
+            <th scope="col" class="px-6 py-3">Type</th>
             <th scope="col" class="px-6 py-3">Action</th>
           </tr>
         </thead>
@@ -208,15 +208,25 @@
       <label for="checkbox-table-1" class="sr-only">checkbox</label>
     </div>
                 </td>
-            <td class="px-6 py-4">{{ clients.nom }}</td>
-            <td class="px-6 py-4">{{ clients.prenom }}</td>
-            <td class="px-6 py-4">{{ clients.email }}</td>
-            <td class="px-6 py-4">{{ clients.telephone }}</td>
-            <td class="px-6 py-4">{{ clients.adresse }}</td>
-            <td class="px-6 py-4">{{ clients.ville }}</td>
-            <td class="px-6 py-4">{{ clients.codePostal }}</td>
+            <td class="px-6 py-4">{{ clients?.name }}</td>
+            <td class="px-6 py-4">{{ clients?.prenom }}</td>
+            <td class="px-6 py-4">{{ clients?.email }}</td>
+            <td class="px-6 py-4">{{ clients?.téléphone }}</td>
+            <td class="px-6 py-4">{{ clients?.adresse }}</td>
+            <td class="px-6 py-4">{{ clients?.pays }}</td>
+            <td class="px-6 py-4">
+  <span
+    :class="{
+      'bg-green-100 text-green-800 px-2 py-1 rounded-full': clients?.type === 'particulier',
+      'bg-blue-100 text-blue-800 px-2 py-1 rounded-full': clients?.type === 'professionnel',
+      
+    }"
+  >
+    {{ clients?.type }}
+  </span>
+</td>
             <td class="px-6 py-4 flex items-center justify-end space-x-4">
-    <a href="#" @click.prevent="editClient(clients._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-pen"></i></a>
+              <a  @click.prevent="editClient(clients._id); openModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-pen"></i></a>
         <a href="#" @click.prevent="deleteClient(clients._id)" class="font-medium text-red-600 dark:text-red-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-trash"></i></a>
       </td>
             </tr>
@@ -280,48 +290,48 @@ export default {
   
   methods: {
     editClient(clientID) {
-  // Faites une requête pour obtenir les détails du client à éditer
   axios.get(`http://localhost:8080/api/client/${clientID}`)
     .then(response => {
-      // Remplissez le formulaire avec les détails du client récupérés
-      this.clientForm = response.data;
-      // Définissez l'ID du client en cours d'édition
+      this.clients = response.data;
       this.editingClientId = clientID;
-      // Ouvrez le modal pour modifier le client
       this.openModal();
     })
+
     .catch(error => {
       console.error("Erreur:", error);
       alert("Une erreur est survenue lors de la récupération des détails du client. Veuillez réessayer.");
-    });},
+    });
+},
+   
     getTabClassClient(tab) {
       return this.activeTabClient === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700';
     },
-     async deleteClient(clientID) {
+    async deleteClient(clientId) {
       const toast = useToast();
+    try {
+      // Vérifier si le client a des factures associées
+      const facturesResponse = await axios.get(`/api/facture?clientId=${clientId}`);
+      const hasFactures = facturesResponse.data.length > 0;
 
-      try {
-        const [facturesResponse, devisResponse] = await Promise.all([
-          axios.get(`/api/facture?clientId=${clientID}`),
-          axios.get(`/api/devis?clientId=${clientID}`),
-        ]);
+      // Vérifier si le client a des devis associés
+      const devisResponse = await axios.get(`/api/devis?clientId=${clientId}`);
+      const hasDevis = devisResponse.data.length > 0;
 
-        const hasFactures = facturesResponse.data.length > 0;
-        const hasDevis = devisResponse.data.length > 0;
-
-        if (hasFactures || hasDevis) {
-          toast.error("Ce client ne peut pas être supprimé car il a des factures ou des devis associés.");
-          return;
-        }
-
-        const response = await axios.delete(`/api/clients/${clientID}`);
-        toast.success(response.data.message);
-        this.clientLoad();  // Recharger les clients après la suppression
-      } catch (error) {
-        console.error("Erreur lors de la vérification ou la suppression du client :", error);
-        toast.error("Une erreur est survenue lors de la vérification ou la suppression du client. Veuillez réessayer.");
+      if (hasFactures || hasDevis) {
+        // Afficher un message d'erreur si le client a des factures ou des devis associés
+        toast.error("Ce client ne peut pas être supprimé car il a des factures ou des devis associés.");
+        return;
       }
-    },
+
+      // Si aucune facture ni devis associé, supprimer le client
+      await axios.delete(`/api/clients/${clientId}`);
+      this.clients = this.clients.filter(client => client.id !== clientId);
+      toast.success("Le client a été supprimé avec succès.");
+    } catch (e) {
+      console.error(e);
+      toast.error("Une erreur est survenue lors de la suppression du client. Veuillez réessayer.");
+    }
+  },
   
   toggleSelectAll(event) {
       if (event.target.checked) {
@@ -375,37 +385,36 @@ export default {
     },
 
        
-           async editClient(clientID, updatedData) {
-      const toast = useToast();
-
-      try {
-        const response = await axios.put(`/api/clients/${clientID}`, updatedData);
-        toast.success(response.data.message);
-        this.clientLoad();  // Recharger les clients après la mise à jour
-      } catch (error) {
-        console.error("Erreur lors de la mise à jour du client :", error);
-        toast.error("Une erreur est survenue lors de la mise à jour du client. Veuillez réessayer.");
-      }
-    },
+          
        
     async saveData() {
-      const toast = useToast();
+  const toast = useToast();
 
-      try {
-        const response = await axios.post("http://localhost:8080/api/client/add", this.clients);
-        const { data } = response;
-        
-        this.clientLoad();  // Recharger les clients après l'ajout
-        this.clients = {};  // Réinitialiser le formulaire
-        this.modalOpen = false; // Fermer le modal, assurez-vous que c'est une méthode
-        
-        toast.success("Le client a été ajouté avec succès.");
-      } catch (error) {
-        console.error("Erreur :", error);
-        toast.error("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");
-      }}}
-    
-  
+  try {
+    if (this.editingClientId) {
+      // Mise à jour du client existant
+      await axios.put(`http://localhost:8080/api/client/${this.editingClientId}`, this.clients);
+      toast.success("Le client a été mis à jour avec succès.");
+      this.clientLoad(); // Recharger les clients après l'ajout
+      this.clients = {}; // Réinitialiser le formulaire
+      this.modalOpen = false; // Fermer le modal
+    } else {
+      // Ajout d'un nouveau client
+      const response = await axios.post("http://localhost:8080/api/client/add", this.clients);
+      this.clientLoad(); // Recharger les clients après l'ajout
+      this.clients = {}; // Réinitialiser le formulaire
+      this.modalOpen = false; // Fermer le modal
+      toast.success("Le client a été ajouté avec succès.");
+    }
+  } catch (error) {
+    console.error("Erreur :", error);
+    if (this.editingClientId) {
+      toast.error("Une erreur est survenue lors de la mise à jour du client. Veuillez réessayer.");
+    } else {
+      toast.error("Une erreur est survenue lors de l'ajout du client. Veuillez réessayer.");
+    }
+  }
+    }}
   
   
   

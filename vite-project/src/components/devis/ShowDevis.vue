@@ -255,51 +255,50 @@ export default {
       }
     };
     const createAndRedirectToFacture = async () => {
-      try {
-        const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
-        const factdata = {
-          nom_entreprise: devisInfo.data.devis.nom_entreprise,
-          num: devisInfo.data.devis.num,
-          code_postal: devisInfo.data.devis.code_postal,
-          ville: devisInfo.data.devis.ville,
-          email: devisInfo.data.devis.email,
-          num_tel: devisInfo.data.devis.num_tel,
-          num_siret: devisInfo.data.devis.num_siret,
-          num_tva: devisInfo.data.devis.num_tva,
-          inter: devisInfo.data.devis.inter,
-          deleg: devisInfo.data.devis.deleg,
-          titre: devisInfo.data.devis.titre,
-          numfacture: devisInfo.data.devis.numDevis,
-          remarque: devisInfo.data.devis.remarque,
-          remise: devisInfo.data.devis.remise,
-          condition: devisInfo.data.devis.condition,
-          paiement: devisInfo.data.devis.paiement,
-          clientId: devisInfo.data.devis.clientId,
-          produitId: devisInfo.data.devis.produitId,
-          userId: devisInfo.data.devis.userId,
-          totalHT: devisInfo.data.devis.totalHT,
-          totalTTC: devisInfo.data.devis.totalTTC,
-          imageUrl: devisInfo.data.devis.imageUrl,
-          date_expiration: devisInfo.data.devis.date_expiration,
-          date_emission: devisInfo.data.devis.date_emission,
-        };
+  try {
+    const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
+   console.log('deviis',devisInfo)
 
-        const response = await axios.post('http://localhost:8080/api/facture/add', {
-          facture: factdata,
-          produitsSelectionnes: devisInfo.data.produitsSelectionnes,
-        });
-
-        console.log("Facture créée avec succès:", response.data);
-        const fact = response.data.facture._id;
-        sessionStorage.setItem('currentFactureId', fact);
-        // Stocker l'ID de la nouvelle facture dans session storage pour ouvrir le modal
-        await redirectToListeFacture(fact);
-      } catch (error) {
-        console.error("Erreur lors de la création de la facture à partir du devis:", error);
-      }
+    const factdata = {
+      
+      
+      
+      
+      inter: devisInfo.data.inter,
+      deleg: devisInfo.data.devis.deleg,
+      titre: devisInfo.data.devis.titre,
+      numfacture: devisInfo.data.devis.numDevis,
+      remarque: devisInfo.data.devis.remarque,
+      remise: devisInfo.data.devis.remise,
+      condition: devisInfo.data.devis.condition,
+      paiement: devisInfo.data.devis.paiement,
+      clientId: devisInfo.data.devis.clientId,
+      produitId: devisInfo.data.devis.produitId,
+      userId: devisInfo.data.devis.userId,
+      totalHT: devisInfo.data.devis.totalHT,
+      totalTTC: devisInfo.data.devis.totalTTC,
+      imageUrl: devisInfo.data.devis.imageUrl,
+      date_emission: devisInfo.data.devis.date_emission,
+      date_expiration: devisInfo.data.devis.date_expiration,
     };
 
+    console.log('factt',devisInfo.data.numDevis)
 
+    const response = await axios.post('http://localhost:8080/api/facture/add', {
+      facture: factdata,
+      produitsSelectionnes: devisInfo.data.produitsSelectionnes,
+    });
+
+    console.log("Facture créée avec succès:", response.data);
+    const fact = response.data.facture._id;
+    console.log('fact',fact)
+    sessionStorage.setItem('currentFactureId', fact);
+    // Stocker l'ID de la nouvelle facture dans session storage pour ouvrir le modal
+    await redirectToListeFacture(fact);
+  } catch (error) {
+    console.error("Erreur lors de la création de la facture à partir du devis:", error);
+  }
+};
     const saveDataDevis = async () => {
       try {
         await axios.put(`http://localhost:8080/api/devis/${props.id}`, formDevis.value);

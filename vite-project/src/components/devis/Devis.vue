@@ -489,11 +489,7 @@
         <div v-else-if="activeTab === 'traveaux'" class="block">
        
        <div class="grid gap-6 mb-6 md:grid-cols-3">
-        <div  class="mb-4 flex items-center justify-center" >
-      
-      <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-      <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-    </div>
+        
          <div class="mb-4">
          <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
          <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -536,11 +532,7 @@
             <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
             <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           </div>  
-          <div>
          
-         <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-         <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-       </div>
          
           <div class="mb-4">
             <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
