@@ -277,7 +277,7 @@ const toggleEditMode = async () => {
       facture: {
         date_emission: formFacture.value.date_emission,
         date_expiration: formFacture.value.date_expiration,
-        numFacture: formFacture.value.numFacture,
+        numfacture: formFacture.value.nufFacture,
         titre: formFacture.value.titre,
         // Ajouter d'autres champs du devis si nécessaire
       }

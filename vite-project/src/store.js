@@ -81,6 +81,7 @@ const store = new Vuex.Store ({
                   response => {
                   const {token, profile} = response.data; // Extract token from response
                   console.log("profile : ", profile);
+                  sessionStorage.setItem('clientId',profile.userId)
                   commit('setToken', token);
                   commit('setProfile', profile) // Commit mutation to store token
                   commit('login'); // Commit mutation to indicate successful login

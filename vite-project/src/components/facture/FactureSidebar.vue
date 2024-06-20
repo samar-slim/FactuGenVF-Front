@@ -47,7 +47,7 @@
 
 <script>
 import axios from 'axios';
-
+import { useToast } from 'vue-toastification';
 
 export default {
   props: {
@@ -100,6 +100,7 @@ export default {
     },
     
     async saveChanges() {
+      const toast = useToast();
       // Step 1: Retrieve data from localStorage and parse it
       const data = localStorage.getItem('facture');
       if (!data) {
@@ -121,13 +122,15 @@ export default {
       const Facture = this.transformInvoiceToSchemaFormat(parsedData);
 
       // Uncomment the axios call if needed
-      await axios.post('http://localhost:8080/api/facture', Facture , {
+      await axios.post('http://localhost:8080/api/facture/add', Facture , {
          headers: {
            'Authorization': `Bearer ${localStorage.getItem('token')}`
          }
        });
 
       this.$emit('save-changes');
+      toast.success('Facture  enregistré  avec succès.');
+      this.$router.push({path: '/user/ListeFacture'});
   },
   
   transformInvoiceToSchemaFormat(invoice) {
@@ -142,14 +145,8 @@ export default {
     // Step 4: Transform the invoice object to the desired format
     return {
       facture: {
-        nom_entreprise: invoice.supplier.companyName || "",
-        num: invoice.supplier.number || "",
-        code_postal: invoice.supplier.postalCode || "",
-        ville: invoice.supplier.city || "",
-        email: "", // Assuming email is not available in the provided object
-        num_tel: "", // Assuming phone number is not available in the provided object
-        num_siret: "", // Assuming SIRET number is not available in the provided object
-        num_tva: invoice.supplier.vat || "",
+        
+       
         inter: "", // Assuming inter is not available in the provided object
         deleg: "", // Assuming deleg is not available in the provided object
         titre: "", // Assuming titre is not available in the provided object

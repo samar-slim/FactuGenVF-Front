@@ -40,7 +40,7 @@ import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
 
-import AIPage from '../components/global/AIPage.vue';
+import perFacture from '../components/facture/perFacture.vue';
 import ClientDevis from '../clientInterfaces/clientDevis.vue';
 import ClientFacture from '../clientInterfaces/clientFacture.vue';
 import ClientShowDevis from '../clientInterfaces/showDevisClient.vue';
@@ -115,6 +115,8 @@ const router = createRouter({
         { path: 'ListeDevis', component: ListeDevis },
         { path: 'newFacture', component: NewFacture },
         { path: 'ListeMainDouvre', component: MainDouvre },
+        { path: 'perFacture', component: perFacture },
+        
         { path: 'ListeTraveau', component: ListeTraveau },
         { path: 'ListeProduit', component: ListeProduit },
         { path: 'ListeArticle', component: GestionArticle },

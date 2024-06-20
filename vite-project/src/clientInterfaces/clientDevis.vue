@@ -187,19 +187,21 @@ export default {
       devis: [],
       showModal: false,
       currentDevisId: null,
-      clients: [], // Tableau pour stocker les clients
-      defaultClientId: null, // Initialisé avec null
+      clients: [], 
+      defaultClientId: null, 
     };
   },
   methods: {
    
-    async loadDevisByClientId(clientId) {
+    async loadDevisByClientId() {
   try {
-    const response = await axios.get(`http://localhost:8080/api/devis?clientId=${clientId}`);
+    const clientId = sessionStorage.getItem('clientId');
+    const response = await axios.get(`http://localhost:8080/api/devis/${clientId}`);
+    
     // Vérifier le format de la réponse avant d'assigner les données
     if (Array.isArray(response.data)) {
       // Filtrer les devis pour ne garder que ceux avec le clientId donné
-      this.devis = response.data.filter(devis => devis.devis.clientId === clientId);
+      this.devis = response.data;
       console.log('deviss',this.devis);
     } else {
       console.error('Le format de la réponse de l\'API est inattendu');
@@ -208,20 +210,7 @@ export default {
     console.error('Erreur lors du chargement des devis:', error);
   }
 },
-    async loadClients() {
-      try {
-        const response = await axios.get('http://localhost:8080/api/client');
-        this.clients = response.data;
-        // Définir le defaultClientId avec le premier client du tableau
-        if (this.clients.length > 0) {
-          this.defaultClientId = this.clients[0]._id;
-          // Charger les devis pour le premier client
-          this.loadDevisByClientId(this.defaultClientId);
-        }
-      } catch (error) {
-        console.error('Erreur lors du chargement des clients:', error);
-      }
-    },
+    
     onShow(id) {
       this.currentDevisId = id;
       console.log('currr', this.currentDevisId);
@@ -245,7 +234,7 @@ export default {
     axios.get("http://localhost:8080/api/devis/")
     .then(({ data }) => {
       this.devis = data;
-      this.fetchUserInfos();
+      
       this.fetchClientInfos();
       console.log(data);
     })
@@ -253,7 +242,7 @@ export default {
       console.error("Erreur lors de la récupération des devis :", error);
     });
 
-    this.loadClients();
+    this.loadDevisByClientId();
   },
 };
 </script>
