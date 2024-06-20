@@ -63,7 +63,7 @@
 </div>
   <ShowDevis v-if="showModal"
     :id="currentDevisId"
-    :modalTitle="'Devis'"
+    :modalTitle="Devis"
     :buttonText="'Générer Facture'"
     :closeButtonText="'Fermer'"
     @close="showModal = false" />
@@ -324,7 +324,7 @@
     <div  class="container mx-auto p-4 shadow-lg p-10 rounded bg-white">
         <!-- En-tête de la modal -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
-          <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Produit</h3>
+          <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Article</h3>
           <button @click="closeChoisir" type="button" ><i class="fa-solid fa-xmark"></i></button>
         
         </div>
@@ -489,11 +489,7 @@
         <div v-else-if="activeTab === 'traveaux'" class="block">
        
        <div class="grid gap-6 mb-6 md:grid-cols-3">
-        <div  class="mb-4 flex items-center justify-center" >
-      
-      <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-      <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-    </div>
+        
          <div class="mb-4">
          <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
          <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -536,11 +532,7 @@
             <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
             <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           </div>  
-          <div>
          
-         <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-         <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-       </div>
          
           <div class="mb-4">
             <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
@@ -803,9 +795,11 @@
   </div>
   <div class=" fixed relative bg-gray-50 dark:bg-slate-900  flex"  v-if="!isOpen && !modalOpenC && !modalOpenFinaliser" >
     <div class="flex-grow flex justify-end">
+     
       <nav class="z-20 flex flex-col gap-4 border-r border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 fixed top-2/4 -translate-y-2/4 right-6 h-[400px] w-[100px] rounded-lg border">
-  <a
-      href="#Digitaliser"
+        <router-link to="/user/Digitalisation">
+        <a
+      
       class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 bg-indigo-50 text-indigo-600 dark:bg-sky-900 dark:text-sky-50"
   >
       <!-- HeroIcon - User -->
@@ -837,6 +831,7 @@
 
       <small class="text-center text-xs font"> Digitaliser</small>
   </a>
+</router-link>
 
   <a
       href="#personnaliser"
@@ -1529,7 +1524,7 @@ try {
     
     this.devisLoad();
     this.devis = {};
-   this.$router.push('user/ListeDevis' );
+   this.$router.push('/user/Listedevis' );
   } else {
     console.error('Erreur lors de l\'enregistrement du devis:', responseDevis.statusText);
     toast.error("Erreur lors de l'enregistrement du devis, veuillez réessayer.");

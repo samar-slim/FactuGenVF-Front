@@ -7,7 +7,7 @@
         <div class="bg-white p-2 rounded shadow">
           <div class="flex justify-between items-center mb-4">
             <div class=" text-2xl px-2 font-bold">
-              <h3>Liste Devis</h3>
+              <h3>Liste ffffffDevis</h3>
             </div>
            
           </div>
@@ -115,11 +115,11 @@
     
     </td>
     <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      #{{ devis.numdevis }}
+      #{{ devis.devis?.numdevis }}
     </td>
-    <td  class="px-6 py-4">{{ devis.devis?.nom_entreprise }}</td>
-    <td  class="px-6 py-4">{{ devis.devis?.ville }}</td>
-    <td  class="px-6 py-4">{{ devis.devis?.date_emission }}</td>
+    <td  @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.nom_entreprise }}</td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.ville }}</td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.date_emission }}</td>
     <td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.email }}</td>
     <td   class="px-6 py-4">{{ devis.produitsSelectionnes?.total }}</td>
     
@@ -136,7 +136,9 @@
   <a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline delete-icon absolute top-0 right-full opacity-0 group-hover:opacity-100 transform translate-y-1/2 -translate-x-4">Delete</a>
         </tbody>
       </table>
-      <ShowDevisClient  v-if="showModal" :id="currentDevisId" :closeButtonText="'Fermer'"
+      <ShowDevisClient  v-if="showModal"
+       :id="currentDevisId"
+        :closeButtonText="'Fermer'"
         @close="showModal = false"
       />
       
@@ -171,50 +173,87 @@
   
     </div>
   </template>
-  <script>
-  import axios from 'axios';
-  import { onMounted } from 'vue';
-import ShowDevis from './ShowDevis.vue';
-  
-  export default {
-  components: { ShowDevis },
-    data() {
-      return {
-        devis: [],
-        showModal: false,
-        currentDevisId: null,
-      };
-    },
-    methods: {
-      async loadDeviss() {
-        try {
-          const response = await axios.get('http://localhost:8080/api/devis');
-          this.devis = response.data;
-        } catch (error) {
-          console.error('Erreur lors du chargement des deviss:', error);
+ 
+<script>
+import axios from 'axios';
+import { onMounted } from 'vue';
+import ShowDevisClient from './showDevisClient.vue';
+
+export default {
+  components: { ShowDevisClient },
+  data() {
+    return {
+     
+      devis: [],
+      showModal: false,
+      currentDevisId: null,
+      clients: [], // Tableau pour stocker les clients
+      defaultClientId: null, // Initialisé avec null
+    };
+  },
+  methods: {
+   
+    async loadDevisByClientId(clientId) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/devis?clientId=${clientId}`);
+    // Vérifier le format de la réponse avant d'assigner les données
+    if (Array.isArray(response.data)) {
+      // Filtrer les devis pour ne garder que ceux avec le clientId donné
+      this.devis = response.data.filter(devis => devis.devis.clientId === clientId);
+      console.log('deviss',this.devis);
+    } else {
+      console.error('Le format de la réponse de l\'API est inattendu');
+    }
+  } catch (error) {
+    console.error('Erreur lors du chargement des devis:', error);
+  }
+},
+    async loadClients() {
+      try {
+        const response = await axios.get('http://localhost:8080/api/client');
+        this.clients = response.data;
+        // Définir le defaultClientId avec le premier client du tableau
+        if (this.clients.length > 0) {
+          this.defaultClientId = this.clients[0]._id;
+          // Charger les devis pour le premier client
+          this.loadDevisByClientId(this.defaultClientId);
         }
-      },
-      onShow(id) {
-        this.currentDevisId = id;
-          console.log('currr', this.currentDevisId);
-          this.showModal = true;
-      },
-      cancelDevis(id) {
-        // Logic for cancelling devis
-      },
-      editDevis(id) {
-        // Logic for editing devis
-      },
-      deleteDevis(id) {
-        // Logic for deleting devis
-      },
-      toggleSelectAll(event) {
-        // Logic for toggling select all
-      },
+      } catch (error) {
+        console.error('Erreur lors du chargement des clients:', error);
+      }
     },
-    mounted() {
-      this.loadDeviss();
+    onShow(id) {
+      this.currentDevisId = id;
+      console.log('currr', this.currentDevisId);
+      this.showModal = true;
+      console.log('ccc',this.showModal)
     },
-  };
-  </script>
-  
+    cancelDevis(id) {
+      // Logic for cancelling devis
+    },
+    editDevis(id) {
+      // Logic for editing devis
+    },
+    deleteDevis(id) {
+      // Logic for deleting devis
+    },
+    toggleSelectAll(event) {
+      // Logic for toggling select all
+    },
+  },
+  mounted() {
+    axios.get("http://localhost:8080/api/devis/")
+    .then(({ data }) => {
+      this.devis = data;
+      this.fetchUserInfos();
+      this.fetchClientInfos();
+      console.log(data);
+    })
+    .catch(error => {
+      console.error("Erreur lors de la récupération des devis :", error);
+    });
+
+    this.loadClients();
+  },
+};
+</script>

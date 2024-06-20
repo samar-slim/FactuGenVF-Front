@@ -1,4 +1,4 @@
-<!-- devis.vue -->
+ <!-- devis.vue -->
 <template>
   <div class="px-2">
     <div class="bg-gray-100 py-2 pw-2 p-1 mb-8 rounded shadow">
@@ -116,39 +116,33 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="devis in paginatedDevis" :key="devis._id" class="odd:bg-white cursor-pointer odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 relative group hover:bg-gray-200 dark:hover:bg-gray-700">
-
-<td class="w-4 p-6">
-  <div class="flex items-center">
-    <input v-model="selectedDevis" :value="devis._id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-    <label for="checkbox-table-1" class="sr-only">checkbox</label>
-  </div>
-</td> 
-<td @click="onShow(devis._id)" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-  #{{ devis?.devis.numDevis }}
+  <tr v-for="devis in paginatedDevis" :key="devis._id" class="odd:bg-white cursor-pointer odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 relative group hover:bg-gray-200 dark:hover:bg-gray-700">
+    <td class="w-4 p-6">
+      <div class="flex items-center">
+        <input v-model="selectedDevis" :value="devis._id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <label for="checkbox-table-1" class="sr-only">checkbox</label>
+      </div>
+    </td>
+    <td @click="onShow(devis._id)" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+      #{{ devis?.devis.numDevis }}
+    </td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ clientInfos[devis.devis.clientId]?.name }}</td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ userInfos[devis.devis.userId]?.nomEntreprise }}</td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.date_emission }}</td>
+    <td @click="onShow(devis._id)" class=" border-gray-200 px-6 py-4">
+  <span class="inline-block px-2 py-1 text-xs font-semibold rounded-full" :class="{ 'bg-green-200 text-green-800': devis.devis?.signe, 'bg-red-200 text-red-800': !devis.devis?.signe }">
+    {{ devis.devis?.signe ? 'Signé' : 'Non signé' }}
+  </span>
 </td>
-<td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.nom_entreprise }}</td>
-<td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.ville }}</td>
-<td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.date_emission }}</td>
-<td @click="onShow(devis._id)" class="px-6 py-4"></td>
-<td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.titre }}</td>
-<td  @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.email }}</td>
- <!-- Afficher les informations de l'utilisateur -->
- <td @click="onShow(devis._id)" class="px-6 py-4">
-  <template v-if="devis.user_id && userInfos[devis.user_id]">
-    <span>{{ userInfos[devis.user_id]?.nom_entreprise }}</span>
-    <br>
-    <span>{{ userInfos[devis.user_id]?.email }}</span>
-  </template>
-</td>
-
-<td class="px-6 py-4 flex items-center justify-end space-x-4">
-  <a href="#" @click.prevent="editDevis(devis._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-pen"></i></a>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ devis.devis?.totalTTC }}</td>
+    <td @click="onShow(devis._id)" class="px-6 py-4">{{ userInfos[devis.devis.userId]?.emailEntreprise }}</td>
+    <td class="px-6 py-4 flex items-center justify-end space-x-4">
+      <a href="#" @click.prevent="editDevis(devis._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-pen"></i></a>
       <a href="#" @click.prevent="deleteDevis(devis._id)" class="font-medium text-red-600 dark:text-red-500 hover:underline opacity-0 group-hover:opacity-100 transition-opacity duration-300"><i class="fa-solid fa-trash"></i></a>
     </td>
-</tr>
-<a href="#" class="font-medium text-red-600 dark:text-red-500 hover:underline delete-icon absolute top-0 right-full opacity-0 group-hover:opacity-100 transform translate-y-1/2 -translate-x-4">Delete</a>
-    </tbody>
+  </tr>
+</tbody>
+
   </table>
   <ShowDevis
     v-if="showModal"
@@ -218,6 +212,7 @@ export default {
       },
       devis: [],
       userInfos: {},
+      clientInfos: {},
       clients: {
         civilite: '',
         name: '',
@@ -271,35 +266,51 @@ export default {
     this.showModal = true;
     this.editProductTableOnly = true;  // Indique que seul le tableau des produits doit être édité
   },
-  async fetchUserInfos() {
+  async fetchClientInfos() {
   try {
-    // Récupérer les informations de l'utilisateur pour tous les devis
-    const userIds = this.devis.map(devis => devis.user_id).filter(Boolean);
-    const userRequests = userIds.map(userId => this.getUserInfo(userId));
+    const response = await axios.get('http://localhost:8080/api/client');
+    const clients = response.data;
+    this.clientInfos = clients.reduce((map, client) => {
+      map[client._id] = client;
+      return map;
+    }, {});
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations client:', error);
+  }
+},
 
-    const userInfosArray = await Promise.all(userRequests);
-
-    userInfosArray.forEach((userInfo, index) => {
-      const userId = userIds[index];
-      if (userInfo) {
-        this.$set(this.userInfos, userId, userInfo);
-      }
-    });
+async fetchUserInfos() {
+  try {
+    const response = await axios.get('http://localhost:8080/api/users');
+    const users = response.data;
+    this.userInfos = users.reduce((map, user) => {
+      map[user._id] = user;
+      return map;
+    }, {});
   } catch (error) {
     console.error('Erreur lors de la récupération des informations utilisateur:', error);
   }
 },
-
     async getUserInfo(userId) {
-      try {
-        // Faire une requête pour récupérer les informations de l'utilisateur à partir de l'API ou des données disponibles
-        const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
-        return response.data; // Retourne les données de l'utilisateur
-      } catch (error) {
-        console.error('Erreur lors de la récupération des informations utilisateur:', error);
-        return null; // En cas d'erreur, retourne null ou gérer l'erreur selon vos besoins
-      }
-    },
+  try {
+    const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations utilisateur:', error);
+    return null;
+  }
+},
+
+async getClientInfo(clientId) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations client:', error);
+    return null;
+  }
+},
+
     deleteDevis(id) {
       if (confirm("Êtes-vous sûr de vouloir supprimer ce devis ?")) {
         axios.delete(`http://localhost:8080/api/devis/${id}`)
@@ -370,7 +381,7 @@ export default {
       this.showModal = true;
     },
     redirigerVersDevis() {
-      this.$router.push(`user/devis`);
+      this.$router.push(`/user/devis`);
     },
     saveDataDevis() {
       this.devis.clientId = this.selectedClientId;
@@ -459,13 +470,15 @@ export default {
   mounted() {
     
     axios.get("http://localhost:8080/api/devis/")
-      .then(({ data }) => {
-        this.devis = data;
-        console.log(data);
-      })
-      .catch(error => {
-        console.error("Erreur lors de la récupération des devis :", error);
-      });
+    .then(({ data }) => {
+      this.devis = data;
+      this.fetchUserInfos();
+      this.fetchClientInfos();
+      console.log(data);
+    })
+    .catch(error => {
+      console.error("Erreur lors de la récupération des devis :", error);
+    });
 
     const keepModalOpen = sessionStorage.getItem('keepModalOpen');
     if (keepModalOpen === 'true') {
