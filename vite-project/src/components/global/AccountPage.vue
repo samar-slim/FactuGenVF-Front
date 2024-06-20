@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-md bg-white p-6">
-      <h3 class="text-2xl font-bold mb-2">Sécurité</h3>
+      <h3 class="text-3xl font-semibold  mb-8 text-blue-500">Sécurité</h3>
       <h3 class="font-semibold mb-4">Reset Password</h3>
       <form @submit.prevent="submitForm">
         <div class="mb-4">

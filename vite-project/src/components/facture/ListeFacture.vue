@@ -9,7 +9,7 @@
             <div class=" text-2xl px-2 font-bold">
               <h3>Liste des Factures</h3>
             </div>
-            <button class="font-bold border bg-blue-800 text-white px-1 py-1 rounded-lg">
+            <button @click="redirigerVersFacture" class="font-bold border bg-blue-800 text-white px-1 py-1 rounded-lg">
               <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Nouveau Facture
             </button>
           </div>
@@ -117,13 +117,13 @@
     
     </td>
     <td  class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-      #{{ facture.numfacture }}
+      #{{ facture.facture.numfacture }}
     </td>
-    <td  class="px-6 py-4">{{ facture.facture?.nom_entreprise }}</td>
-    <td  class="px-6 py-4">{{ facture.facture?.ville }}</td>
-    <td  class="px-6 py-4">{{ facture.facture?.date_emission }}</td>
-    <td @click="onShow(facture._id)" class="px-6 py-4">{{ facture.facture?.email }}</td>
-    <td   class="px-6 py-4">{{ facture.produitsSelectionnes?.total }}</td>
+    <td  @click="onShow(facture._id)" class="px-6 py-4">{{ clientInfos[facture.facture.clientId]?.name  }}</td>
+    <td @click="onShow(facture._id)" class="px-6 py-4">{{ userInfos[facture.facture.userId]?.nomEntreprise }}</td>
+    <td @click="onShow(facture._id)" class="px-6 py-4">{{ facture.facture?.date_emission }}</td>
+    <td @click="onShow(facture._id)" class="px-6 py-4">{{ userInfos[facture.facture.userId]?.emailEntreprise }}</td>
+    <td   class="px-6 py-4">{{ facture.facture?.totalTTC  }}</td>
     
     <td @click="cancelFacture(facture._id)" :class="{'text-red-400': facture.facture.status === 'annulé', 'text-blue-500': facture.facture.status === 'cours'}" class="font-bold px-6 py-4">
       <button class="border border-gray-400 rounded px-2 bg-gray-100">{{ facture.facture.status }}</button>
@@ -139,12 +139,12 @@
         </tbody>
       </table>
       <ShowFacture
-        v-if="showModal"
-        :id="currentFactureId"
-        :modalTitle="'Facture'"
-        
-        :closeButtonText="'Fermer'"
-        @close="showModal = false"
+      v-if="showFactureModal"
+  :id="currentFactureId"
+  :modalTitle="'Détails de la facture'"
+  :closeButtonText="'Fermer'"
+  @close="closeFactureModal"
+
       />
   </div>
   </div>
@@ -189,14 +189,66 @@
     },
     data() {
       return {
+        userInfos: {},
+      clientInfos: {},
         facture: [],
         avoirs: [],
         paginatedfacture: '',
-        showModal: false,
+        showFactureModal: false,
         currentFactureId: null,
       };
     },
     methods: {
+      async fetchClientInfos() {
+  try {
+    const response = await axios.get('http://localhost:8080/api/client');
+    const clients = response.data;
+    this.clientInfos = clients.reduce((map, client) => {
+      map[client._id] = client;
+      return map;
+    }, {});
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations client:', error);
+  }
+},
+
+async fetchUserInfos() {
+  try {
+    const response = await axios.get('http://localhost:8080/api/users');
+    const users = response.data;
+    this.userInfos = users.reduce((map, user) => {
+      map[user._id] = user;
+      return map;
+    }, {});
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations utilisateur:', error);
+  }
+},
+    async getUserInfo(userId) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations utilisateur:', error);
+    return null;
+  }
+},
+redirigerVersFacture() {
+      this.$router.push(`/user/newFacture`);
+    },
+closeFactureModal() {
+  this.showFactureModal = false;
+  this.currentFactureId = null;
+},
+async getClientInfo(clientId) {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la récupération des informations client:', error);
+    return null;
+  }
+},
       editFacture(id) {
           console.log("Éditer le devis avec l'ID :", id);
           this.currentFactureId = id;
@@ -257,10 +309,9 @@
         }
       },
       async onShow(id) {
-        this.currentFactureId = id;
-          console.log('currr', this.currentFactureId);
-          this.showModal = true;
-        },
+  this.currentFactureId = id;
+  this.showFactureModal = true;
+},
       async cancelFacture(id) {
         try {
           const response = await axios.put(`http://localhost:8080/api/facture/cancel/${id}`);
@@ -269,20 +320,14 @@
           // Recharger les listes des factures et des avoirs
           await this.loadAvoirs();
           await this.FactureLoad();
-          this.$router.push('/Avoir');
+          this.$router.push('/user/Avoir');
          
         } catch (error) {
           console.error("Erreur lors de l'annulation de la facture:", error);
           alert("Une erreur est survenue lors de l'annulation du devis. Veuillez réessayer.");
         }
       },
-      async  redirectToListeAvoir  () {
-        try {
-          await router.push('/Avoir');
-        } catch (error) {
-          console.error("Erreur lors de la redirection vers ListeFacture :", error);
-        }
-      },
+     
   
       deletefacture(id) {
         if (confirm("Êtes-vous sûr de vouloir supprimer cette facture ?")) {
@@ -307,6 +352,16 @@
       }
     },
     mounted() {
+       axios.get('http://localhost:8080/api/facture')
+    .then(({ data }) => {
+      this.facture = data;
+      this.fetchUserInfos();
+      this.fetchClientInfos();
+      console.log(data);
+    })
+    .catch(error => {
+      console.error("Erreur lors de la récupération des devis :", error);
+    });
       const showModal = sessionStorage.getItem('showFactureModal');
         const factureId = sessionStorage.getItem('currentFactureId');
         if (showModal === 'true' && factureId) {
@@ -314,7 +369,7 @@
           currentFactureId.value = factureId;
         }
       
-      this.FactureLoad();
+     
       this.loadAvoirs();
       this.createFactureFromDevis();
   

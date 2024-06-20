@@ -50,7 +50,7 @@ export default {
                     this.digitalisation = data.Facture;
                     localStorage.setItem("facture", JSON.stringify(data.Facture));
                     //console.log(this.digitalisation);
-                    this.$router.push({ path: '/user/personnaliseFacture', params:  this.digitalisation });
+                    this.$router.push({ path: '/user/perFacture', params:  this.digitalisation });
                 }).catch((error) => {
                     //console.log(error);
                     // show popup error

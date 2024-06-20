@@ -13,8 +13,9 @@ import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
 import Reclamation from '../components/reclamation/Reclamation.vue';
-//import Setting from '../components/global/profilesettings.vue'
-import Setting from '../components/profil/Setting.vue'
+import Setting from '../components/global/profilesettings.vue'
+import Support from '../components/global/support.vue'
+/* import Setting from '../components/profil/Setting.vue' */
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
 import NewDevis from '../components/devis/NewDevis.vue'
@@ -38,19 +39,16 @@ import listeUsers from '../admin/listeUsers.vue';
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
-import profilesettings from '../components/profil/Setting.vue';
-import AIPage from '../components/global/AIPage.vue';
-import PerFacture from '../components/facture/perFacture.vue';
+
+import perFacture from '../components/facture/perFacture.vue';
 import ClientDevis from '../clientInterfaces/clientDevis.vue';
 import ClientFacture from '../clientInterfaces/clientFacture.vue';
-import ClientShowDevis from '../clientInterfaces/showDevis.vue';
+import ClientShowDevis from '../clientInterfaces/showDevisClient.vue';
 import ClientShowFacture from '../clientInterfaces/ShowFactureClient.vue';
 import HomeClient from '../clientInterfaces/HomeClient.vue';
 import EntrepiseInfo from '../views/EntrepriseInfo.vue'
 import { authGuardAdmin, authGuardUser, authGuard, checkAuth } from './auth.js';
 import NotFound from '../components/notFound.vue'
-
-
 const router = createRouter({
   history: createWebHistory(),
   
@@ -64,12 +62,13 @@ const router = createRouter({
         { path: 'ClientFacture', component: ClientFacture },
         { path: 'ClientShowDevis', component: ClientShowDevis },
         { path: 'ClientShowFacture', component: ClientShowFacture },
+        { path: 'setting',   component: Setting },
+        { path: 'support',   component: Support},
+        { path: 'reclamation',   component: Reclamation},
       ]
      },
     {path: '/admin',
-
       beforeEnter: [authGuardAdmin],
-
       children:[
         { path: 'dashboard', component: adminDashboard },
         { path: 'listeUsers', component: listeUsers},
@@ -92,13 +91,10 @@ const router = createRouter({
         { path: 'Avoir', component: Avoir},
         
       ]
-
     },
     ,
     {path: '/user',
-
       beforeEnter: [authGuardUser],
-
       children:[
         { path: 'dashboard', component: Dashbord },
         { path: 'NewDevis', component: NewDevis },
@@ -113,31 +109,29 @@ const router = createRouter({
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
         { path: 'reclamation',  component: Reclamation},
-        { path: 'Profilesettigns',  component: profilesettings},
+        /* { path: 'Profilesettigns',  component: profilesettings}, */
         { path: 'newDevis', component: NewDevis },
         { path: 'Avoir', component: Avoir},
         { path: 'ListeDevis', component: ListeDevis },
         { path: 'newFacture', component: NewFacture },
         { path: 'ListeMainDouvre', component: MainDouvre },
+        { path: 'perFacture', component: perFacture },
+        
         { path: 'ListeTraveau', component: ListeTraveau },
         { path: 'ListeProduit', component: ListeProduit },
         { path: 'ListeArticle', component: GestionArticle },
         { path: 'CategorieListe', component: CategorieListe },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
-        { path: 'personnaliseFacture', component: PerFacture, props: {Facture: true }},
         { path: 'Entreprise', component: EntrepiseInfo},
-
+        { path: 'support',   component: Support},
       ]
-
     },
-
     {
       path: '/',
       name: 'Home',
       component: Home
     },
-
     
     {
       path: '/produitArt',
@@ -185,6 +179,4 @@ const router = createRouter({
    
   ]
 });
-
 export default router;
-

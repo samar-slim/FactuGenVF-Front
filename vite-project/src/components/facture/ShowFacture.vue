@@ -1,77 +1,98 @@
 <template>
-  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+  <div v-if="isOpen" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
   <div class="relative bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-3xl w-full">
     <button @click="close" class="absolute border-2xl top-4 right-4 text-red-600 dark:text-gray-300 hover:text-black dark:hover:text-white">
       <i class="fa-regular fa-circle-xmark"></i>
     </button>
-    <h1 class="text-2xl font-semibold mb-8">{{ modalTitle }} N°: {{ formFacture?.numDevis }}</h1>
-    <div id="pdf">
-    <div class="bg-white rounded shadow p-6 mb-8 " >
-       <table class="w-full border-collapse border-spacing-0">
-         <tbody>
-           <tr>
-             <td class="w-full align-top">
-               <div>
-                <img class=" w-30 h-20" :src="formFacture?.imageUrl"    />
-               </div>
-             </td>
+    <h1 class="text-2xl font-semibold mb-8">{{ modalTitle }} N°: {{ formFacture?.numFacture }}</h1>
+      <div>
+      <div id="pdf">
+        <div class="bg-white rounded shadow p-6 mb-8">
+          <table class="w-full border-collapse border-spacing-0">
+            <tbody>
+              <tr>
+                <td class="w-full align-top">
+                  <div>
+                    <img class="w-30 h-20" :src="formFacture?.imageUrl" />
+                  </div>
+                </td>
+                <td class="align-top">
+                  <div class="text-sm">
+                    <table class="border-collapse border-spacing-0">
+                      <tbody>
+                        <tr>
+                          <td class="border-r pr-4">
+                           
+                            <div>
+  <p class="whitespace-nowrap text-slate-400 text-right">Date d'émission</p>
+  <div v-if="isEditing" class="whitespace-nowrap font-bold text-main text-right">
+    <input type="text" v-model="formFacture.date_emission" />
+  </div>
+  <div v-else class="whitespace-nowrap font-bold text-main text-right">
+    {{ formFacture?.date_emission }}
+  </div>
+</div>
+                            <div>
+  <p class="whitespace-nowrap text-slate-400 text-right">Date d'expiration</p>
+  <div v-if="isEditing" class="whitespace-nowrap font-bold text-main text-right">
+    <input type="text" v-model="formFacture.date_expiration" />
+  </div>
+  <div v-else class="whitespace-nowrap font-bold text-main text-right">
+    {{ formFacture?.date_expiration }}
+  </div>
+</div>
+                          </td>
+                          <td class="pl-4">
+  <div>
+    <p class="whitespace-nowrap text-slate-400 text-right">Invoice #</p>
+    <div v-if="isEditing" class="whitespace-nowrap font-bold text-main text-right">
+      <input type="text" v-model="formFacture.numFacture" />
+    </div>
+    <div v-else class="whitespace-nowrap font-bold text-main text-right">
+      {{ formFacture?.numFacture }}
+    </div>
+  </div>
+  <div>
+    <p class="whitespace-nowrap text-slate-400 text-right">Invoice Titre</p>
+    <div v-if="isEditing" class="whitespace-nowrap font-bold text-main text-right">
+      <input type="text" v-model="formFacture.titre" />
+    </div>
+    <div v-else class="whitespace-nowrap font-bold text-main text-right">
+      {{ formFacture?.titre }}
+    </div>
+  </div>
+</td>
 
-             <td class="align-top">
-               <div class="text-sm">
-                 <table class="border-collapse border-spacing-0">
-                   <tbody>
-                     <tr>
-                       <td class="border-r pr-4">
-                         <div>
-                           <p class="whitespace-nowrap text-slate-400 text-right">Date d'émission</p>
-                           <span class="whitespace-nowrap font-bold text-main text-right">{{formFacture?.date_emission}}</span>
-                         </div>
-                         <div>
-                           <p class="whitespace-nowrap text-slate-400 text-right">Date d'expiration</p>
-                           <span class="whitespace-nowrap font-bold text-main text-right">{{formFacture?.date_expiration}}</span>
-                         </div>
-                       </td>
-                       <td class="pl-4">
-                         <div>
-                           <p class="whitespace-nowrap text-slate-400 text-right">Invoice #</p>
-                           <span class="whitespace-nowrap font-bold text-main text-right">{{ formFacture?.numDevis}}</span>
-                         </div>
-                         <div>
-                           <p class="whitespace-nowrap text-slate-400 text-right">Invoice Titre</p>
-                           <span class="whitespace-nowrap font-bold text-main text-right">{{ formFacture?.titre}}</span>
-                         </div>
-                     
-                         
-                       </td>
-                     </tr>
-                   </tbody>
-                 </table>
-               </div>
-             </td>
-           </tr>
-         </tbody>
-       </table>
-     </div>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
 
      <div class="bg-slate-100 px-14 py-6 text-sm">
        <table class="w-full border-collapse border-spacing-0">
          <tbody>
-           <tr>
-             <td class="w-1/2 align-top">
-               <div class="text-sm text-neutral-600">
-                 <p class="font-bold">Supplier Company INC</p>
-                 <p>Number:<span>{{formFacture?.num }}</span></p>
-                 <p>SIRET Numéro: <span>{{formFacture?.num_siret }}</span></p>
-                 <p>Inter:<span>{{formFacture?.inter}}</span></p>
-                 <p>deleg  :<span>{{formFacture?.deleg}}</span></p>
-                 <p>email  :<span>{{formFacture?.email}}</span></p>
-               </div>
-             </td>
+          <tr>
+                  <td class="w-1/2 align-top">
+                    <div class="text-sm text-neutral-600">
+                      <p class="font-bold">Supplier Company INC</p>
+                      <p>Number: <span>{{ formUser?.telEntreprise }}</span></p>
+                      <p>SIRET Numéro: <span>{{  formUser?.siretEntreprise }}</span></p>
+                      <p>Inter: <span>{{ formFacture?.inter }}</span></p>
+                      <p>deleg: <span>{{ formFacture?.deleg }}</span></p>
+                      <p>email: <span>{{formUser?.emailEntreprise }}</span></p>
+                    </div>
+                  </td>
              <td class="w-1/2 align-top text-right">
                <div class="text-sm text-neutral-600">
                  <p class="font-bold">Customer Company</p>
                  <p >Numéro Client: {{ clientInfo?.numero }}</p>
-  <span>Nom:{{ formFacture?.clientInfo?.civilite }} {{ clientInfo?.name }}</span>
+  <span>Nom:{{ clientInfo?.civilite }} {{ clientInfo?.name }}</span>
   <p >Prénom: {{ clientInfo?.prenom }}</p>
   <p >mail: {{ clientInfo?.email }}</p>
   <p >Téléphone: {{ clientInfo?.téléphone }}</p>
@@ -199,99 +220,34 @@
 import axios from 'axios';
 import { ref, onMounted, watch } from 'vue';
 import html2pdf from 'html2pdf.js/dist/html2pdf';
+import { useToast } from 'vue-toastification';
 import { useRouter } from 'vue-router';
 
 export default {
 props: ['id', 'modalTitle', 'buttonText', 'closeButtonText'],
 setup(props, { emit }) {
   const formFacture = ref(null);
+  const formUser = ref(null);
   const formProduit = ref(null);
   const clientInfo = ref(null);
   const produitInfo = ref(null);
   const modalTitle = ref(props.modalTitle);
   const router = useRouter();
   const isOpen = ref(true);
+  const isEditing = ref(false);
 
   const exportToPDF = () => {
-    html2pdf(document.getElementById("pdf"), {
-      margin: 1,
-      filename: "devis.pdf",
-    });
-  };
-  const generateDocument = async (type) => {
-if (type === 'devis') {
-  modalTitle.value = 'Devis';
-  sessionStorage.setItem('keepModalOpen', 'true');
-  sessionStorage.setItem('currentDevisId', props.id);
-  console.log('Redirection vers Listedevis avec modal ouvert');
-  await redirectToListeDevis();
-}else if (type === 'facture') {
-  modalTitle.value = 'Facture';
-  sessionStorage.setItem('keepModalOpen', 'true');
-  sessionStorage.setItem('currentDevisId', props.id);
-  console.log('Redirection vers ListeFacture avec modal ouvert');
-  const newFactureId = await createAndRedirectToFacture();
-  sessionStorage.setItem('showFactureModal', 'true');
-  sessionStorage.setItem('currentFactureId', newFactureId);
-}
-};
+      const options = {
+        margin: 1,
+        filename: "facture.pdf",
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().set(options).from(document.getElementById("pdf")).save();
+    };
 
-const createAndRedirectToFacture = async () => {
-try {
-  // Récupérer les informations du devis à partir de l'ID du devis
-  const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
-  const factdata = {
-    nom_entreprise: devisInfo.data.devis.nom_entreprise,
-    num: devisInfo.data.devis.num,
-    code_postal: devisInfo.data.devis.code_postal,
-    ville: devisInfo.data.devis.ville,
-    email: devisInfo.data.devis.email,
-    num_tel: devisInfo.data.devis.num_tel,
-    num_siret: devisInfo.data.devis.num_siret,
-    num_tva: devisInfo.data.devis.num_tva,
-    inter: devisInfo.data.devis.inter,
-    deleg: devisInfo.data.devis.deleg,
-    titre: devisInfo.data.devis.titre,
-    numfacture: devisInfo.data.devis.numDevis, // Utilisation du numéro de devis comme numéro de facture
-    remarque: devisInfo.data.devis.remarque,
-    remise: devisInfo.data.devis.remise,
-    condition: devisInfo.data.devis.condition,
-    paiement: devisInfo.data.devis.paiement,
-    clientId: devisInfo.data.devis.clientId,
-    produitId: devisInfo.data.devis.produitId,
-    totalHT: devisInfo.data.devis.totalHT,
-    totalTTC: devisInfo.data.devis.totalTTC,
-    imageUrl: devisInfo.data.devis.imageUrl,
-    date_expiration: devisInfo.data.devis.date_expiration,
-    date_emission: devisInfo.data.devis.date_emission,
-
-
-  };
  
-
-  // Créer une nouvelle facture en utilisant les informations du devis
-  const response = await axios.post('http://localhost:8080/api/facture/add', {
-    // Mappage des champs du devis aux champs de la facture
-    facture:factdata,
-    produitsSelectionnes: devisInfo.data.produitsSelectionnes, // Inclure les produits sélectionnés
-  });
-
-  // Vérifier la réponse et rediriger vers la liste des factures
-  console.log("Facture créée avec succès:", response.data);
-  await redirectToListeFacture();
-} catch (error) {
-  console.error("Erreur lors de la création de la facture à partir du devis:", error);
-}
-};
-
-  const saveDataDevis = async () => {
-    try {
-      await axios.put(`http://localhost:8080/api/devis/${props.id}`, formFacture.value);
-      emit('close');
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour du devis:", error);
-    }
-  };
   const cancelFacture = async (id) => {
   try {
     const response = await axios.put(`http://localhost:8080/api/facture/cancel/${id}`);
@@ -307,6 +263,38 @@ try {
     alert("Une erreur est survenue lors de l'annulation de la facture. Veuillez réessayer.");
   }
 };
+const toggleEditMode = async () => {
+    if (isEditing.value) {
+      await saveChanges(); // Sauvegarde des données lorsque l'édition est désactivée
+    }
+    isEditing.value = !isEditing.value; // Inversion de la valeur
+  };
+  const saveChanges = async () => {
+    const toast = useToast();
+  try {
+    // Préparer les données du devis à envoyer au backend
+    const updatedFactureData = {
+      facture: {
+        date_emission: formFacture.value.date_emission,
+        date_expiration: formFacture.value.date_expiration,
+        numfacture: formFacture.value.nufFacture,
+        titre: formFacture.value.titre,
+        // Ajouter d'autres champs du devis si nécessaire
+      }
+    };
+
+    // Envoyer les données mises à jour du devis au backend
+    await axios.put(`http://localhost:8080/api/facture/${props.id}`, updatedFactureData);
+    toast.success('Facture mis à jour avec succès');
+    // Émettre un événement pour indiquer que l'édition est terminée
+    emit('close');
+  } catch (error) {
+    toast.error("Erreur lors de la mise à jour du Facture:", error);
+    // Gérer les erreurs ici, par exemple afficher un message d'erreur à l'utilisateur
+  }
+};
+
+
 
 
   const getProduitInfo = async (produitId) => {
@@ -318,7 +306,8 @@ try {
       console.error("Erreur lors de la récupération des informations du produit:", error);
     }
   };
-  loadAvoirs = async () => {
+  
+ const loadAvoirs = async () => {
   try {
     const response = await axios.get('http://localhost:8080/api/avoirs');
     this.avoirs = response.data;
@@ -327,7 +316,7 @@ try {
   }
 }
 
-FactureLoad = async () => {
+const FactureLoad = async () => {
   try {
     const response = await axios.get('http://localhost:8080/api/factures');
     this.factures = response.data;
@@ -350,28 +339,22 @@ try {
   }
 
   await getClientInfo(formFacture.value.clientId);
+  await getUserById(formFacture.value.userId);
 } catch (error) {
   console.error("Erreur lors de la récupération du devis:", error);
 }
 };
 
-
+const getUserById = async (userId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/users/${userId}`);
+    formUser.value = response.data;
+    console.log('formuser', response.data)
+  } catch (error) {
+    console.error("Erreur lors de la récupération du user:", error);
+  }
+};
  
-
-  const redirectToListeDevis = async () => {
-    try {
-      await router.push('/user/Listedevis');
-    } catch (error) {
-      console.error("Erreur lors de la redirection vers ListeFacture :", error);
-    }
-  };
-  const redirectToListeFacture = async () => {
-    try {
-      await router.push('/user/ListeFacture');
-    } catch (error) {
-      console.error("Erreur lors de la redirection vers ListeFacture :", error);
-    }
-  };
 
   
 
@@ -404,16 +387,19 @@ try {
   return {
     formFacture,
     formProduit,
+    formUser,
     clientInfo,
     produitInfo,
     modalTitle,
     exportToPDF,
     close,
-    saveDataDevis,
-    generateDocument,
+    isEditing,
+    toggleEditMode,
+
     isOpen,
     cancelFacture,
-    loadAvoirs,FactureLoad
+    loadAvoirs,
+    FactureLoad
   };
 },
 };

@@ -10,7 +10,7 @@
               <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Nouvelle Catégorie
             </button>
           </div>
-          <div v-if="modalOpen" class="container mx-auto p-4 shadow-lg rounded">
+          <div v-if="modalOpen" class="fixed inset-0 z-10 flex items-center justify-center backdrop-blur-lg bg-black bg-opacity-50">
             <div class="relative bg-white rounded-lg shadow">
               <!-- Modal Header -->
               <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
@@ -68,42 +68,42 @@
           </div>
         </div>
   
-        <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
-          <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" class="p-4">
-                <div class="flex items-center">
-                  <input id="checkbox-all" type="checkbox" @change="toggleSelectAll" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox-all" class="sr-only">checkbox</label>
-                </div>
-              </th>
-              <th scope="col" class="px-2 py-2 w-20">Produit</th>
-              <th scope="col" class="px-2 py-2 w-24">Nom Produit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="categorie in paginatedcategories" :key="categorie._id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-              <td class="w-4 p-6">
-                <div class="flex items-center">
-                  <input v-model="selectedcategories" :value="categorie._id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                  <label for="checkbox-table-1" class="sr-only">checkbox</label>
-                </div>
-              </td>
-              
-              <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ categorie?.nom }}
-              </th>
-              <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                {{ categorie?.libelle }}
-              </th>
-              
-              <td class="px-6 py-4">
-                <a href="#" @click.prevent="editProduit(categorie._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-  
+
+<table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
+  <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="p-4">
+        <div class="flex items-center">
+          <input id="checkbox-all" type="checkbox" @change="toggleSelectAll" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="checkbox-all" class="sr-only">checkbox</label>
+        </div>
+      </th>
+      <th scope="col" class="px-40 py-4 w-20">Produit</th>
+      <th scope="col" class="px-40 py-2 w-24">Nom Produit</th>
+      <th scope="col" class="px-40 py-2">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="categorie in paginatedcategories" :key="categorie._id" class="odd:bg-white cursor-pointer odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700">
+      <td class="w-4 p-6">
+        <div class="flex items-center">
+          <input v-model="selectedcategories" :value="categorie._id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+          <label for="checkbox-table-1" class="sr-only">checkbox</label>
+        </div>
+      </td>
+      <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white">
+        {{ categories?.nom }}
+      </th>
+      <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap text-center dark:text-white">
+        {{ categorie?.libelle }}
+      </th>
+      <td class="px-6 py-4 flex justify-end space-x-2">
+        <a href="#" @click.prevent="editProduit(categorie._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline"><i class="fas fa-edit"></i></a>
+        <a href="#" @click.prevent="deleteCategorie(categorie._id)" class="font-medium text-red-600 dark:text-red-500 hover:underline"><i class="fas fa-trash"></i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
         <Produit v-if="showModal" @close="showModal = false" :id="selectedProduitId"/>
   
         <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
@@ -142,6 +142,7 @@
     components: { Produit },
     data() {
       return {
+        categorie :{},
         categories: [],
         selectedcategories: [],
         currentPage: 1,
