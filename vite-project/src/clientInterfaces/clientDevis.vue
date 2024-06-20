@@ -210,7 +210,33 @@ export default {
     console.error('Erreur lors du chargement des devis:', error);
   }
 },
-    
+    async loadClients() {
+      try {
+        const id = this.defaultClientId;
+        if (!id) {
+          console.log('Aucun client sélectionné');
+        }
+        const store = JSON.parse( localStorage.getItem('store'));
+        if (store) {
+          console.log("id", store.profile.userId);
+        } else {
+          const user = JSON.parse( localStorage.getItem('user'));
+          console.log("user", user); 
+        }
+        const user = JSON.parse( localStorage.getItem('user'));
+          console.log("user", user);
+        const response = await axios.get('http://localhost:8080/api/client/' + user.accountId);
+        this.clients = response.data;
+        // Définir le defaultClientId avec le premier client du tableau
+        if (this.clients.length > 0) {
+          this.defaultClientId = this.clients[0]._id;
+          // Charger les devis pour le premier client
+          this.loadDevisByClientId(this.defaultClientId);
+        }
+      } catch (error) {
+        console.error('Erreur lors du chargement des clients:', error);
+      }
+    },
     onShow(id) {
       this.currentDevisId = id;
       console.log('currr', this.currentDevisId);
@@ -231,7 +257,16 @@ export default {
     },
   },
   mounted() {
-    axios.get("http://localhost:8080/api/devis/")
+
+    const store = JSON.parse( localStorage.getItem('store'));
+    let id = '';
+    if (store) {
+      id = store.profile.accountId;
+    } else {
+      const user = JSON.parse( localStorage.getItem('user'));
+      id = user.accountId;
+    }
+    axios.get(`http://localhost:8080/api/devis/${id}`)
     .then(({ data }) => {
       this.devis = data;
       
