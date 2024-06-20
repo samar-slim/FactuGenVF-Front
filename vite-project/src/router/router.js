@@ -173,7 +173,7 @@ const router = createRouter({
       component: adminDashboard,
     },
     {
-      path: '/resetPassword',
+      path: '/resetPassword/:token',
       name: 'resetPassword',
       component: resetPassword,
     },
