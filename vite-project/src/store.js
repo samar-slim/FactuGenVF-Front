@@ -85,6 +85,7 @@ const store = new Vuex.Store ({
                   commit('setProfile', profile) // Commit mutation to store token
                   commit('login'); // Commit mutation to indicate successful login
                   localStorage.setItem('store', JSON.stringify(store.state));
+                  localStorage.setItem('user', JSON.stringify(profile));
                   localStorage.setItem('token', token);
                   resolve(); // Resolve the promise to indicate successful login
                 })
