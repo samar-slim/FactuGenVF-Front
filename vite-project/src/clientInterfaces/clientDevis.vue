@@ -150,6 +150,17 @@ export default {
     console.error('Erreur lors du chargement des devis:', error);
   }
 },
+
+async getClientInfoByEmail(email) {
+  try {
+    
+    const response = await axios.get(`http://localhost:8080/api/client/email/${email}`);
+    return response.data;
+  } catch(error) {
+    console.error("Erreur lors de la récupération des informations du client:", error); 
+    return null;
+  }
+},
     async loadClients() {
       try {
         const id = this.defaultClientId;
@@ -196,17 +207,15 @@ export default {
       // Logic for toggling select all
     },
   },
-  mounted() {
+  async mounted() {
 
+    const user = JSON.parse( localStorage.getItem('user'));
     const store = JSON.parse( localStorage.getItem('store'));
-    let id = '';
-    if (store) {
-      id = store.profile.accountId;
-    } else {
-      const user = JSON.parse( localStorage.getItem('user'));
-      id = user.accountId;
-    }
-    axios.get(`http://localhost:8080/api/devis/${id}`)
+    const clinetInfo = await this.getClientInfoByEmail(store.profile.email);
+    
+    
+
+    axios.get(`http://localhost:8080/api/devis/${clinetInfo._id}`)
     .then(({ data }) => {
       this.devis = data;
       
