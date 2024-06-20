@@ -136,14 +136,14 @@
                                     <div class="whitespace-nowrap font-bold text-white">Signature</div>
                                   </td>
                                   <td class="w-full align-top">
-  <div>
-    <template v-if="formFacture?.signatureUrl">
-      <img class="w-40 h-30" :src="formFacture?.signatureUrl" />
-    </template>
-    <template v-else>
-      <span>N'est pas signé</span>
-    </template>
-  </div>
+                                    <div>
+                      <template v-if="formFacture?.signatureUrl">
+                        <img class="w-40 h-30" :src="`/uploads/${formFacture.signatureUrl.split('/').pop()}?${Date.now()}`" />
+                      </template>
+                      <template v-else>
+                        <span>N'est pas signé</span>
+                      </template>
+                    </div>
 </td>
 
                                       
@@ -348,7 +348,7 @@ const dataURLToBlob = (dataURL) => {
             console.log("Prix unitaire :", produit.prix_unitaire);
             console.log("Quantité :", produit.quantity);
           }
-  
+  console.log('fff client',formFacture.value.clientId)
           await getClientInfo(formFacture.value.clientId);
         } catch (error) {
           console.error("Erreur lors de la récupération du devis:", error);
