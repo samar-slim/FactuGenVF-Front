@@ -50,7 +50,7 @@
               <input type="text" id="tvaEntreprise" v-model="tvaEntreprise" placeholder="Enter your TVA" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
           </div>
-          <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:bg-grey-600" :disabled="!isFormValid">Continuer</button>
+          <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:bg-grey-600" :disabled="!isFormValid">update entrprise</button>
         </form>
       </div>
     

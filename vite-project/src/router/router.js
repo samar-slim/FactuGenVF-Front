@@ -9,6 +9,7 @@ import Client from '../components/client/Client.vue';
 import ListeClient from '../components/client/ListeClient.vue';
 import master from '../components/pages/layout/master.vue'
 import ListeFacture from '../components/facture/ListeFacture.vue'
+import f from '../components/facture/perFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
@@ -123,6 +124,7 @@ const router = createRouter({
         { path: 'suivie', component: Suivie },
         { path: 'Entreprise', component: EntrepiseInfo},
         { path: 'support',   component: Support},
+        { path: 'f',   component: f},
       ]
     },
     {
