@@ -157,8 +157,8 @@
       },
       async submitForm() {
         const updatedProfile = {
-          firstName: this.firstName,
-          lastName: this.lastName,
+          nom: this.firstName,
+          prenom: this.lastName,
           email: this.email,
           telephone: this.telephone,
           pays: this.pays,
@@ -174,6 +174,7 @@
             }
           });
           alert('Profile updated successfully');
+          console.log(updatedProfile);
         } catch (error) {
           console.error('Failed to update profile:', error);
           alert('Failed to update profile');

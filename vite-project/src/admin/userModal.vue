@@ -28,7 +28,7 @@
                 ref="newLastName"
               >
             </div>
-            <div>
+            <!-- <div>
               <label for="registrationDate" class="block text-gray-700">Registration Date:</label>
               <input
                 id="registrationDate"
@@ -38,7 +38,7 @@
                 @focus="editFields.registrationDate = true"
                 @blur="editFields.registrationDate = false"
               >
-            </div>
+            </div> -->
             <div>
               <label for="type" class="block text-gray-700">Type:</label>
               <input
