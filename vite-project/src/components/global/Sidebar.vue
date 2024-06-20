@@ -302,33 +302,15 @@
              <a @click="openInterfaceArticle">
               <router-link to="/user/ListeTraveau" class="flex items-center space-x-4  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                 <span class="font-medium text-black "> 
-                 <i class="fa-solid fa-building"></i> Traveaux</span>
+                 <i class="fa-solid fa-building"></i> Article</span>
          
              </router-link>
              
              
              </a>    
            </div>   
-           <div   class=" duration-700  flex items-center ">  
-             <a >
-              <router-link to="/user/ListeProduit" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
-               <i class="fa-brands fa-product-hunt"></i>  Produit</span>
-         
-             </router-link>
+           
              
-             
-             </a>  
-             </div>
-             <div   class=" duration-700  flex items-center ">  
-             <a >
-              <router-link to="/user/ListeMainDouvre" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
-              <span class="font-medium text-gray-900"> <i class="fa-solid fa-person-digging" style="color: #3f0684;"></i></span>  Main D'ouvre</span>
-         
-             </router-link>
-             
-             
-             </a>  
-           </div>  
            <div   class=" duration-700  flex items-center ">  
              <a >
               <router-link to="/user/CategorieListe" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 

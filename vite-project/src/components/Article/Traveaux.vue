@@ -4,18 +4,16 @@
         <div class="bg-white p-2 rounded shadow">
           <div class="flex justify-between items-center mb-4">
             <div class="font-bold">
-              <h3>Liste des Traveaux</h3>
+              <h3>Liste des Article</h3>
             </div>
-            <button @click="openModal" class="font-bold border bg-blue-800 text-white px-1 py-1 rounded-lg">
-              <i class="fa-solid fa-plus" style="color: #ffffff;"></i> Nouveau 
-            </button>
+            
             <div v-if="isOpenn"   class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
     
     <div class="relative bg-white rounded-lg shadow ...">
         
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
           <h3 class="text-xl font-semibold text-gray-900 ">{{ editingProduitId ? 'Modifier Article' : 'Nouveau Article' }}</h3>
-          <button @click="closeChoisir1" type="button" ><i class="fa-solid fa-xmark"></i></button>
+          <button @click="closeModal" type="button" ><i class="fa-solid fa-xmark"></i></button>
         
         </div>
         <div class="modal-content">
@@ -293,427 +291,362 @@
         </div>
       </div>
   
-      <div class="bg-white p-6 rounded">
-        <div class="flex items-center">
-          <!-- Champs de saisie prenant 1/3 de la largeur -->
-          <div class="w-1/3 flex space-x-2">
-            <input 
-              type="text" 
-              class="w-full p-2 bg-gray-50 border rounded" 
-              placeholder="Libéllé" 
-            />
-            <input 
-              type="text" 
-              class="w-full p-2 bg-gray-50 border rounded" 
-              placeholder="ref" 
-            />
-           
-          </div>
-          <!-- Champ de recherche prenant 2/3 de la largeur -->
-          
-        </div>
-      </div>
+    
   
       <div v-if="selectedProduits.length > 0" class="flex space-x-2 justify-between mb-1">
         <div>
-          <button @click="deleteSelected" class="inline-flex items-center text-gray-900 bg-gray-100 border border-gray-300 focus:outline-none hover:bg-gray-300 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
-            Supprimer
-          </button>
-          <button @click="sendSelected" class="inline-flex items-center text-black bg-gray-100 border border-gray-300 focus:outline-none hover:bg-gray-300 focus:ring-4 focus:ring-green-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-green-800 dark:border-green-600 dark:hover:bg-green-700 dark:hover:border-green-600 dark:focus:ring-green-700">
-            Envoyer
-          </button>
-          <button @click="editSelected" class="inline-flex items-center text-black bg-gray-100 border border-gray-300 focus:outline-none hover:bg-gray-300 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800">
+         
+          <button @click="editProduit()" class="inline-flex items-center text-black bg-gray-100 border border-gray-300 focus:outline-none hover:bg-gray-300 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800">
             Éditer
           </button>
         </div>
       </div>
   
       <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700 dark:text-gray-400">
-      <tr>
-        <th scope="col" class="p-2 w-4">
-          <!-- Checkbox -->
-        </th>
-        <th scope="col" class="px-2 py-2 w-20"> <!-- Réduit la largeur -->
-          Libéllé
-        </th>
-        <th scope="col" class="px-2 py-2 w-24"> <!-- Réduit la largeur -->
-          Description
-        </th>
-        <th scope="col" class="px-2 py-2 w-16"> <!-- Réduit la largeur -->
-          Référence
-        </th>
-        <th scope="col" class="px-2 py-2 w-12"> 
-          Prix Achat
-        </th>
-        <th scope="col" class="px-2 py-2 w-12"> 
-          Prix Unit.
-        </th>
-        <th scope="col" class="px-2 py-2 w-8"> 
-          TVA
-        </th>
-        <th scope="col" class="px-2 py-2 w-8"> 
-          Type Unité
-        </th>
-        <th scope="col" class="px-2 py-2 w-12">
-          Action
-        </th>
-      </tr>
-    </thead>
-        <tbody>
-          <tr v-for="produit in paginatedProduits" :key="produit._id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-            <td class="w-4 p-6">
-              <div class="flex items-center">
-                <input v-model="selectedProduits" :value="produit._id" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                <label for="checkbox-table-1" class="sr-only">checkbox</label>
-              </div>
-            </td>
-            <th scope="row" class="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              <img :src="produit?.imageUrl" alt="Product Image" class="w-16 h-16 object-cover"/>
-            </th>
-            <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-              {{ produit?.nom_article }}
-            </th>
-            <td class="px-6 py-2">
-              {{ produit?.reference }}
-            </td>
-            <td class="px-6 py-2">
-              {{ produit?.categorie }}
-            </td>
-            <td class="px-6 py-4">
-              {{ produit?.description }}
-            </td>
-            <td class="px-6 py-4">
-              {{ produit?.prix }}
-            </td>
-            <td class="px-6 py-4">
-              {{ produit?.tva }}
-            </td>
-           
-            <td class="px-6 py-4">
-    <a @click.prevent="editProduit(produit._id); openModal()" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-  </td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
-        <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
-          Showing <span class="font-semibold text-gray-900 dark:text-white">{{ startItem }}-{{ endItem }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ totalItems }}</span>
-        </span>
-        <div class="flex justify-center">
-        <ul class="inline-flex -space-x-px  rtl:space-x-reverse text-sm h-8">
-        
-          <li>
-            <button @click="prevPage" :disabled="currentPage === 1" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-              <i class="pi pi-chevron-left"></i>
-            </button>
-          </li>
-          <li v-for="page in totalPages" :key="page">
-            <button @click="goToPage(page)" :class="['flex items-center justify-center px-3 h-8 leading-tight', currentPage === page ? 'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white']">
-              {{ page }}
-            </button>
-          </li>
-          <li>
-            <button @click="nextPage" :disabled="currentPage === totalPages" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-              <i class="pi pi-chevron-right"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
-      </nav>
+  <thead class="text-xs text-white uppercase bg-blue-800 dark:bg-gray-700 dark:text-gray-400">
+    <tr>
+      <th scope="col" class="p-2 w-4">
+        <input type="checkbox" @change="toggleSelectAll" :checked="selectedProduits.length === paginatedProduits.length">
+      </th>
+      <th scope="col" class="px-4 py-2">Image</th>
+      <th scope="col" class="px-6 py-2">Libellé</th>
+      <th scope="col" class="px-6 py-2">Référence</th>
+      <th scope="col" class="px-6 py-2">Catégorie</th>
+      <th scope="col" class="px-6 py-4">Description</th>
+      <th scope="col" class="px-6 py-4">Prix</th>
+      <th scope="col" class="px-6 py-4">Type</th>
+      <th scope="col" class="px-6 py-4">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr v-for="produit in paginatedProduits" :key="produit._id" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+      <td class="w-4 p-6">
+        <div class="flex items-center">
+          <input 
+            v-model="selectedProduits" 
+            :value="produit._id" 
+            type="checkbox" 
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+          >
+        </div>
+      </td>
+      <td class="px-4 py-2">
+        <img :src="produit.imageUrl" :alt="produit.nom_article" class="w-16 h-16 object-cover"/>
+      </td>
+      <td class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+        {{ produit.nom_article }}
+      </td>
+      <td class="px-6 py-2">{{ produit.reference }}</td>
+      <td class="px-6 py-2">{{ produit.categorie }}</td>
+      <td class="px-6 py-4">{{ produit.description }}</td>
+      <td class="px-6 py-4">{{ produit.prix }}</td>
+      <td class="px-6 py-4">
+  <span class="border border-gray-300 bg-blue-400  px-2 py-1 rounded text-sm text-gray-700">
+    {{ produit.type }}
+  </span>
+</td>
+
+      <td class="px-6 py-4">
+        <a @click.prevent="editProduit(produit._id)" class="font-medium text-blue-600 dark:text-blue-500 hover:underline cursor-pointer">Edit</a>
+        <a @click.prevent="deleteProduit(produit._id)" class="font-medium text-red-600 dark:text-red-500 hover:underline cursor-pointer">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<nav class="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">
+  <span class="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">
+    Showing <span class="font-semibold text-gray-900 dark:text-white">{{ startItem }}-{{ endItem }}</span> of <span class="font-semibold text-gray-900 dark:text-white">{{ totalItems }}</span>
+  </span>
+  <div class="flex justify-center">
+    <ul class="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+      <li>
+        <button 
+          @click="prevPage" 
+          :disabled="currentPage === 1" 
+          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          :class="{ 'opacity-50 cursor-not-allowed': currentPage === 1 }"
+        >
+          <i class="pi pi-chevron-left"></i>
+        </button>
+      </li>
+      <li v-for="page in visiblePageNumbers" :key="page">
+        <button 
+          @click="goToPage(page)" 
+          :class="[
+            'flex items-center justify-center px-3 h-8 leading-tight', 
+            currentPage === page 
+              ? 'text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white' 
+              : 'text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white'
+          ]"
+        >
+          {{ page }}
+        </button>
+      </li>
+      <li>
+        <button 
+          @click="nextPage" 
+          :disabled="currentPage === totalPages" 
+          class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          :class="{ 'opacity-50 cursor-not-allowed': currentPage === totalPages }"
+        >
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
+</nav>
     </div>
   </template>
   
   <script>
   import axios from 'axios';
-  import { useToast } from 'vue-toastification';
+import { useToast } from 'vue-toastification';
+
+const API_BASE_URL = 'http://localhost:8080/api';
+
+export default {
+  data() {
+    return {
+      categories: [],
+      editingProduitId: null,
+      activeTab: 'article',
+      modalOpenCategorie: false,
+      isOpen: false,
+      produits: [],
+      selectedProduits: [],
+      currentPage: 1,
+      itemsPerPage: 10,
+      selectedCategorieId: null,
+      categorie: {},
+    };
+  },
   
-  export default {
-    data() {
-      return {
-        categories: [],
-        editingProduitId : null,
-        activeTab: 'article',
-        modalOpenCategorie: false,
-        isOpenn:false,
-        produits: [],
-        selectedProduits: [],
-       currentPage: 1,
-    itemsPerPage: 10,
-        selectedCategorieId: null,
-        categorie: {
-      
-      
+  created() {
+    this.loadProduits();
+    this.loadCategories();
+  },
+  
+  computed: {
+    paginatedProduits() {
+      if (!Array.isArray(this.produits)) return [];
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.produits.slice(start, end);
     },
-      };
+    totalItems() {
+      return this.produits.length;
     },
-    created() {
-      this.produitLoad();
+    totalPages() {
+      return Math.ceil(this.totalItems / this.itemsPerPage);
     },
-    computed: {
-      paginatedProduits() {
-  if (!Array.isArray(this.produits)) {
-    return [];
-  }
-  const start = Math.max(0, (this.currentPage - 1) * this.itemsPerPage);
-  const end = Math.min(this.produits.length, start + this.itemsPerPage);
-  return this.produits.slice(start, end);
-},
-      totalItems() {
-        return this.produits.length;
-      },
-      totalPages() {
-        return Math.ceil(this.totalItems / this.itemsPerPage);
-      },
-      startItem() {
-        return (this.currentPage - 1) * this.itemsPerPage + 1;
-      },
-      endItem() {
-        return Math.min(this.startItem + this.itemsPerPage - 1, this.totalItems);
+    startItem() {
+      return (this.currentPage - 1) * this.itemsPerPage + 1;
+    },
+    endItem() {
+      return Math.min(this.startItem + this.itemsPerPage - 1, this.totalItems);
+    }
+  },
+  
+  methods: {
+    async editProduit(produitId) {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/produits/${produitId}`);
+        this.produits = response.data;
+        this.editingProduitId = produitId;
+        this.isOpenn = true;
+      } catch (error) {
+        console.error("Erreur:", error);
+        useToast().error("Erreur lors de la récupération des détails du produit.");
       }
     },
-    methods: {
-      editProduit(produitId) {
-  axios.get(`http://localhost:8080/api/produits/${produitId}`)
-    .then(response => {
-      this.produits = response.data;
-      this.editingProduitId = produitId;
-      this.openModal();
-    })
-    .catch(error => {
-      console.error("Erreur:", error);
-      alert("Une erreur est survenue lors de la récupération des détails du produit. Veuillez réessayer.");
-    });
-},
-      produitLoad() {
-       axios.get("http://localhost:8080/api/produits/")
-       .then(({data}) => {
-         
-          this.resultProduit = data;
-         
-     });
-
-
-     },
-     categorieload() {
-       axios.get("http://localhost:8080/api/categories/")
-       .then(({data}) => {
-         
-          this.categories = data;
-         
-     });
-
-
-     },
-     created(){
-
-this.produitLoad("");
-
-this.categorieload("");
-},
-      setActiveTab(tab) {
-    this.activeTab = tab;
-    this.produits.type = tab;
-  },
-  async saveData() {
+    
+    async loadProduits() {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/produits`);
+        this.produits = response.data;
+      } catch (error) {
+        console.error("Erreur lors du chargement des produits:", error);
+        useToast().error("Erreur lors du chargement des produits.");
+      }
+    },
+    
+    async loadCategories() {
+      try {
+        const response = await axios.get(`${API_BASE_URL}/categories`);
+        this.categories = response.data;
+      } catch (error) {
+        console.error("Erreur lors du chargement des catégories:", error);
+        useToast().error("Erreur lors du chargement des catégories.");
+      }
+    },
+    
+    setActiveTab(tab) {
+      this.activeTab = tab;
+      this.produits.type = tab;
+    },
+    async deleteProduit(id) {
   const toast = useToast();
   try {
-    if (this.editingProduitId) {
-      // Mise à jour du produit existant
-      await axios.put(`http://localhost:8080/api/produits/${this.editingProduitId}`, this.produits);
-      toast.success("Le produit a été mis à jour avec succès.");
-      this.produitLoad(); // Recharger les produits après l'ajout
-      this.produits = {}; // Réinitialiser le formulaire
-      this.isOpenn = false; // Fermer la modal
-    } else {
-      // Vérifiez si tous les champs requis sont remplis
-      if (!this.produits.nom_article || !this.produits.reference || !this.produits.prix_unitaire || !this.produits.type_unité) {
-        toast.error("Veuillez remplir tous les champs obligatoires.");
-        return;
-      }
-
-      // Assignez l'ID de la catégorie sélectionnée à this.produits.categorieId
-      this.produits.categorieId = this.selectedCategorieId;
-
-      // Vérifiez les données avant l'envoi
-      console.log("Données à envoyer :", this.produits);
-      await axios.post("http://localhost:8080/api/produits/add", this.produits);
-      
-      toast.success("Le produit a été ajouté avec succès.");
-      this.produitLoad();
-      this.produits = {};
-      this.editingProduitId = null;
-      this.isOpenn = false; // Fermer la modal
-    }
+    // Tentative de suppression du produit
+    const response = await axios.delete(`http://localhost:8080/api/produits/${id}`);
+    
+    // Si la suppression a réussi
+    toast.success("Le produit a été supprimé avec succès.");
+    this.produitLoad(); // Recharger les produits après la suppression
   } catch (error) {
     console.error("Erreur:", error);
+    
+    // Gestion des différents cas d'erreur
     if (error.response) {
-      console.log("Détails de l'erreur :", error.response.data);
-      toast.error("Erreur lors de l'envoi des données. Veuillez vérifier les informations saisies.");
+      // Le serveur a répondu avec un statut d'erreur
+      if (error.response.status === 400) {
+        // Le produit ne peut pas être supprimé car il est utilisé
+        toast.error(error.response.data.message);
+      } else if (error.response.status === 404) {
+        // Le produit n'a pas été trouvé
+        toast.error("Le produit n'a pas été trouvé.");
+      } else {
+        // Autre erreur du serveur
+        toast.error("Une erreur s'est produite lors de la suppression du produit.");
+      }
     } else if (error.request) {
-      console.log(error.request);
-      toast.error("Aucune réponse du serveur. Veuillez réessayer plus tard.");
+      // La requête a été faite mais aucune réponse n'a été reçue
+      toast.error("Impossible de communiquer avec le serveur. Veuillez vérifier votre connexion.");
     } else {
-      console.log('Erreur', error.message);
-      toast.error("Une erreur s'est produite. Veuillez réessayer.");
+      // Une erreur s'est produite lors de la configuration de la requête
+      toast.error("Une erreur s'est produite lors de la tentative de suppression.");
     }
   }
 },
-
-closeChoisir1() {
-    this.isOpenn = false;
-    this.editingProduitId = null;
-    this.produits = {}; // Réinitialise l'objet produit
-  },
-      sendSelected() {
-        console.log('Envoyer les produits sélectionnés:', this.selectedProduits);
-        // Logique pour envoyer les produits sélectionnés
-      },
-      editSelected() {
-        console.log('Éditer les produits sélectionnés:', this.selectedProduits);
-        // Logique pour éditer les produits sélectionnés
-      },
-      deleteSelected() {
-        const deleteRequests = this.selectedProduits.map(id => 
-          axios.delete(`http://localhost:8080/api/produits/${id}`)
-        );
-        
-        Promise.all(deleteRequests)
-          .then(() => {
-            this.produitLoad();
-            this.selectedProduits = [];
-          })
-          .catch(error => {
-            console.error('Erreur lors de la suppression des produits', error);
-          });
-      },
-      openModal() {
-        this.isOpenn = true;
-      },
-      toggleSelectAll(event) {
-        if (event.target.checked) {
-          this.selectedProduits = this.produits.map(produit => produit._id);
-        } else {
-          this.selectedProduits = [];
+    async saveData() {
+      const toast = useToast();
+      try {
+        if (!this.validateForm()) {
+          toast.error("Veuillez remplir tous les champs obligatoires.");
+          return;
         }
-      },
-      produitLoad() {
-    axios.get('http://localhost:8080/api/produits/type/traveaux')
-      .then(({ data }) => {
-        this.produits = data;
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-  },
-  handleCategorieSelection( event) {
-        const selectedCategorieId = event.target.value;
-        console.log('sele',event.target.value )
 
-  if (this.selectedCategorieId === 'nouvelle') {
-    this.modalOpenCategorie = true;
+        const url = this.editingProduitId 
+          ? `${API_BASE_URL}/produits/${this.editingProduitId}`
+          : `${API_BASE_URL}/produits/add`;
 
-  }
-  
-  this.$emit('categorieSelected', selectedCategorieId);
-},
-      fetchCategories() {
-    
-    axios.get('/api/categories/')
-      .then(response => {
-        this.categories = response.data;
-      })
-      .catch(error => {
-        console.error('Erreur lors de la récupération des catégories :', error);
-      });
-  },
-  createCategorie() {
-    
-    axios.post('/api/categories/add', this.categorie)
-    .then(response => {
-    const { data } = response;
+        const method = this.editingProduitId ? 'put' : 'post';
+        await axios[method](url, this.produits);
 
-    
-    try {
-      
-        
-      
-        this.categorieload(); 
-        this.categories = {};
-        
-        this.closeModalCategorie(); 
-        
-        
-     
-    }
-      catch (err) {
-        console.error('Erreur lors de la création de la catégorie :', error);
-      }})
-    },
-      setActiveTab(tab) {
-    this.activeTab = tab;
-    this.produits.type = tab;
-  },
-  getTabClass(tab) {
-    return this.activeTab === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700';
-  },
-  
-  closeModalCategorie() {
-      this.modalOpenCategorie = false;
-    },
-    openModalCategorie() {
-      this.modalOpenCategorie = true;
-      
-    },
-      goToPage(page) {
-        if (page >= 1 && page <= this.totalPages) {
-          this.currentPage = page;
-        }
-      },
-      prevPage() {
-        if (this.currentPage > 1) {
-          this.currentPage--;
-        }
-      },
-      nextPage() {
-        if (this.currentPage < this.totalPages) {
-          this.currentPage++;
-        }
+        toast.success(this.editingProduitId ? "Produit mis à jour avec succès." : "Produit ajouté avec succès.");
+        this.resetForm();
+        this.loadProduits();
+      } catch (error) {
+        this.handleError(error);
       }
     },
-    mounted(){
-      axios.get("http://localhost:8080/api/categories/")
-  .then(({data}) => {
-    console.log(data); 
-    this.categories = data;
-     // Store the received data in the 'client' variable
-  })
-  .catch(error => {
-    console.error("Error fetching data:", error);
-    // Handle errors if any
-  });
-      
-  axios.get("http://localhost:8080/api/produits/")
-  .then(({data}) => {
-    console.log(data); 
-    this.produit = data;
-     // Store the received data in the 'client' variable
-  })
-  .catch(error => {
-    console.error("Error fetching data:", error);
-    // Handle errors if any
-  });
-    },watch: {
-  produits: {
-    handler(newValue) {
-      console.log('produits changed:', newValue);
+    
+    validateForm() {
+      return this.produits.nom_article && this.produits.reference && 
+             this.produits.prix_unitaire && this.produits.type_unité;
     },
-    deep: true
+    
+    resetForm() {
+      this.produits = {};
+      this.editingProduitId = null;
+      this.isOpenn = false;
+    },
+    
+    handleError(error) {
+      console.error("Erreur:", error);
+      const message = error.response?.data?.message || "Une erreur s'est produite. Veuillez réessayer.";
+      useToast().error(message);
+    },
+    
+    closeModal() {
+      this.isOpenn = false;
+      this.editingProduitId = null;
+      this.produits = {}; 
+    },
+    
+    async deleteSelected() {
+      try {
+        await Promise.all(this.selectedProduits.map(id => 
+          axios.delete(`${API_BASE_URL}/produits/${id}`)
+        ));
+        this.loadProduits();
+        this.selectedProduits = [];
+        useToast().success("Produits supprimés avec succès.");
+      } catch (error) {
+        console.error('Erreur lors de la suppression des produits', error);
+        useToast().error("Erreur lors de la suppression des produits.");
+      }
+    },
+    
+    toggleSelectAll(event) {
+      this.selectedProduits = event.target.checked ? this.produits.map(p => p._id) : [];
+    },
+    
+    handleCategorieSelection(event) {
+      const selectedCategorieId = event.target.value;
+      if (selectedCategorieId === 'nouvelle') {
+        this.modalOpenCategorie = true;
+      }
+      this.$emit('categorieSelected', selectedCategorieId);
+    },
+    
+    async createCategorie() {
+      try {
+        await axios.post(`${API_BASE_URL}/categories/add`, this.categorie);
+        this.loadCategories();
+        this.categorie = {};
+        this.closeModalCategorie();
+        useToast().success("Catégorie créée avec succès.");
+      } catch (error) {
+        console.error('Erreur lors de la création de la catégorie :', error);
+        useToast().error("Erreur lors de la création de la catégorie.");
+      }
+    },
+    
+    getTabClass(tab) {
+      return this.activeTab === tab ? 'border-blue-500 text-blue-600' : 'border-transparent text-gray-500 hover:text-gray-700';
+    },
+    
+    closeModalCategorie() {
+      this.modalOpenCategorie = false;
+    },
+    
+    openModalCategorie() {
+      this.modalOpenCategorie = true;
+    },
+    openModal() {
+      this.isOpenn = true;
+    },
+    
+    goToPage(page) {
+      if (page >= 1 && page <= this.totalPages) {
+        this.currentPage = page;
+      }
+    },
+    
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    },
+    
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    }
+  },
+  
+  watch: {
+    produits: {
+      handler(newValue) {
+        console.log('produits changed:', newValue);
+      },
+      deep: true
+    }
   }
-}
-
-  };
+};
   </script>
   
   <style scoped>
