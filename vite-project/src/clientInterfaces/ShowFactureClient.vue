@@ -136,14 +136,14 @@
                                     <div class="whitespace-nowrap font-bold text-white">Signature</div>
                                   </td>
                                   <td class="w-full align-top">
-                                    <div>
-                      <template v-if="formFacture?.signatureUrl">
-                        <img class="w-40 h-30" :src="`/uploads/${formFacture.signatureUrl.split('/').pop()}?${Date.now()}`" />
-                      </template>
-                      <template v-else>
-                        <span>N'est pas signé</span>
-                      </template>
-                    </div>
+  <div>
+    <template v-if="formFacture?.signatureUrl">
+  <img class="w-90 h-40" :src="getSignatureUrl(formFacture.signatureUrl)" alt="Signature" />
+</template>
+<template v-else>
+  <span>N'est pas signé</span>
+</template>
+  </div>
 </td>
 
                                       
@@ -209,198 +209,200 @@
   
   <script>
   import axios from 'axios';
-  import { ref, onMounted, watch, nextTick } from 'vue';
-  import html2pdf from 'html2pdf.js/dist/html2pdf';
-  import SignaturePad from 'signature_pad';
-  
-  export default {
-    props: ['id', 'modalTitle', 'buttonText', 'closeButtonText'],
-    setup(props, { emit }) {
-      const formFacture = ref(null);
-      const formProduit = ref(null);
-      const clientInfo = ref(null);
-      const produitInfo = ref(null);
-      const signaturePad = ref(null);
-      const isSignatureModalOpen = ref(false);
-  
-      const isOpen = ref(true);
-  
-      const exportToPDF = () => {
-        html2pdf(document.getElementById("pdf"), {
-          margin: 1,
-          filename: "devis.pdf",
-        });
-      };
-  
-      const clearSignature = () => {
-        signaturePad.value.clear();
-      };
-  
-      const updateFactureWithSignature = async (factureId, signatureUrl) => {
-  try {
-    const response = await axios.put(`http://localhost:8080/api/factures/${factureId}`, {
-      signatureUrl: signatureUrl
-       
-    });
-    console.log('Facture updated successfully:', response.data);
-  } catch (error) {
-    console.error('Error updating facture:', error);
-  }
+import { ref, onMounted, watch, nextTick } from 'vue';
+import html2pdf from 'html2pdf.js/dist/html2pdf';
+import SignaturePad from 'signature_pad';
+
+export default {
+  props: ['id', 'modalTitle', 'buttonText', 'closeButtonText'],
+  setup(props, { emit }) {
+    const formFacture = ref(null);
+    const formProduit = ref(null);
+    const clientInfo = ref(null);
+    const produitInfo = ref(null);
+    const signaturePad = ref(null);
+    const isSignatureModalOpen = ref(false);
+
+    const isOpen = ref(true);
+
+    const getSignatureUrl = (signatureUrl) => {
+  if (!signatureUrl) return '';
+  // Extraire le nom du fichier de l'URL
+  const filename = signatureUrl.split('\\').pop().split('/').pop();
+  return `http://localhost:8080/api/signature/${filename}`;
 };
-
-const saveSignature = async () => {
-  if (signaturePad.value) {
-    const dataURL = signaturePad.value.toDataURL();
-    const blob = dataURLToBlob(dataURL);
-    const file = new File([blob], 'signature.png', { type: 'image/png' });
-
-    const formData = new FormData();
-    formData.append('signature', file);
-    formData.append('factureId', props.id);
-
-    try {
-      const response = await axios.post('http://localhost:8080/api/save-signature', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        params: { factureId: props.id }
+    const exportToPDF = () => {
+      html2pdf(document.getElementById("pdf"), {
+        margin: 1,
+        filename: "devis.pdf",
       });
+    };
 
-      console.log('Signature URL saved successfully:', response.data);
-      formFacture.value.signatureUrl = response.data.signatureUrl;
-      // Mettre à jour la facture avec l'URL de la signature
-      await updateFactureWithSignature(props.id, response.data.signatureUrl);
- 
-      closeSignatureModal();
-      await getFactureById(props.id);
-    } catch (error) {
-      console.error('Error saving signature:', error);
-    }
-  } else {
-    console.log('No signature data provided.');
-  }
-};
-const dataURLToBlob = (dataURL) => {
-  const parts = dataURL.split(';base64,');
-  const contentType = parts[0].split(':')[1];
-  const raw = window.atob(parts[1]);
-  const rawLength = raw.length;
-  const uInt8Array = new Uint8Array(rawLength);
+    const clearSignature = () => {
+      signaturePad.value.clear();
+    };
 
-  for (let i = 0; i < rawLength; ++i) {
-    uInt8Array[i] = raw.charCodeAt(i);
-  }
-
-  return new Blob([uInt8Array], { type: contentType });
-};
-
-// Exemple d'utilisation de la fonction
-
-
-  
-      const SignerFacture = () => {
-        isSignatureModalOpen.value = true;
-        nextTick(() => {
-          const canvas = document.querySelector('canvas');
-          signaturePad.value = new SignaturePad(canvas);
+    const updateFactureWithSignature = async (factureId, signatureUrl) => {
+      try {
+        const response = await axios.put(`http://localhost:8080/api/factures/${factureId}`, {
+          signatureUrl: signatureUrl
         });
-      };
-  
-      const envoyerFacture = async () => {
-        try {
-          const response = await axios.post('http://localhost:8080/api/send-facture', {
-            factureId: formFacture.value._id,
-            recipientEmail: clientInfo.value.email
-          });
-          console.log('Réponse de l\'envoi de la facture:', response.data);
-        } catch (error) {
-          console.error('Erreur lors de l\'envoi de la facture:', error);
-        }
+        console.log('Facture updated successfully:', response.data);
+      } catch (error) {
+        console.error('Error updating facture:', error);
       }
-  
-      const getProduitInfo = async (produitId) => {
+    };
+
+    const saveSignature = async () => {
+      if (signaturePad.value) {
+        const dataURL = signaturePad.value.toDataURL();
+        const blob = dataURLToBlob(dataURL);
+        const file = new File([blob], 'signature.png', { type: 'image/png' });
+
+        const formData = new FormData();
+        formData.append('signature', file);
+        formData.append('factureId', props.id);
+
         try {
-          const response = await axios.get(`http://localhost:8080/api/produits/${produitId}`);
-          produitInfo.value = response.data;
-          console.log('Informations du produit:', response.data);
-        } catch (error) {
-          console.error("Erreur lors de la récupération des informations du produit:", error);
-        }
-      };
-  
-      const FactureLoad = async () => {
-        try {
-          const response = await axios.get('http://localhost:8080/api/factures');
-          this.factures = response.data;
-        } catch (error) {
-          console.error('Erreur lors du chargement des factures:', error);
-        }
-      };
-  
-      const getFactureById = async (id) => {
-        try {
-          const response = await axios.get(`http://localhost:8080/api/facture/showFacture/${id}`);
-          formFacture.value = response.data.facture;
-          formProduit.value = response.data.produitsSelectionnes;
-          console.log('rrr', formFacture.value);
-  
-          for (const produit of formProduit.value) {
-            console.log("Nom de l'article :", produit.nom_article);
-            console.log("Référence :", produit.reference);
-            console.log("Prix unitaire :", produit.prix_unitaire);
-            console.log("Quantité :", produit.quantity);
-          }
-  console.log('fff client',formFacture.value.clientId)
-          await getClientInfo(formFacture.value.clientId);
-        } catch (error) {
-          console.error("Erreur lors de la récupération du devis:", error);
-        }
-      };
-  
-      const getClientInfo = async (clientId) => {
-        try {
-          const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
-          clientInfo.value = response.data;
-          console.log('Informations du client:', response.data);
-        } catch (error) {
-          console.error("Erreur lors de la récupération des informations du client:", error);
-        }
-      };
-  
-      const closeSignatureModal = () => {
-        isSignatureModalOpen.value = false;
-      };
-  
-      const close = () => {
-        emit('close');
-        isOpen.value = false;
-      };
-  
-      onMounted(() => {
-        getFactureById(props.id);
+    const response = await axios.post('http://localhost:8080/api/save-signature', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+      params: { factureId: props.id }
+    });
+
+    console.log('Signature URL saved successfully:', response.data);
+    if (formFacture.value) {
+      formFacture.value.signatureUrl = response.data.signatureUrl;
+    }
+    await updateFactureWithSignature(props.id, response.data.signatureUrl);
+
+    closeSignatureModal();
+    await getFactureById(props.id);  // Recharger les données de la facture
+  } catch (error) {
+    console.error('Error saving signature:', error);
+  }
+};
+    };
+
+    const dataURLToBlob = (dataURL) => {
+      const parts = dataURL.split(';base64,');
+      const contentType = parts[0].split(':')[1];
+      const raw = window.atob(parts[1]);
+      const rawLength = raw.length;
+      const uInt8Array = new Uint8Array(rawLength);
+
+      for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+      }
+
+      return new Blob([uInt8Array], { type: contentType });
+    };
+
+    const SignerFacture = () => {
+      isSignatureModalOpen.value = true;
+      nextTick(() => {
+        const canvas = document.querySelector('canvas');
+        signaturePad.value = new SignaturePad(canvas);
       });
-  
-      watch(formFacture, (newValue) => {
-        if (newValue) {
-          const produitId = newValue.produitId;
-          getProduitInfo(produitId);
+    };
+
+    const envoyerFacture = async () => {
+      try {
+        const response = await axios.post('http://localhost:8080/api/send-facture', {
+          factureId: formFacture.value._id,
+          recipientEmail: clientInfo.value.email
+        });
+        console.log('Réponse de l\'envoi de la facture:', response.data);
+      } catch (error) {
+        console.error('Erreur lors de l\'envoi de la facture:', error);
+      }
+    }
+
+    const getProduitInfo = async (produitId) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/produits/${produitId}`);
+        produitInfo.value = response.data;
+        console.log('Informations du produit:', response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des informations du produit:", error);
+      }
+    };
+
+    const FactureLoad = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/factures');
+        this.factures = response.data;
+      } catch (error) {
+        console.error('Erreur lors du chargement des factures:', error);
+      }
+    };
+
+    const getFactureById = async (id) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/facture/showFacture/${id}`);
+        formFacture.value = response.data.facture;
+        formProduit.value = response.data.produitsSelectionnes;
+        console.log('rrr', formFacture.value);
+
+        for (const produit of formProduit.value) {
+          console.log("Nom de l'article :", produit.nom_article);
+          console.log("Référence :", produit.reference);
+          console.log("Prix unitaire :", produit.prix_unitaire);
+          console.log("Quantité :", produit.quantity);
         }
-      });
-  
-      return {
-        formFacture,
-        formProduit,
-        clientInfo,
-        produitInfo,
-        exportToPDF,
-        close,
-        clearSignature,
-        saveSignature,
-        SignerFacture,
-        isOpen,
-        isSignatureModalOpen,
-        closeSignatureModal,
-        FactureLoad,
-        envoyerFacture
-      };
-    },
-  };
+        console.log('fff client',formFacture.value.clientId)
+        await getClientInfo(formFacture.value.clientId);
+      } catch (error) {
+        console.error("Erreur lors de la récupération du devis:", error);
+      }
+    };
+
+    const getClientInfo = async (clientId) => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/client/${clientId}`);
+        clientInfo.value = response.data;
+        console.log('Informations du client:', response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des informations du client:", error);
+      }
+    };
+
+    const closeSignatureModal = () => {
+      isSignatureModalOpen.value = false;
+    };
+
+    const close = () => {
+      emit('close');
+      isOpen.value = false;
+    };
+
+    onMounted(() => {
+      getFactureById(props.id);
+    });
+
+    watch(formFacture, (newValue) => {
+      if (newValue) {
+        const produitId = newValue.produitId;
+        getProduitInfo(produitId);
+      }
+    });
+
+    return {
+      formFacture,
+      formProduit,
+      clientInfo,
+      produitInfo,
+      exportToPDF,
+      close,
+      clearSignature,
+      saveSignature,
+      SignerFacture,
+      isOpen,
+      isSignatureModalOpen,
+      closeSignatureModal,
+      FactureLoad,
+      envoyerFacture,
+      getSignatureUrl
+    };
+  },
+};
   </script>
