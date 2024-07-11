@@ -9,12 +9,14 @@ import Client from '../components/client/Client.vue';
 import ListeClient from '../components/client/ListeClient.vue';
 import master from '../components/pages/layout/master.vue'
 import ListeFacture from '../components/facture/ListeFacture.vue'
+import f from '../components/facture/perFacture.vue'
 import Facture from '../components/facture/Facture.vue'
 import Devis from '../components/devis/Devis.vue'
 import ListeDevis from '../components/devis/ListeDevis.vue'
 import Reclamation from '../components/reclamation/Reclamation.vue';
-//import Setting from '../components/global/profilesettings.vue'
-import Setting from '../components/profil/Setting.vue'
+import Setting from '../components/global/profilesettings.vue'
+import Support from '../components/global/support.vue'
+/* import Setting from '../components/profil/Setting.vue' */
 import Dashbord from '../components/dashbord/Dashbord.vue'
 import Calendrier from '../components/Calendrier.vue'
 import NewDevis from '../components/devis/NewDevis.vue'
@@ -32,19 +34,42 @@ import MainDouvre from '../components/Article/MainDouvre.vue';
 import ListeTraveau   from '../components/Article/Traveaux.vue';
 import Avoir from '../components/Avoir/Avoir.vue';
 import ShowFacture from '../components/facture/ShowFacture.vue'
-import adminDashboard from '../admin/dashboard.vue'
+import adminDashboard from '../admin/dashboard.vue';
+import CategorieListe  from '../components/Article/CategorieListe.vue';
 import listeUsers from '../admin/listeUsers.vue';
 import listeReclamation from '../admin/listeReclamation.vue';
 import backup from '../admin/backup.vue';
 import showDevis from '../components/devis/ShowDevis.vue';
-import profilesettings from '../components/profil/Setting.vue';
-import AIPage from '../components/global/AIPage.vue';
+
+import perFacture from '../components/facture/perFacture.vue';
+import ClientDevis from '../clientInterfaces/clientDevis.vue';
+import ClientFacture from '../clientInterfaces/clientFacture.vue';
+import ClientShowDevis from '../clientInterfaces/showDevisClient.vue';
+import ClientShowFacture from '../clientInterfaces/ShowFactureClient.vue';
+import HomeClient from '../clientInterfaces/HomeClient.vue';
 import EntrepiseInfo from '../views/EntrepriseInfo.vue'
+import { authGuardAdmin, authGuardUser, authGuard, checkAuth } from './auth.js';
+import NotFound from '../components/notFound.vue'
 const router = createRouter({
   history: createWebHistory(),
+  
   routes: [
+    {  
+      path: '/client', 
+      beforeEnter: [authGuard],
+      children:[
+        { path: 'home', component: HomeClient },
+        { path: 'ClientDevis', component: ClientDevis },
+        { path: 'ClientFacture', component: ClientFacture },
+        { path: 'ClientShowDevis', component: ClientShowDevis },
+        { path: 'ClientShowFacture', component: ClientShowFacture },
+        { path: 'setting',   component: Setting },
+        { path: 'support',   component: Support},
+        { path: 'reclamation',   component: Reclamation},
+      ]
+     },
     {path: '/admin',
-
+      beforeEnter: [authGuardAdmin],
       children:[
         { path: 'dashboard', component: adminDashboard },
         { path: 'listeUsers', component: listeUsers},
@@ -67,11 +92,10 @@ const router = createRouter({
         { path: 'Avoir', component: Avoir},
         
       ]
-
     },
     ,
     {path: '/user',
-
+      beforeEnter: [authGuardUser],
       children:[
         { path: 'dashboard', component: Dashbord },
         { path: 'NewDevis', component: NewDevis },
@@ -81,161 +105,42 @@ const router = createRouter({
         { path: 'setting', component: Setting},
         { path: 'ListeFacture' ,  component: ListeFacture},
         { path: 'Digitalisation',  component: digitalisation},
-        { path: 'showDevis',   component: showDevis},       
+        { path: 'showDevis/:id',   component: showDevis},       
         { path: 'facture',component: Facture},
         { path: 'ListeClient', component:ListeClient },
         { path: 'Devis',  component: Devis}, 
         { path: 'reclamation',  component: Reclamation},
-        { path: 'Profilesettigns',  component: profilesettings},
+        /* { path: 'Profilesettigns',  component: profilesettings}, */
         { path: 'newDevis', component: NewDevis },
         { path: 'Avoir', component: Avoir},
         { path: 'ListeDevis', component: ListeDevis },
         { path: 'newFacture', component: NewFacture },
         { path: 'ListeMainDouvre', component: MainDouvre },
+        { path: 'perFacture', component: perFacture },
+        
         { path: 'ListeTraveau', component: ListeTraveau },
         { path: 'ListeProduit', component: ListeProduit },
         { path: 'ListeArticle', component: GestionArticle },
+        { path: 'CategorieListe', component: CategorieListe },
         { path: 'showFacture/:id', component: ShowFacture },
         { path: 'suivie', component: Suivie },
         { path: 'Entreprise', component: EntrepiseInfo},
+        { path: 'support',   component: Support},
+        { path: 'f',   component: f},
       ]
-
     },
-
     {
       path: '/',
       name: 'Home',
       component: Home
     },
-    {
-      path: '/ListeProduit',
-      name: 'ListeProduit',
-      component: ListeProduit
-    },
-    {
-      path: '/profil1',
-      name: 'UseCard',
-      component: UserCard
-    },
-    {
-      path: '/suivie',
-      name: 'suivie',
-      component: Suivie
-    },
-    {
-      path: '/gestionArticle',
-      name: 'GestionArticle',
-      component: GestionArticle
-    },
-    {
-      path: '/Digitalisation',
-      name: 'digitalisation',
-      component: digitalisation
-    },
-    {
-      path: '/ListeDevis',
-      name: 'ListeDevis',
-      component: ListeDevis
-    },
-    {
-      path: '/show/:id',
-      name: 'ShowDevis',
-      component: ShowDevis,
-      props: true
-    },
-    {
-      path: '/showfacture/:id',
-      name: 'ShowFactuure',
-      component: ShowFacture,
-      props: true
-    },
     
-    {
-      path: '/newDevis',
-      name: 'NewDevis',
-      component: NewDevis
-    },
-    {
-      path: '/newFacture',
-      name: 'NewFacture',
-      component: NewFacture
-    },
-    {
-      path: '/produit',
-      name: 'Produit',
-      component: Produit
-    },
-    {
-      path: '/dashbord',
-      name: 'Dashbord',
-      component: Dashbord
-    },
-    {
-      path: '/calendrier',
-      name: 'Calendrier',
-      component: Calendrier
-    },
-   
-    {
-        path: '/client',
-      name: 'Client',
-      component: Client
-    },
-    {
-      path: '/facture',
-      name: 'Facture',
-      component: Facture
-    },
-    {
-      path: '/devis',
-      name: 'Devis',
-      component: Devis
-    },
-    {
-      path: '/ListeClient',
-      name: 'ListeClient',
-      component: ListeClient
-    },
-    {
-      path: '/setting',
-      name: 'Setting',
-      component: Setting
-    },
-    {
-      path: '/ListeFacture',
-      name: 'ListeFacture',
-      component: ListeFacture
-    },
     {
       path: '/produitArt',
       name: 'Produit',
       component:ProduitArt
     },
-    {
-      path: '/ListeMainDouvre',
-      name: ' MainDouvre',
-      component: MainDouvre
-    },
-    {
-      path: '/ListeTraveau',
-      name: ' ListeTraveau',
-      component: ListeTraveau
-    },
-    {
-      path: '/Avoir',
-      name: ' Avoir',
-      component: Avoir
-    },
-    {
-      path: '/Digitalisation',
-      name: 'digitalisation',
-      component: digitalisation
-    },
-    {
-      path: '/showDevis',
-      name: 'showDevis',
-      component: showDevis
-    },
+   
     {
       path: '/',
       name: 'home',
@@ -244,6 +149,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      beforeEnter: [checkAuth],
       component: Login,
     },
     {
@@ -256,29 +162,23 @@ const router = createRouter({
       name: 'forget',
       component: ForgetPassword,
     },
-    {
-      path: '/listeUsers',
-      name: 'Users',
-      component: listeUsers,
-    },
+ 
     {
       path: '/adminDashboard',
       name: 'adminDashboard',
       component: adminDashboard,
     },
     {
-      path: '/resetPassword',
+      path: '/resetPassword/:token',
       name: 'resetPassword',
       component: resetPassword,
     },
     {
-      path: '/aiPage',
-      name: 'ai',
-      component: AIPage,
+      path: "/:catchAll(.*)",
+      name : 'Not-Found',
+      component : NotFound
     }
    
   ]
 });
-
 export default router;
-

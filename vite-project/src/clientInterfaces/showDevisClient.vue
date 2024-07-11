@@ -199,12 +199,10 @@
       </div>
     </div>
       <div class="mt-4">
-        <button @click="toggleEditMode" class="mr-2 px-8 py-2 bg-blue-600 text-white rounded hover:bg-blue-800">
-          {{ isEditing ? 'Save' : 'Edit' }}
+        <button @click="createAndRedirectToFacture" class="mr-2 px-8 py-2 bg-blue-600 text-white rounded hover:bg-blue-800">
+         Confirmer Devis
         </button>
-        <button @click="generateDocument('facture')" class="mr-2 px-16 py-2 bg-blue-600 text-white rounded hover:bg-blue-800">
-          {{ buttonText }}
-        </button>
+        
         <button @click="exportToPDF" class="mr-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-800">
           <i class="fa-solid fa-download"></i>
         </button>
@@ -239,21 +237,7 @@ export default {
         filename: "devis.pdf",
       });
     };
-    const generateDocument = async (type) => {
-      if (type === 'devis') {
-        modalTitle.value = 'Devis';
-        sessionStorage.setItem('keepModalOpen', 'true');
-        sessionStorage.setItem('currentDevisId', props.id);
-        console.log('Redirection vers Listedevis avec modal ouvert');
-        await redirectToListeDevis();
-      } else if (type === 'facture') {
-        modalTitle.value = 'Facture';
-        sessionStorage.setItem('keepModalOpen', 'true');
-        sessionStorage.setItem('currentDevisId', props.id);
-        console.log('Redirection vers ListeFacture avec modal ouvert');
-        await createAndRedirectToFacture();
-      }
-    };
+   
     const createAndRedirectToFacture = async () => {
   try {
     const devisInfo = await axios.get(`http://localhost:8080/api/devis/showDevis/${props.id}`);
@@ -288,7 +272,7 @@ export default {
       facture: factdata,
       produitsSelectionnes: devisInfo.data.produitsSelectionnes,
     });
-
+    factdata.status='confirmé';
     console.log("Facture créée avec succès:", response.data);
     const fact = response.data.facture._id;
     console.log('fact',fact)
@@ -320,16 +304,9 @@ export default {
 
    
 
-    const redirectToListeDevis = async () => {
-      try {
-        await router.push('/user/Listedevis');
-      } catch (error) {
-        console.error("Erreur lors de la redirection vers ListeFacture :", error);
-      }
-    };
     const redirectToListeFacture = async (fact) => {
       try {
-        await router.push('/user/ListeFacture');
+        await router.push('/client/clientFacture');
       } catch (error) {
         console.error("Erreur lors de la redirection vers ListeFacture :", error);
       }
@@ -434,7 +411,7 @@ const toggleEditMode = async () => {
       exportToPDF,
       close,
       saveDataDevis,
-      generateDocument,
+      createAndRedirectToFacture,
       isOpen,
       isEditing,
       saveChanges,

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <h3 class="text-lg font-bold mb-2">Public profile</h3>
+      <h3 class="text-3xl font-semibold  mb-8 text-blue-500">Public profile</h3>
       <div class="flex items-center mb-4">
         <img
           :src="profilePicture"
@@ -157,8 +157,8 @@
       },
       async submitForm() {
         const updatedProfile = {
-          firstName: this.firstName,
-          lastName: this.lastName,
+          nom: this.firstName,
+          prenom: this.lastName,
           email: this.email,
           telephone: this.telephone,
           pays: this.pays,
@@ -174,6 +174,7 @@
             }
           });
           alert('Profile updated successfully');
+          console.log(updatedProfile);
         } catch (error) {
           console.error('Failed to update profile:', error);
           alert('Failed to update profile');

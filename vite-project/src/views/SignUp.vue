@@ -47,8 +47,12 @@
             </div>
           </div>
           <div>
-            <label for="contact" class="block text-gray-700 font-semibold mb-2">Contact</label>
-            <input type="text" id="contact" v-model="contact" placeholder="Enter your contact" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+            <label for="type" class="block text-gray-700 font-semibold mb-2">Type</label>
+            <select id="type" v-model="selectedType">
+             <option>Admin entreprise</option>
+             <option>Client</option>
+             </select>
+   
           </div>
           <div>
             <label for="password" class="block text-gray-700 font-semibold mb-2">Password</label>
@@ -88,7 +92,7 @@ export default {
       pays: '',
       ville: '',
       adresse: '',
-      contact: '',
+      selectedType: '',
       password: '',
       confirmPassword: '',
     };
@@ -118,7 +122,7 @@ export default {
           ville: this.ville,
           adresse: this.adresse,
           contact: this.contact,
-          type: 'user'
+          type: this.selectedType,
         },  
         account: {
           accountIdentifier: this.email,
@@ -134,10 +138,11 @@ export default {
     localStorage.setItem('justSignedUp', 'true');
     // Assuming the response contains the token
     const token = response.data.token;
-    console.log('Token:', response.data);
+    console.log('Token:', response.data.token);
 
     // Store the token in localStorage (or Vuex store)
     localStorage.setItem('authToken', token);
+    localStorage.setItem('token', token);
 
     // Set the token in the axios headers for future requests
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -146,7 +151,14 @@ export default {
     
     localStorage.setItem('user', JSON.stringify(response.data.userData));
     // Redirect to a protected route or home page
-    this.$router.push('/user/dashboard');})
+    let route = '';
+    if (response.data.userData.type === 'user') {
+      route = '/user/dashboard';
+      
+    } else if (response.data.userData.type === 'Client') {
+      route = '/client/home';
+    }
+    this.$router.push(route);})
   
 
   }

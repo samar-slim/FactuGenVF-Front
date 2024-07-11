@@ -1,6 +1,7 @@
 <template>
-      <div class="bg-white p-8 w-full max-w-3xl">
-        <h1 class="text-3xl font-semibold  mb-8 text-blue-500">Votre Entreprise</h1>
+    <div v-if="isVisible" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div class="bg-white p-8 rounded shadow-lg w-full max-w-3xl">
+        <h1 class="text-3xl font-semibold text-center mb-8 text-blue-500">Votre Entreprise</h1>
         <form @submit.prevent="addEntreprise" class="space-y-4">
           <div class="grid grid-cols-2 gap-4">
             <div>
@@ -50,10 +51,10 @@
               <input type="text" id="tvaEntreprise" v-model="tvaEntreprise" placeholder="Enter your TVA" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
             </div>
           </div>
-          <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:bg-grey-600" :disabled="!isFormValid">update entrprise</button>
+          <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded hover:bg-gray-600 focus:outline-none focus:bg-grey-600" :disabled="!isFormValid">Continuer</button>
         </form>
       </div>
-    
+    </div>
   </template>
   
   

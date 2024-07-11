@@ -28,7 +28,7 @@
                 ref="newLastName"
               >
             </div>
-            <div>
+            <!-- <div>
               <label for="registrationDate" class="block text-gray-700">Registration Date:</label>
               <input
                 id="registrationDate"
@@ -38,7 +38,7 @@
                 @focus="editFields.registrationDate = true"
                 @blur="editFields.registrationDate = false"
               >
-            </div>
+            </div> -->
             <div>
               <label for="type" class="block text-gray-700">Type:</label>
               <input
@@ -114,8 +114,8 @@
     },
     methods: {
       async updateUserBackend() {
-      try {
-        const response = await axios.put(`http://localhost:8080/api/users/${this.user.id}`, this.editedUser);
+      try { 
+        const response = await axios.put(`http://localhost:8080/api/users/${this.user._id}`, this.editedUser);
         console.log("User updated successfully", response.data);
         // Optionally, emit an event to notify the parent component about the update
         this.$emit('user-updated', response.data);
@@ -126,6 +126,7 @@
     },
       submitForm() {
       // Access input fields using their refs and update editedUser object
+   
       this.editedUser.nom = this.$refs.newName.value;
       this.editedUser.prenom = this.$refs.newLastName.value;
       this.editedUser.type = this.$refs.newType.value;
@@ -143,8 +144,8 @@
       },
     },
     mounted(){
-      const inputElement = this.$refs.newName;
-    console.log(inputElement);
+     /*  const inputElement = this.$refs.newName;
+    console.log(inputElement); */
     },
     watch: {
       user(newUser) {

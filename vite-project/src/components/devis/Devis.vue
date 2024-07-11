@@ -6,14 +6,11 @@
       <h1 class="text-2xl font-semibold mb-8" >Nouvelle Devis</h1>
       <div class="flex justify-end">
 
-<button type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+<button @click="resetInputs" type="button" class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
  <i class="pi pi-trash"></i>
 </button>
 <button type="submit" @click="saveDataDevis" class="px-4 py-2 text-sm font-medium text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
-<i class="pi pi-save"></i> Enregistrer à 04:14
-</button>
-<button type="button"  @click="onShow()" class="px-4 py-2 text-sm font-medium text-gray-900  border border-gray-200  hover:bg-gray-200 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
-<i class="fa-solid fa-eye"></i> Preview
+<i class="pi pi-save"></i> Enregistrer 
 </button>
 
 
@@ -21,46 +18,58 @@
 
 
 
+<div>
+  <div>
+  <button @click="openModalFinaliser" class="px-4 py-2 text-sm font-medium bg-blue-800 text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
+    Finaliser <i class="fa-solid fa-check"></i>
+  </button>
+</div>
 
-<button @click="openModalFinaliser" type="button" class="px-4 py-2 text-sm font-medium  bg-blue-800 text-gray-900 bg-blue border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
-  Finaliser <i class="fa-solid fa-check"></i>
-</button>
-
-
+<!-- Message d'erreur -->
+<div v-if="showErrorMessage" class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mt-4" role="alert">
+  <strong>Attention !</strong> Veuillez remplir tous les champs obligatoires du devis avant de finaliser.
 </div>
 <div v-if="modalOpenFinaliser" class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
-<div class="max-w-md bg-white p-8 rounded shadow-lg">
-  <div class="flex items-center justify-between border-b pb-4">
-    <h3 class="text-lg font-semibold text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Le devis est bien finalisé</h3>
-    <button @click="closeModalFinaliser" type="button" class="text-gray-600 hover:text-gray-900">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
-  </div>
-  <div class="grid grid-cols-2 gap-4 mt-4">
-    <!-- Carré 1 : Envoyer par mail -->
-    <div class="border p-4 flex items-center justify-center flex-col">
-      <button class="font-semibold hover:text-blue-700">Envoyer par mail</button>
-      <i class="pi pi-send text-xl mt-2"></i>
-      <!-- Ajoutez ici votre logique pour l'envoi par mail -->
+  <div class="max-w-md bg-white p-8 rounded shadow-lg">
+    <div class="flex items-center justify-between border-b pb-4">
+      <h3 class="text-lg font-semibold text-gray-900 bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-purple-500">Le devis est bien finalisé</h3>
+      <button @click="closeModalFinaliser" type="button" class="text-gray-600 hover:text-gray-900">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
     </div>
-    <!-- Carré 2 : Partager le lien -->
-    <div class="border p-4 flex items-center justify-center flex-col">
-      <button class="font-semibold hover:text-blue-700">Partager le lien</button>
-      <i class="fa-solid fa-share-from-square text-xl mt-2"></i>
-      <!-- Ajoutez ici votre logique pour partager le lien -->
+    <div class="grid grid-cols-2 gap-4 mt-4">
+      <!-- Carré 1 : Envoyer par mail -->
+      <div class="border p-4 flex items-center justify-center flex-col">
+        <button class="font-semibold hover:text-blue-700">Envoyer par mail</button>
+        <i class="pi pi-send text-xl mt-2"></i>
+        <!-- Ajoutez ici votre logique pour l'envoi par mail -->
+      </div>
+      <!-- Carré 2 : Partager le lien -->
+      <div class="border p-4 flex items-center justify-center flex-col">
+        <button  @click="saveDataDevis" class="font-semibold hover:text-blue-700">Enregistrer</button>
+        <i class="fa-solid fa-share-from-square text-xl mt-2"></i>
+        <!-- Ajoutez ici votre logique pour partager le lien -->
+      </div>
     </div>
-  </div>
+  
+
   <!-- Rectangle : Télécharger PDF -->
   <div class="border p-4 mt-4 text-center">
     <button type="button" class="font-semibold hover:text-blue-700" @click="exportToPDF(devis._id)">Télécharger PDF</button>
     <i class="fa-solid fa-download text-xl"></i>
   </div>
-  <show-devis :devisId="devis._id" v-if="showDevisModal" @close="showDevisModal = false" />
+</div>
+  <ShowDevis v-if="showModal"
+    :id="currentDevisId"
+    :modalTitle="Devis"
+    :buttonText="'Générer Facture'"
+    :closeButtonText="'Fermer'"
+    @close="showModal = false" />
 </div>
 </div>
-
+</div>
      
      
 
@@ -70,54 +79,60 @@
     <div class="bg-white rounded shadow p-6 mb-8 " >
       <h2 class="text-xl font-semibold mb-6">INFORMATIONS</h2>
 
-      <!-- Form -->
-      <form  @submit.prevent="saveDataDevis"   >
+      <form @submit.prevent="saveDataDevis">
+  <div class="grid grid-cols-2 gap-5">
+    <div class="w-1/2">
+      <div @click="openModalE" class="form-input w-full border border-gray-300 rounded-md px-3 py-2 flex items-center justify-between">
+        <span v-if="!user.logo">Sélectionner une entreprise</span>
+        <img v-else :src="user.logo" alt="Logo de l'entreprise" class="h-8">
+      </div>
+      <div v-if="showModalEntreprise" class="fixed inset-0 flex items-center justify-center bg-opacity-50 bg-gray-800 backdrop-blur-xs">
+        <div class="modal-content bg-white rounded-lg shadow-lg p-6 w-1/2">
+          <h3 class="text-xl font-semibold mb-4">Sélectionnez une entreprise</h3>
+          <select v-model="selectedEntrepriseId" @change="handleEntrepriseSelection" class="form-select w-full border border-gray-300 rounded-md px-3 py-2 mb-4">
+            <option value="">Sélectionnez une entreprise</option>
+            <option v-for="user in users" :value="user._id" :key="user._id">
+              {{ user?.nomEntreprise }}
+            </option>
+          </select>
+          <button @click="closeModalE" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-md">Fermer</button>
+        </div>
+      </div>
+      <div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise</label>
+          <input type="text" v-model="user.nomEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise" readonly>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
+          <input type="text" v-model="user.telEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro" readonly>
+        </div>
         <div class="grid grid-cols-2 gap-5">
-           <div class="w-1/2">
-            <div>
-         
-            <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-            <input type="file" accept="image/*" @change="handleImageUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Code postal</label>
+            <input type="text" v-model="user.paysEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal" readonly>
           </div>
-           
-          
-          <div >
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Nom de l'entreprise</label>
-              <input type="text" v-model="devis.nom_entreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Nom de l'entreprise">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Numéro</label>
-              <input type="text" v-model="devis.num" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro">
-            </div>
-            <div class="grid grid-cols-2 gap-5">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Code postal</label>
-              <input type="text" v-model="devis.code_postal" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Code postal">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
-              <input type="text" v-model="devis.ville" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville">
-            </div>
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
-              <input type="email" v-model="devis.email" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail">
-            </div>
-            <div> 
-              <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
-              <input type="tel" v-model="devis.num_tel" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone">
-            </div>
-            
-
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">SIRET Numéro</label>
-              <input type="text" v-model="devis.num_siret" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro">
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
-              <input type="text" v-model="devis.num_tva" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA">
-            </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Ville</label>
+            <input type="text" v-model="user.adrEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Ville" readonly>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
+          <input type="email" v-model="user.emailEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="E-mail" readonly>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Numéro de téléphone</label>
+          <input type="tel" v-model="user.telEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="Numéro de téléphone" readonly>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">SIRET Numéro</label>
+          <input type="text" v-model="user.siretEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="SIRET Numéro" readonly>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">N°TVA</label>
+          <input type="text" v-model="user.tvaEntreprise" class="form-input w-full border border-gray-300 rounded-md px-3 py-2" placeholder="N°TVA" readonly>
+        </div>
              <div class="grid grid-cols-2 gap-5">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-2">Interlocuteur</label>
@@ -129,9 +144,9 @@
             </div>
           </div>
         </div>
-        </div>
         
-
+        </div>
+       
         <!-- Right Side -->
         <div class="mb-9">
             <p class="text-gray-700">Information général de Devis</p>
@@ -240,7 +255,7 @@
           </div>
           <div class="mb-4">
             <label for="téléphone" class="block text-gray-700 text-sm font-bold mb-2">Téléphone</label>
-            <input type="text" id="téléphone" v-model="clients.téléphone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" id="téléphone" v-model="clients.telephone" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           </div>
           <div class="mb-4">
             <label for="pays" class="block text-gray-700 text-sm font-bold mb-2">Pays</label>
@@ -274,7 +289,6 @@
 
     </div>
  
-  
     
   </form>
 </div>
@@ -310,7 +324,7 @@
     <div  class="container mx-auto p-4 shadow-lg p-10 rounded bg-white">
         <!-- En-tête de la modal -->
         <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t ...">
-          <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Produit</h3>
+          <h3 class="text-xl font-semibold text-gray-900 ">Nouveau Article</h3>
           <button @click="closeChoisir" type="button" ><i class="fa-solid fa-xmark"></i></button>
         
         </div>
@@ -443,7 +457,7 @@
 <select v-model="selectedCategorieId" @change="handleCategorieSelection" class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
   <option class="bg-blue-700 border hover hover-red" value="nouvelle">Nouveau Categorie</option>
   <option selected value="">Selectionner une catégorie</option>
-  <option class="text-gray-900" v-for="categorie in categories" :value="categories._id" :key="categorie._id">{{ categorie.categorie_nom }}</option>
+  <option class="text-gray-900" v-for="categorie in categories" :value="categorie._id" :key="categorie._id">{{ categorie.categorie_nom }}</option>
   
 </select>
 </div>
@@ -475,11 +489,7 @@
         <div v-else-if="activeTab === 'traveaux'" class="block">
        
        <div class="grid gap-6 mb-6 md:grid-cols-3">
-        <div  class="mb-4 flex items-center justify-center" >
-      
-      <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-      <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-    </div>
+        
          <div class="mb-4">
          <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
          <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
@@ -522,26 +532,22 @@
             <label for="nom_article" class="block text-gray-700 text-sm font-bold mb-2">Nom article</label>
             <input type="text" v-model="produits.nom_article" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
           </div>  
-          <div>
          
-         <label class="block text-sm font-medium text-gray-700 mb-2">Importez votre logo</label>
-         <input type="file" accept="image/*" @change="handleImageProduitUpload" class="form-input w-full border border-gray-300 rounded-md px-3 py-2">
-       </div>
          
           <div class="mb-4">
             <label for="reference" class="block text-gray-700 text-sm font-bold mb-2">Reference</label>
-            <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" v-model="produits.reference"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
           
           </div>
           <div class="grid gap-6 mb-6 md:grid-cols-2">
           <div class="mb-4">
             <label  for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
-            <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type=" text" v-model="produits.description"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
           <div class="mb-4">
             <label for="prix" class="block text-gray-700 text-sm font-bold mb-2">Prix ACHAT HT</label>
-            <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" v-model="produits.prix"  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
         </div>
           <div class="mb-4">
@@ -550,7 +556,7 @@
           </div>
           <div class="mb-4">
             <label  for="tva" class="block text-gray-700 text-sm font-bold mb-2">TVA</label>
-            <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <input type="text" v-model="produits.tva" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
           </div>
           <div class="mb-4">
             <label  for="type_unite"  class="block text-gray-700 text-sm font-bold mb-2">Type Unité*</label>
@@ -789,9 +795,11 @@
   </div>
   <div class=" fixed relative bg-gray-50 dark:bg-slate-900  flex"  v-if="!isOpen && !modalOpenC && !modalOpenFinaliser" >
     <div class="flex-grow flex justify-end">
+     
       <nav class="z-20 flex flex-col gap-4 border-r border-gray-200 bg-white/50 p-2.5 shadow-lg backdrop-blur-lg dark:border-slate-600/60 dark:bg-slate-800/50 fixed top-2/4 -translate-y-2/4 right-6 h-[400px] w-[100px] rounded-lg border">
-  <a
-      href="#Digitaliser"
+        <router-link to="/user/Digitalisation">
+        <a
+      
       class="flex aspect-square min-h-[32px] w-16 flex-col items-center justify-center gap-1 rounded-md p-1.5 bg-indigo-50 text-indigo-600 dark:bg-sky-900 dark:text-sky-50"
   >
       <!-- HeroIcon - User -->
@@ -823,6 +831,7 @@
 
       <small class="text-center text-xs font"> Digitaliser</small>
   </a>
+</router-link>
 
   <a
       href="#personnaliser"
@@ -897,13 +906,17 @@
 </div>
   </div>
 </div>
+
 </template>  
 <script >
 
 import axios from 'axios';
-
+import { useToast } from 'vue-toastification';
 import ShowDevis from './ShowDevis.vue';
+import { useRouter } from 'vue-router'; // Importation du hook useRouter
+
 export default {
+  
   props: ['produitId'],
   components: {
   ShowDevis
@@ -913,9 +926,17 @@ export default {
 
   data() {
     return {
+      currentDevisId: null,
+      showModal: false,
+      showErrorMessage: false,
+      formIsValid: false,
       categories: [], 
-     
-    showNewCategorieModal: false, 
+      showModalEntreprise: false,
+      selectedEntrepriseId: null,
+      users: [],
+    user: {
+        
+      }, 
     categorie: {
       
       
@@ -938,10 +959,15 @@ export default {
       showDevisModal: false,
       modalOpen2: false,
       devis : {
-       
+        handler() {
+      this.validateForm();
+    },
+    deep: true,
+
       },
       produits : [],
-      produit :[],
+      produit: [],
+     
       client: [],
       clients : {
   civilite: '',
@@ -950,7 +976,7 @@ export default {
     adresse: '',
     suite_adresse: '',
     email: '',
-    téléphone: '',
+    telephone: '',
     contact: '',
     pays: '',
     nom_societe: '',
@@ -982,6 +1008,7 @@ export default {
   } ,   
   created(){
     this.fetchCategories();
+    this.getUsers();
 
 
 
@@ -998,31 +1025,98 @@ export default {
       }
   },
     methods: {
-      fetchData(type) {
-  axios.get(`http://localhost:8080/api/produits/type/${type}`)
-    .then(({ data }) => {
-      if (type === 'produit') {
-        this.produits = data;
-      } else if (type === 'traveaux') {
-        this.travaux = data;
-      } else if (type === 'mainoeuvre') {
-        this.mainoeuvres = data;
+      openModalE() {
+      this.showModalEntreprise = true;
+      this.getUsers();
+    },
+    closeModalE() {
+      this.showModalEntreprise = false;
+    },
+    async handleEntrepriseSelection() {
+      try {
+        const response = await axios.get(`/api/users/${this.selectedEntrepriseId}`);
+        this.user = response.data;
+        console.log('users',this.user)
+        this.updateFormFields();
+        this.closeModalE();
+      } catch (error) {
+        console.error(error);
       }
-      this.filteredData = data;
-      console.log('filterthom',this.filteredData)
-    })
-    .catch(error => {
-      console.error("Error fetching data:", error);
-    });
+    },
+    async getUsers() {
+      try {
+        const response = await axios.get('/api/users');
+        this.users = response.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    updateFormFields() {
+  // Mettez à jour les champs du formulaire avec les données de l'entreprise sélectionnée
+  this.devis.entrepriseId = this.user._id;
+  this.devis.nomEntreprise = this.user.nomEntreprise;
+  this.devis.telEntreprise = this.user.telEntreprise;
+  this.devis.paysEntreprise = this.user.paysEntreprise;
+  this.devis.adrEntreprise = this.user.adrEntreprise;
+  this.devis.emailEntreprise = this.user.emailEntreprise;
+  this.devis.siretEntreprise = this.user.siretEntreprise;
+  this.devis.tvaEntreprise = this.user.tvaEntreprise;
 },
 
+validateForm() {
+  const isEntrepriseSelected = this.devis.entrepriseId !== null && this.devis.entrepriseId !== '';
+  const isClientSelected = this.selectedClientId !== null && this.selectedClientId !== '';
+  const isArticleSelected = this.selectedArticleId !== null && this.selectedArticleId !== '';
+
+  this.formIsValid = isEntrepriseSelected && isClientSelected && isArticleSelected;
+
+  return this.formIsValid;
+},
+
+  fetchData(type) {
+  axios.get(`http://localhost:8080/api/produits/type/${type}`)
+    .then(({ data }) => {
+      switch (type) {
+        case 'produit':
+          this.produits = data;
+          this.travaux = []; // Réinitialiser le tableau des travaux
+          this.mainoeuvres = []; // Réinitialiser le tableau des mainoeuvres
+          break;
+        case 'traveaux':
+          this.travaux = data;
+          this.produits = []; // Réinitialiser le tableau des produits
+          this.mainoeuvres = []; // Réinitialiser le tableau des mainoeuvres
+          break;
+        case 'mainoeuvre':
+          this.mainoeuvres = data;
+          this.produits = []; // Réinitialiser le tableau des produits
+          this.travaux = []; // Réinitialiser le tableau des travaux
+          break;
+        default:
+          break;
+      }
+      this.filteredData = data;
+      console.log('filterthom', this.filteredData);
+      
+      // Forcer la mise à jour de la vue
+      this.$nextTick(() => {
+        this.$forceUpdate();
+      });
+    })
+    .catch(error => {
+      console.error('Erreur lors de la récupération des données :', error);
+    });
+},
+    
       handleCategorieSelection( event) {
         const selectedCategorieId = event.target.value;
+        console.log('sele',event.target.value )
 
   if (this.selectedCategorieId === 'nouvelle') {
     this.modalOpenCategorie = true;
 
   }
+  
   this.$emit('categorieSelected', selectedCategorieId);
 },
       fetchCategories() {
@@ -1093,9 +1187,11 @@ export default {
 
 
       
-      onShow() {
-    this.$router.push(`/show/${id}`);
-  },
+  onShow(id) {
+      this.currentDevisId = id;
+      console.log('currr', this.currentDevisId);
+      this.showModal = true;
+    },
       removeItem(index) {
   this.tableOfSelectedOptions.splice(index, 1);
   this.calculateTotalTTC(); 
@@ -1197,7 +1293,10 @@ return totalTTC;
     });
     return total;
   },
-       
+  resetInputs() {
+    this.devis = {};
+
+  }, 
 
   
     openModalC() {
@@ -1209,9 +1308,12 @@ return totalTTC;
       
     },
     openModalFinaliser() {
-      this.modalOpenFinaliser = true;
-      
-    },
+  
+    this.modalOpenFinaliser = true;
+    // Logique pour finaliser le devis
+  
+},
+
     toggleDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   },
@@ -1313,58 +1415,94 @@ this.categorieload("");
 
      },
      saveData2() {
-
+      const toast = useToast();
 
 axios.post("http://localhost:8080/api/client/add", this.clients)
 .then(response => {
     const { data } = response;
     
-    try {
-      
-        this.clientLoad(); 
+    try { 
+      if (response.status === 200 || response.status === 201) {
+   
+    toast.success('Client enregistré et invitée avec succès.');
+
+    
+    this.clientLoad(); 
         this.clients = {};
         
-        this.closeModalC(); 
+        this.closeModalC();
+  } 
+      
+        
      
     } catch (err) {
       console.log(err);
-      alert("error,please try again");
+      toast.error("error,please try again");
     }
   })
   
 },
-saveData() {
 
+  
+  // Vérifiez si tous les champs requis sont remplis
+  saveData() {
+    const toast = useToast();
+    
+  // Vérifiez si tous les champs requis sont remplis
+  if (!this.produits.nom_article || !this.produits.reference || !this.produits.prix_unitaire || !this.produits.type_unité) {
+    toast.error("Veuillez remplir tous les champs obligatoires.");
+    return;
+  }
 
- axios.post("http://localhost:8080/api/produits/add", this.produits)
+  // Assignez l'ID de la catégorie sélectionnée à this.produits.categorieId
+  this.produits.categorieId = this.selectedCategorieId;
+
+  // Vérifiez les données avant l'envoi
+  console.log("Données à envoyer :", this.produits);
+  axios.post("http://localhost:8080/api/produits/add", this.produits)
     .then(response => {
       try {
-        const { data } = response;
-        console.log(data.status);
+        const data = response.data;
+        console.log("Réponse du serveur :", data);
 
-        this.produitLoad(); 
+        this.produitLoad();
         this.produits = {};
-        this.selectedArticleId = null; 
-        this.closeChoisir1(); 
+        this.selectedArticleId = null;
+        this.closeChoisir1();
       } catch (err) {
         console.log(err);
-        alert("Une erreur s'est produite, veuillez réessayer.");
+        toast.error("Une erreur s'est produite, veuillez réessayer.");
       }
     })
     .catch(error => {
       console.error("Erreur:", error);
-      alert("Erreur lors de l'envoi des données. Veuillez réessayer.");
+      if (error.response) {
+        console.log("Détails de l'erreur :", error.response.data);
+        toast.error("Erreur lors de l'envoi des données. Veuillez vérifier les informations saisies.");
+      } else if (error.request) {
+        console.log(error.request);
+        toast.error("Aucune réponse du serveur. Veuillez réessayer plus tard.");
+      } else {
+        console.log('Erreur', error.message);
+        toast.error("Une erreur s'est produite. Veuillez réessayer.");
+      }
     });
-
 },
 async saveDataDevis() {
-
+   const toast = useToast();
+   const router = useRouter(); 
+  if (!this.validateForm()) {
+    toast.error('Veuillez remplir tous les champs obligatoires avant de soumettre le devis.');
+    return;
+  }
 this.devis.clientId = this.selectedClientId;
-this.devis.categorieId = this.selectedCategorieId;
+
 this.devis.produitId = this.selectedArticleId;
 this.devis.totalHT = this.totalHT;
     this.devis.totalTTC = this.totalTTC,
 this.devis.remarque = this.remarque;
+this.devis.userId= this.user._id;
+
 
 
 try {
@@ -1381,17 +1519,19 @@ try {
   
   if (responseDevis.status === 200 || responseDevis.status === 201) {
     console.log('Devis enregistré avec succès:', responseDevis.data);
+    toast.success('Devis enregistré avec succès.');
 
     
     this.devisLoad();
     this.devis = {};
+   this.$router.push('/user/Listedevis' );
   } else {
     console.error('Erreur lors de l\'enregistrement du devis:', responseDevis.statusText);
-    alert("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
+    toast.error("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
   }
 } catch (error) {
   console.error('Erreur lors de l\'enregistrement du devis:', error.message);
-  alert("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
+  toast.error("Erreur lors de l'enregistrement du devis, veuillez réessayer.");
 
 }
 

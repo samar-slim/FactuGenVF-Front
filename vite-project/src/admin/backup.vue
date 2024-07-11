@@ -13,6 +13,7 @@ import BackupStatus from './components/BackupStatus.vue'
 import StorageMethod from './components/StorageMethod.vue'
 import RecentOperations from './components/RecentOperations.vue'
 import BackupScheduling from  './components/BackupScheduling.vue'
+import axios from 'axios'
 
 export default {
   name: 'App',
@@ -45,9 +46,38 @@ export default {
     }
   },
   methods: {
-    scheduleBackup(options) {
+    async scheduleBackup(options) {
       // Handle backup scheduling logic
       console.log('Scheduling backup with options:', options)
+
+      let storageData = localStorage.getItem('store');
+      let authToken = '';
+      if (storageData) {
+        try {
+          let state = JSON.parse(storageData);
+          authToken = state.token;
+        } catch (e) {
+          console.error("Failed to parse stored state", e);
+        }
+      } else if (!authToken) {
+         const token = localStorage.getItem('token')
+         if (token ) {
+
+          authToken = token
+        }
+      } else {
+        console.error("Failed to retrieve token from localStorage");
+      }
+
+      await axios.post('http://localhost:8080/api/backup/all', options, {
+        headers : {
+          'Authorization': `Bearer ${authToken}`
+        }
+      }).then((response) => {
+        console.log("Backup scheduled successfully");
+      }).catch((error) => {
+        console.error("Failed to schedule backup:", error);
+      })
     }
   }
 }

@@ -10,7 +10,7 @@
          @click="toggleSubMenu('dashbord')"
          :class="{'bg-gray-100  border-solid border-1 shadow-md': openSubMenu === 'dashbord'}"
          class="  py-3 rounded-md cursor-pointer text-black-300 hover:text-white">
-           <router-link to="/user/dashbord" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
+           <router-link to="/user/dashboard" class="flex items-center space-x-2 p-2  text-gray-900 rounded-lg dark:text-white font-bold dark:hover:bg-gray-700 group">
              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 256 256" xml:space="preserve">
  
  <defs>
@@ -289,7 +289,7 @@
            @click="toggleSubMenu('gestionArticle') "
            :class="{'bg-gray-100 border-solid border-1 shadow-md': openSubMenu === 'gestionArticle'}"
            class="py-3 rounded-md cursor-pointer  text-black-300 hover:text-white">
-                               <router-link to="/user/ListeArticle" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
+                               <router-link to="/user/ListeTraveau" class="flex items-center space-x-2 p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                                  <i class="fa-solid fa-wallet" style="color: #2668d9;"></i><span v-show="dataOpenSideBar"> <span class="font-bold">Gestion Articles        <i class=" item-center fa-solid fa-angle-down"></i> </span></span> 
                              </router-link>
                  </div>
@@ -302,33 +302,25 @@
              <a @click="openInterfaceArticle">
               <router-link to="/user/ListeTraveau" class="flex items-center space-x-4  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group">
                 <span class="font-medium text-black "> 
-                 <i class="fa-solid fa-building"></i> Traveaux</span>
+                 <i class="fa-solid fa-building"></i> Article</span>
          
              </router-link>
              
              
              </a>    
            </div>   
+           
+             
            <div   class=" duration-700  flex items-center ">  
              <a >
-              <router-link to="/user/ListeProduit" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
-               <i class="fa-brands fa-product-hunt"></i>  Produit</span>
+              <router-link to="/user/CategorieListe" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
+               <i class="fa-brands fa-product-hunt"></i>  Categorie</span>
          
              </router-link>
              
              
              </a>  
              </div>
-             <div   class=" duration-700  flex items-center ">  
-             <a >
-              <router-link to="/user/ListeMainDouvre" class="flex items-center space-x-2  p-2 text-gray-900 rounded-lg dark:text-white dark:hover:bg-gray-700 group"> <span class="font-medium text-black "> 
-              <span class="font-medium text-gray-900"> <i class="fa-solid fa-person-digging" style="color: #3f0684;"></i></span>  Main D'ouvre</span>
-         
-             </router-link>
-             
-             
-             </a>  
-           </div>  
  
  
  

@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-md bg-white p-6">
-      <h3 class="text-2xl font-bold mb-2">Sécurité</h3>
+      <h3 class="text-3xl font-semibold  mb-8 text-blue-500">Sécurité</h3>
       <h3 class="font-semibold mb-4">Reset Password</h3>
       <form @submit.prevent="submitForm">
         <div class="mb-4">
@@ -86,9 +86,10 @@
             const state = JSON.parse(storedState);
             authToken = state.token;
             accountId = state.profile.accountId;
+            console.log(accountId)
           }
   
-          const response = await axios.put(`http://localhost:8080/auth/changePassword/${accountId}`, payload, {
+          const response = await axios.post(`http://localhost:8080/api/auth/changePassword/${accountId}`, payload, {
             headers: {
               'Authorization': `Bearer ${authToken}`
             }
